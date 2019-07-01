@@ -37,3 +37,12 @@ CREATE TABLE reviews(
 	FOREIGN KEY(id) REFERENCES account(id),
 	FOREIGN KEY(mtitle,year) REFERENCES movies(title,year)
 );
+
+CREATE TABLE users(
+	fname varchar(25),
+	lname varchar(25),
+	email varchar(100),
+	color varchar(25),
+	PRIMARY KEY (email),
+	FOREIGN KEY (email) REFERENCES account(email)
+)
