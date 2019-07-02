@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Register from './Register';
+import Currfile from './Login';
 
 class Login extends Component { 
     constructor(props){
@@ -10,6 +11,13 @@ class Login extends Component {
       screen.push(
         <header className="App-header" key="login_screen">
           <h1>SocialScene</h1>
+          <div>
+            <button onClick={(event) => this.register_evnt(event)}> Register </button>
+            &nbsp;
+            &nbsp;
+            <button id="currfile" onClick={(event) => this.login_evnt(event)}> Login </button>
+          </div>
+          &nbsp;
           <h2>Login</h2>
 
           <form onSubmit={this.submit}>
@@ -18,31 +26,27 @@ class Login extends Component {
 
                 <tr>
                   <td>Enter your email: &nbsp;</td>
-                  <td><input type="email" id="username" required onChange={(event) => this.change(event)} /></td>
+                  <td><input type="email" id="login_user" required onChange={(event) => this.change(event)} /></td>
                 </tr>
 
                 <tr>
                   <td>Enter your password: &nbsp;</td>
-                  <td><input type="password" id="password" required onChange={(event) => this.change(event)} /></td>
+                  <td><input type="password" id="login_pass" required onChange={(event) => this.change(event)} /></td>
                 </tr>
 
               </tbody>
             </table>
 
             <br/>
-            <button type="submit" id="login_button" >Login</button>
+            <button type="submit" id="login_button" >Submit</button>
           </form>
 
-          &nbsp;
-          <div>
-            <button onClick={(event) => this.register_evnt(event)}> Register </button>
-          </div>
         </header>
       )
 
       this.state={
-        username:'',
-        password:'',
+        login_user:'',
+        login_pass:'',
         screen:screen
       }
     }
@@ -51,9 +55,13 @@ class Login extends Component {
         this.setState({ screen:<Register /> })
     }
 
+    login_evnt(event) {
+        this.setState({ screen:<Login /> })
+    }
+
     submit = event => {
-      console.log("usrnam = " + this.state.username)
-      console.log("passwd = " + this.state.password)
+      console.log("usrnam = " + this.state.login_user)
+      console.log("passwd = " + this.state.login_pass)
     }
 
     change(event) {

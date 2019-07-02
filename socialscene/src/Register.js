@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './Login';
+import Currfile from './Register';
 
 class Register extends Component { 
     constructor(props){
@@ -10,6 +11,13 @@ class Register extends Component {
       screen.push(
         <header className="App-header" key="register_screen">
           <h1>SocialScene</h1>
+          <div>
+            <button onClick={(event) => this.login_evnt(event)}> Login </button>
+            &nbsp;
+            &nbsp;
+            <button id="currfile" onClick={(event) => this.register_evnt(event)}> Register </button>
+          </div>
+          &nbsp;
           <h2>Register</h2>
 
           <form onSubmit={this.submit}>
@@ -38,13 +46,9 @@ class Register extends Component {
               </tbody>
             </table>
             <br/>
-            <button id="register_button" onClick={(event) => this.verify(event)} >Register</button>
+            <button id="register_button" onClick={(event) => this.verify(event)} >Submit</button>
           </form>
 
-          &nbsp;
-          <div>
-            <button onClick={(event) => this.login_evnt(event)}> Login </button>
-          </div>
 
         </header>
       )
@@ -61,6 +65,10 @@ class Register extends Component {
 
     login_evnt(event) {
         this.setState({ screen:<Login /> })
+    }
+
+    register_evnt(event) {
+        this.setState({ screen:<Currfile /> })
     }
 
     submit = event => {
