@@ -12,10 +12,10 @@ class Register extends Component {
         <header className="App-header" key="register_screen">
           <h1>SocialScene</h1>
           <div>
-            <button onClick={(event) => this.login_evnt(event)}> Login </button>
-            &nbsp;
-            &nbsp;
             <button id="currfile" onClick={(event) => this.register_evnt(event)}> Register </button>
+            &nbsp;
+            &nbsp;
+            <button onClick={(event) => this.login_evnt(event)}> Login </button>
           </div>
           &nbsp;
           <h2>Register</h2>

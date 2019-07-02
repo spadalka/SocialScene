@@ -49,10 +49,6 @@ button#currfile{
   background-color: red;
 }
 
-button#currfile:hover{
-  background-color: lightgreen;
-}
-
 input{
   border-radius: 10px;
   text-align: left;
