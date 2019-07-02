@@ -45,4 +45,4 @@ CREATE TABLE users(
 	color varchar(25),
 	PRIMARY KEY (email),
 	FOREIGN KEY (email) REFERENCES account(email)
-)
+);
