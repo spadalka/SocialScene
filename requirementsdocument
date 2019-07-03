@@ -1,1 +1,57 @@
-Updating momentarily.
+
+Project Abstract 
+
+SocialScene is a social networking service that will provide a platform for users to rate and comment on tv shows, individual episodes, and movies, and sharing these ratings and comments to other users allowing for the coordination of content viewing amongst friends. Our platform will leverage Netflix and Amazon Prime Video (the “Providers”) APIs in order to aggregate viewing options for our members. 
+
+
+Customer 
+
+Our target user (customer) consists of people who watch media through Netflix and/or Amazon Prime Video, and have friends who do the same.
+
+Competitive Analysis 
+
+The main features of our platform are as follows:
+
+ 1) A social network allowing individual users to become friends and share information (potentially using Facebook’s Graph API, if feasible) 
+
+2) A content catalog from the Provider platforms, using publicly available APIs, with links directing the user directly to the content page on the Provider’s platform for viewing 
+
+3) A realtime comment and rating system, as well as private messaging (if there’s time) 
+
+4) Content suggestions specific to each user, sorted/organized using proprietary algorithms
+
+With regards to IMDB, our biggest competitor and our inspiration for our app, IMDB allows you to rate movies and tv shows as well as rate and leave comments for other users of the website to view, which is similar to what we plan to accomplish with SocialScene. What makes SocialScene different (but more so an extension) from IMDB and other similar rating applications is our implementation of sharing rated movie and television content with a user’s social group via Facebook sharing by API.
+
+
+
+
+
+
+
+User Stories 
+
+Current Iteration:
+
+//Want user to be able to login to static landing page
+//Want to connect database table backend with React GUI frontend to achieve this
+//Want to record and log emails and passwords of each user after login
+
+Upon arriving to the SocialScene website, the user is prompted to click the login button if an existing user, or the register button if a new user.
+
+If selecting the login button, the user is prompted to enter their login email and password.
+
+If selecting the register button, the user is prompted to enter their first name, last name, login email and login password.
+
+The user logs into SocialScene and is directed to a landing page greeting the user to our website.
+
+The website’s database records the user’s login information (email & password) into a table consisting of all the users of SocialScene. If a new user to SocialScene registers, the database table is updated with the user’s first and last name as well as their email and password together.
+
+Upcoming Iterations:
+
+After User Logs into Website:
+
+- Share button to share what a user is currently interested in to their social group via Facebook
+- Write comments under reviewed media that other users are able to view
+- Link Netflix database to our website using TMDb API
+
+ 
