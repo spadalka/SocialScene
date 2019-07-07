@@ -71,14 +71,6 @@ class Register extends Component {
         this.setState({ screen:<Currfile /> })
     }
 
-    submit = event => {
-      console.log("fname = " + this.state.fname)
-      console.log("lname = " + this.state.lname)
-      console.log("username = " + this.state.username)
-      console.log("password = " + this.state.password)
-      console.log("pass_confirm = " + this.state.pass_confirm)
-    }
-
     passVal(event){
       event.preventDefault();
       let data = {

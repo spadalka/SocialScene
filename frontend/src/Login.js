@@ -38,7 +38,7 @@ class Login extends Component {
             </table>
 
             <br/>
-            <button type="submit" id="login_button" >Submit</button>
+            <button id="login_button" onClick={(event) => this.chkVal(event)} >Submit</button>
           </form>
 
         </header>
@@ -59,9 +59,33 @@ class Login extends Component {
         this.setState({ screen:<Currfile /> })
     }
 
-    submit = event => {
-      console.log("usrnam = " + this.state.login_user)
-      console.log("passwd = " + this.state.login_pass)
+    chkVal(event){
+      event.preventDefault();
+      let data = {
+        login_user:this.state.login_user,
+        login_pass:this.state.login_pass
+      };
+
+      var request = new Request('http://localhost:5000/api/chkuser', {
+        method: 'POST',
+        headers: new  Headers({'Content-Type':'application/json'}),
+        body: JSON.stringify(data)
+      });
+
+       
+      fetch(request)
+        .then(function(response){
+          response.json()
+            .then(function(data){
+              console.log(data)
+            })
+        })
+
+        .catch(function(err) {
+          console.log(err)
+        })
+
+        this.setState({ screen:<Currfile /> })
     }
 
     change(event) {
