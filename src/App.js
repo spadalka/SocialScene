@@ -1,44 +1,50 @@
 import React, { Component } from 'react';
-import './App.css';
+// import './App.css';
 import Facebook from './components/Facebook';
+// import Populartv from './components/Populartv';
 
 
 class App extends Component { 
+    constructor(props){
+      super(props);
+      this.state = {
+        items:[],
+        isLoaded:false,
+      }
+    }
+
+    componentDidMount(){
+      fetch('https://api.themoviedb.org/3/tv/popular?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&page=1')
+        .then(res=>res.json())
+        .then(json => {
+          this.setState({
+            isLoaded: true,
+            items: json,
+          })
+        });
+    }
 
     render() {
-      return(
-      <div className="App">
-        <header className="App-header"> 
-          <h1>SocialScene</h1>
-        </header>
-      <Facebook />
-      </div>
-    );
-  }
+      var { isLoaded,items} = this.state;
+
+      if(!isLoaded){
+        return <div>Loading... </div>;
+      }
+
+      else{
+        return(
+        <div className="App">
+          <ul>
+            {items.results.map(item =>(
+              <li>
+                id: {item.id} |Orig_Name: {item.original_name} | Name: {item.name}
+              </li>
+              ))}
+          </ul>
+        </div>
+        );
+      }
+    }
 }
 
-
 export default App;
-
-// {this.state.login}
-
-// import fb from './components/Facebook';
-// <p>
-// To get started, <br/>Please login with your Facebook Profile.
-// <br/><br/>
-// { <FacebookLoginButton className="fb-login-button" 
-//     data-width="" 
-//     data-size="large" 
-//     data-button-type="continue_with" 
-//     data-auto-logout-link="false" 
-//     data-use-continue-as="true"
-//       /> }
-// </p>
-// {/* <fb:login-button scope="public_profile" onlogin="checkLoginState();" /> */}
-// <div className="fb-login-button" 
-//     data-width="" 
-//     data-size="large" 
-//     data-button-type="continue_with" 
-//     data-auto-logout-link="false" 
-//     data-use-continue-as="true">
-// </div>
