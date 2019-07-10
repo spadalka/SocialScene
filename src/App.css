@@ -2,43 +2,35 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   background-color: #222324;
-  min-height: 100vh;
+  width: auto;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*justify-content: center;*/
-  font-size: calc(10px + 2vmin);
+  justify-content: center;
+  font-size: calc(10px + vmin);
   color: white;
+  letter-spacing: 25px;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.profPic {
+  width: 50px;
+  height: auto;
 }
 
 button{
   background-color: lightblue;
   width: 200px;
-  height: 50px;
+  height: 75px;
   padding: 3px;
   border-radius: 30px;
-  font-size: 20px;
+  font-size: 100px;
 }
 
 button:hover{
@@ -49,14 +41,71 @@ button#currfile{
   background-color: red;
 }
 
-input{
+/* input{
   border-radius: 10px;
   text-align: left;
   height: 20px;
   width: 200px;
   padding: 5px;
-}
+} */
 
 table {
 text-align: left;
+}
+
+html, body, #app, #app>div {
+  height: 100%;
+  background-color: #949ba3;
+}
+
+.datatables {
+  height: auto;
+  /* min-width: 400px; */
+  width: 95%;
+  /* padding: 5px; */
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
+  border-radius: 5px;
+  border: 2px solid #d9d9d8;
+  background-color: #b9bec4;
+  text-align: center;
+}
+
+.datatables th {
+  background-color: #a1a4a8;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.datatables tr {
+  background-color: #a1a4a8;
+  font-size: 12px;
+  background-color: #b9bec4;
+}
+
+.tablefont {
+  font-size: 18px; 
+  color: white; 
+  font-weight: bold; 
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.tableoftables {
+  width: 95%;
+  text-align: center;
+  margin:auto;
+}
+
+.headertable {
+  text-align: center;
+  /* padding: 5px; */
+  /* border-radius: 10px; */
+  border: 2px dashed #d9d9d8;
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+.headertable td {
+  padding: 5px;
 }

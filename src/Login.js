@@ -15,7 +15,7 @@ class Login extends Component {
             <button onClick={(event) => this.register_evnt(event)}> Register </button>
             &nbsp;
             &nbsp;
-            <button id="currfile" disabled> Login </button>
+            <button id="currfile" onClick={(event) => this.login_evnt(event)}> Login </button>
           </div>
           &nbsp;
           <h2>Login</h2>
@@ -38,7 +38,7 @@ class Login extends Component {
             </table>
 
             <br/>
-            <button id="login_button" onClick={(event) => this.chkVal(event)} >Submit</button>
+            <button type="submit" id="login_button" >Submit</button>
           </form>
 
         </header>
@@ -56,36 +56,12 @@ class Login extends Component {
     }
 
     login_evnt(event) {
-        this.setState({ screen:<Currfile /> })
+        this.setState({ screen:<Login /> })
     }
 
-    chkVal(event){
-      event.preventDefault();
-      let data = {
-        login_user:this.state.login_user,
-        login_pass:this.state.login_pass
-      };
-
-      var request = new Request('http://localhost:5000/api/chkuser', {
-        method: 'POST',
-        headers: new  Headers({'Content-Type':'application/json'}),
-        body: JSON.stringify(data)
-      });
-
-       
-      fetch(request)
-        .then(function(response){
-          response.json()
-            .then(function(data){
-              console.log(data)
-            })
-        })
-
-        .catch(function(err) {
-          console.log(err)
-        })
-
-        this.setState({ screen:<Currfile /> })
+    submit = event => {
+      console.log("usrnam = " + this.state.login_user)
+      console.log("passwd = " + this.state.login_pass)
     }
 
     change(event) {

@@ -12,7 +12,7 @@ class Register extends Component {
         <header className="App-header" key="register_screen">
           <h1>SocialScene</h1>
           <div>
-            <button id="currfile" disabled> Register </button>
+            <button id="currfile" onClick={(event) => this.register_evnt(event)}> Register </button>
             &nbsp;
             &nbsp;
             <button onClick={(event) => this.login_evnt(event)}> Login </button>
@@ -46,7 +46,7 @@ class Register extends Component {
               </tbody>
             </table>
             <br/>
-            <button id="register_button" onClick={(event) => this.passVal(event)} >Submit</button>
+            <button id="register_button" onClick={(event) => this.verify(event)} >Submit</button>
           </form>
 
 
@@ -71,37 +71,36 @@ class Register extends Component {
         this.setState({ screen:<Currfile /> })
     }
 
-    passVal(event){
-      event.preventDefault();
-      let data = {
-        fname:this.state.fname,
-        lname:this.state.lname,
-        username:this.state.username,
-        password:this.state.password
-      };
-
-      var request = new Request('http://localhost:5000/api/newuser', {
-        method: 'POST',
-        headers: new  Headers({'Content-Type':'application/json'}),
-        body: JSON.stringify(data)
-      });
-
-       
-      fetch(request)
-        .then(function(response){
-          response.json()
-            .then(function(data){
-              console.log(data)
-            })
-        })
-
-        .catch(function(err) {
-          console.log(err)
-        })
-
-        this.setState({ screen:<Currfile /> })
+    submit = event => {
+      console.log("fname = " + this.state.fname)
+      console.log("lname = " + this.state.lname)
+      console.log("username = " + this.state.username)
+      console.log("password = " + this.state.password)
+      console.log("pass_confirm = " + this.state.pass_confirm)
     }
-    
+
+    verify(event){
+      if ( this.state.fname.length>0 &&
+           this.state.lname.length>0 &&
+           this.state.username.length>0 &&
+           this.state.password.length>0 &&
+           this.state.pass_confirm.length>0)
+      {
+        if(this.state.password===this.state.pass_confirm)
+        {
+          console.log("pass values to db here i think?")          
+        }
+        else
+        {
+          alert("The passwords have to be same");
+        }
+      }
+      else
+      {
+        alert("Input value is missing");
+      }
+    }
+
     change(event) {
       console.log("Changed " + event.target.id + " to " + event.target.value)
       this.setState({

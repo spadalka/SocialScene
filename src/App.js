@@ -1,58 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from './Login';
-import Register from './Register';
+import Facebook from './components/Facebook';
+
 
 class App extends Component { 
-    constructor(props){
-      super(props);
-
-      var screen=[];
-      screen.push(
-        <header className="App-header" key="splash_screen">
-          <h1>SocialScene</h1>
-          <div>
-          
-          To get started, <br/>Please choose an option.
-
-          <br/>
-          <br/>
-          
-          <div>
-            <button onClick={(event) => this.login_evnt(event)}> Login </button>
-          </div>
-
-          &nbsp;
-          <br/>
-
-          <div>
-            <button onClick={(event) => this.register_evnt(event)}> Register </button>
-          </div>
-          </div>
-        </header>
-      )
-
-      this.state={
-        screen:screen
-      }
-    }
-
-    login_evnt(event){
-        this.setState({ screen:<Login /> })
-    }
-
-    register_evnt(event){
-        this.setState({ screen:<Register /> })
-    }
 
     render() {
-      return (
-        <div className="App">
-            {this.state.screen}
-        </div>
-      );
-    }
+      return(
+      <div className="App">
+        <header className="App-header"> 
+          <h1>SocialScene</h1>
+        </header>
+      <Facebook />
+      </div>
+    );
   }
+}
 
 
 export default App;
