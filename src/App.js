@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 // import './App.css';
 import Facebook from './components/Facebook';
-// import Populartv from './components/Populartv';
+
 
 
 class App extends Component { 
     constructor(props){
       super(props);
       this.state = {
-        items:[],
+        items: ' ',
         isLoaded:false,
       }
     }
 
     componentDidMount(){
-      fetch('https://api.themoviedb.org/3/tv/popular?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&page=1')
+      fetch('https://api.themoviedb.org/3/movie/429617/reviews?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US')
         .then(res=>res.json())
         .then(json => {
           this.setState({
@@ -35,9 +35,16 @@ class App extends Component {
         return(
         <div className="App">
           <ul>
-            {items.results.map(item =>(
-              <li>
-                id: {item.id} |Orig_Name: {item.original_name} | Name: {item.name}
+            {items.map(item =>(
+              <li key={item.id}>
+              Title: {item.id} 
+              <br></br>
+                Author: {item.author} 
+                <br></br>
+                  Review: {item.content}
+                  <br></br>
+              {/*| Overview: {item.overview} */}
+              {/*  Documentation id: {item.id} | Name: {item.name} */}
               </li>
               ))}
           </ul>
