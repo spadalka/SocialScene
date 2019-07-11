@@ -35,7 +35,7 @@ class App extends Component {
         return(
         <div className="App">
           <ul>
-            {items.map(item =>(
+            {items.results.map(item =>(
               <li key={item.id}>
               Title: {item.id} 
               <br></br>
