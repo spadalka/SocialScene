@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Facebook from './components/Facebook';
+import Facebook from './Facebook';
 
 
 
