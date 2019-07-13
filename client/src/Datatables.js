@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.css';
+import './App.css';
 
 import {
     Container,
@@ -12,7 +12,7 @@ import {
     Button,
   } from 'reactstrap';
   
-import Movies from "../Movies";
+import Movies from "./Movies";
 
 
 export default class Datatables extends Component {
