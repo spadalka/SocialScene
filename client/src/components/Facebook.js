@@ -4,7 +4,7 @@ import Datatables from './Datatables';
 
 export default class Facebook extends Component {
     state = {
-        isLoggedIn: false,
+        isLoggedIn: true,
         userID: '',
         name: '',
         email: '',
