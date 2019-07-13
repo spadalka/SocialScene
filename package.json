@@ -1,36 +1,38 @@
 {
-  "name": "testapp276",
-  "version": "0.1.0",
-  "private": true,
-  "engines": {
-    "npm": "6.9.0",
-    "node": "10.16.0"
-  },
-  "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-facebook-login": "^4.1.1",
-    "react-scripts": "3.0.1"
-  },
+  "name": "testapp",
+  "version": "1.0.0",
+  "description": "Test",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "server": "nodemon server",
+    "start": "node server",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbarer/NodeJS_DB_TEST.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "Simon Barer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sbarer/NodeJS_DB_TEST/issues"
+  },
+  "homepage": "https://github.com/sbarer/NodeJS_DB_TEST#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "create-react-app": "^3.0.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.14",
+    "pg": "^7.11.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "nodemon": "^1.19.1"
   }
 }
