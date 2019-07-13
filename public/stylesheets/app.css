@@ -1,0 +1,41 @@
+body {
+  text-align: center;
+  background-color: #222324;
+  font-family: Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*justify-content: center;*/
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+button{
+  background-color: lightblue;
+  width: 200px;
+  height: 50px;
+  padding: 3px;
+  border-radius: 30px;
+  font-size: 20px;
+}
+
+button:hover{
+  background-color: lightgreen;
+}
+
+button#currfile{
+  background-color: red;
+}
+
+input{
+  border-radius: 10px;
+  text-align: left;
+  height: 20px;
+  width: 200px;
+  padding: 5px;
+}
+
+table {
+text-align: left;
+}

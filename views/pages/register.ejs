@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Scene</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<div id="outerdiv">
+		<header className="App-header" key="register_screen">
+          <h1>SocialScene</h1>
+          <div>
+            <button id="currfile" disabled> Register </button>
+            &nbsp;
+            &nbsp;
+            <button onclick="window.location.href='/login'"> Login </button>
+          </div>
+          &nbsp;
+          <h2>Register</h2>
+
+          <form action="/register" method="post">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Please enter your first name: &nbsp;</td>
+                  <td><input type="text" name="fname" required ></td>
+                </tr>
+                <tr>
+                  <td>Please enter your last name: &nbsp;</td>
+                  <td><input type="text" name="lname" required ></td>
+                </tr>
+                <tr>
+                  <td>Please enter your email: &nbsp;</td>
+                  <td><input type="email" name="username" required ></td>
+                </tr>
+                <tr>
+                  <td>Please enter your password: &nbsp;</td>
+                  <td><input type="password" name="password" required ></td>
+                </tr>
+                <tr>
+                  <td>Please confirm your password: &nbsp;</td>
+                  <td><input type="password" name="pass_confirm" required ></td>
+                </tr>
+              </tbody>
+            </table>
+            <br/>
+            <button id="submitbutton" > Submit </button>
+          </form>
+
+
+        </header>
+	</div>
+</body>
+</html>
