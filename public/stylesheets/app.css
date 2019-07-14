@@ -66,6 +66,10 @@ text-align: left;
   background: #bbb;
 }
 
+ul {
+  text-align: left
+}
+
 /*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_close_list_items*/
 /*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_alerts*/
 /*#error_div {

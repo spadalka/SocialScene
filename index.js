@@ -74,10 +74,10 @@ app.post('/login', function( request, response) {
 app.post('/searchtv',async(req,res)=>{
   console.log('entered a search value')
   var key = req.body.keyword;
-  var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
-  var end = '&page=1&include_adult=false';
+  var front = 'https://api.themoviedb.org/3/search/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
+  var end = '&page=1';
   var url = front + key + end;    //concatenating url
-  // console.log('fetching data from',url);
+  console.log('fetching data from',url);
   request({
   //fetching data from the url
     url: url,
@@ -89,6 +89,28 @@ app.post('/searchtv',async(req,res)=>{
       data = { 'data': (body.results[0]) ? body.results : [] };
       // console.log(data);
       res.render('pages/searchtv',data);
+    }
+  })
+})
+
+app.post('/searchmv',async(req,res)=>{
+  console.log('entered a search value')
+  var key = req.body.keyword;
+  var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
+  var end = '&page=1';
+  var url = front + key + end;    //concatenating url
+  console.log('fetching data from',url);
+  request({
+  //fetching data from the url
+    url: url,
+    json: true
+  }, function (error, response, body) {
+    //body is going to store json string
+    if(!error){
+      // console.log(body);
+      data = { 'data': (body.results[0]) ? body.results : [] };
+      // console.log(data);
+      res.render('pages/searchmv',data);
     }
   })
 })

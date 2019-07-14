@@ -16,10 +16,9 @@
 		<!-- listing out the data -->
 		<% data.forEach(function(r) { %>
 		<li>ID :<%= r.id %><br>
-			Title :<%= r.name %><br>
+			Title :<%= r.title %><br>
 			Description: <%= r.overview %><br>
-			Poster_path: <%= r.poster_path %>
-		</li>
+			Poster_path: <%= r.poster_path %></li>
 		    <% }); %>
 	</ul>
 </body>
