@@ -19,20 +19,20 @@
       <h2>Login</h2>
 
       <div class="alert" style ="display: <%= val %>">
+        Incorrect username / password
         <span class="closebtn"> x </span>
-        Incorrect username / password entered
       </div>
       
       <form action="/login" method="post">
         <table>
           <tbody>
             <tr>
-              <td>Enter your email: &nbsp;</td>
+              <td>Email: &nbsp;</td>
               <td><input type="email" name="login_email" required /> </td>
             </tr>
 
             <tr>
-              <td>Enter your password: &nbsp;</td>
+              <td>Password: &nbsp;</td>
               <td><input type="password" name="login_pass" required /> </td>
             </tr>
 
