@@ -1,15 +1,14 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const request = require("request")
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'pgsqlsucks',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'root',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 
@@ -26,8 +25,6 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login'))
 app.get('/register', (req, res) => res.render('pages/register'))
-app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
-
 
 app.post('/register', function( request, response) {
   var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
@@ -44,31 +41,6 @@ app.post('/login', function( request, response) {
     console.log("User found " + data + " result " + result )
   })
 });
-
-//tmdb api start
-app.post('/search',async(req,res)=>{
-  console.log('entered a search value')
-  var key = req.body.keyword;
-  var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
-  var end = '&page=1&include_adult=false';
-  var url = front + key + end;    //concatenating url
-  // console.log('fetching data from',url);
-  request({
-  //fetching data from the url
-    url: url,
-    json: true
-  }, function (error, response, body) {
-    //body is going to store json string
-    if(!error){
-      // console.log(body);
-      data = { 'data': (body.results[0]) ? body.results : [] };
-      // console.log(data);
-      res.render('pages/search',data);
-    }
-  })
-})
-// tmdb api end
-
 
 app.get('/db', async (req, res) => {
     try {
