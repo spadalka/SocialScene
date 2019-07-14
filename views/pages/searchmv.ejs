@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
+	<%const base = 'https://image.tmdb.org/t/p/w154';%>
 	<button onclick="window.location.href='/tmdb'">Back to Main </button>	<!-- button back to home -->
 	<h1> Search Results</h1>
 	<% if (data.length == 0){%>
@@ -17,8 +18,14 @@
 		<% data.forEach(function(r) { %>
 		<li>ID :<%= r.id %><br>
 			Title :<%= r.title %><br>
-			Description: <%= r.overview %><br>
-			Poster_path: <%= r.poster_path %></li>
+			<!-- Description: <%= r.overview %><br> -->
+			<%if(r.poster_path == null){%>
+				<img src = './unavailable.jpg'>
+			<%}else{%>
+				<%var url = base + r.poster_path%>
+				<img src= '<%=url%>'>
+			<%};%>
+			<!-- Poster_path: <%= r.poster_path %></li> -->
 		    <% }); %>
 	</ul>
 </body>
