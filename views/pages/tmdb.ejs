@@ -8,13 +8,14 @@
 	<h1>Enter here</h1>
 	<div>
 	<!-- a search box -->
-		<form method= 'post' action = '/searchmv' style="border:2px solid; border-color: red; padding:10px;">
+		<form method= 'post' style="border:2px solid; border-color: red; padding:10px;">
 			<input type="text" name="keyword" placeholder ="Enter Keyword to search"required>
 			<table>
-				<td><button style="width: 100px; height: 25px; font-size : 10px;">search movie</button></td>
-				<td><button style="width: 100px; height: 25px; font-size : 10px;" onclick="">search tv</button></td>
+				<td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchmv">search movie</button></td>
+				<td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchtv">search tv</button></td>
 			</table>
 		</form>
+		<form name = 'tvsubmit' method='post' action = '/searchtv'></form>
 	</div>
 
 </body>
