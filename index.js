@@ -26,15 +26,26 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login'))
 app.get('/register', (req, res) => res.render('pages/register'))
+app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
+
+
+app.post('/register', function( request, response) {
+  var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
+  pool.query("insert into users values " + data)
+  response.redirect('/')
+  console.log("User Created")
+});
+
+app.post('/login', function( request, response) {
+  var data = "'" + request.body.login_user + "';"
+  pool.query("select password from users where email= " + data, function(err,table){ 
+    var result = (table.rows[0].password==request.body.login_pass);
+    response.redirect('/')
+    console.log("User found " + data + " result " + result )
+  })
+});
 
 //tmdb api start
-app.get('/tmdb_api',async(req,res)=>{
-  const client = await pool.connect()
-  const result = await client.query('SELECT * FROM student');
-  const results = { 'results': (result) ? result.rows : null};
-  res.render('pages/tmdb_api',results)
-})
-
 app.post('/search',async(req,res)=>{
   console.log('entered a search value')
   var key = req.body.keyword;
@@ -57,21 +68,7 @@ app.post('/search',async(req,res)=>{
   })
 })
 // tmdb api end
-app.post('/register', function( request, response) {
-  var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
-  pool.query("insert into users values " + data)
-  response.redirect('/')
-  console.log("User Created")
-});
 
-app.post('/login', function( request, response) {
-  var data = "'" + request.body.login_user + "';"
-  pool.query("select password from users where email= " + data, function(err,table){ 
-    var result = (table.rows[0].password==request.body.login_pass);
-    response.redirect('/')
-    console.log("User found " + data + " result " + result )
-  })
-});
 
 app.get('/db', async (req, res) => {
     try {
