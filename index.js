@@ -20,10 +20,10 @@ app.use(express.urlencoded({extended:false}));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-
 // app.get('/', (req, res) => res.render('pages/index'))
 app.get('/', (req, res) => res.render('pages/app'))
-app.get('/login', (req, res) => res.render('pages/login'))
+
+app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register'))
 
 app.post('/register', function( request, response) {
@@ -33,14 +33,41 @@ app.post('/register', function( request, response) {
   console.log("User Created")
 });
 
+
 app.post('/login', function( request, response) {
   var data = "'" + request.body.login_user + "';"
-  pool.query("select password from users where email= " + data, function(err,table){ 
-    var result = (table.rows[0].password==request.body.login_pass);
-    response.redirect('/')
-    console.log("User found " + data + " result " + result )
+  pool.query("select password from users where email= " + data, function(err,table){
+    if (table.rows.length == 1) {
+      var result = (table.rows[0].password==request.body.login_pass);
+      if ( result ){
+        console.log("User found '" + request.body.login_user + "' || result " + result )
+        response.redirect('/')
+      }
+      else{
+        console.log("User found '" + request.body.login_user + "' || result " + result )
+        response.render('pages/login',{val:'block'})
+      }
+    }
+    else {
+      console.log("User not found" )
+      response.render('pages/login',{val:'block'})
+    }
   })
 });
+
+
+// app.post('/login', async(req, res) => {
+//   try {
+//     var data = "'" + request.body.login_user + "';"
+//     const client = await pool.connect()
+//     const result = await client.query("select password from users where email= " + data);
+//     const results = { 'results': (result) ? result.rows : null};
+//     res.redirect('/')
+//     client.release();
+//   } catch (err) {
+//     res.send("Error " + err);
+//   }
+// })
 
 app.get('/db', async (req, res) => {
     try {

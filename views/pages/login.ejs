@@ -18,6 +18,12 @@
           &nbsp;
           <h2>Login</h2>
 
+
+          <div class="alert" style ="display: <%= val %>">
+            <span class="closebtn"> x </span>
+            Incorrect username / password entered
+          </div>
+          
           <form action="/login" method="post">
             <table>
               <tbody>
@@ -42,3 +48,16 @@
 	</div>
 </body>
 </html>
+
+<script>
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+</script>
