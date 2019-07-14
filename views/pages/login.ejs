@@ -8,43 +8,41 @@
 <body>
 	<div id="outerdiv">
     <header className="App-header" key="login_screen">
-          <h1>SocialScene</h1>
-          <div>
-            <button onclick="window.location.href='/register'"> Register </button>
-            &nbsp;
-            &nbsp;
-            <button id="currfile" disabled> Login </button>
-          </div>
-          &nbsp;
-          <h2>Login</h2>
+      <h1>SocialScene</h1>
+      <div>
+        <button onclick="window.location.href='/register'"> Register </button>
+        &nbsp;
+        &nbsp;
+        <button id="currfile" disabled> Login </button>
+      </div>
+      &nbsp;
+      <h2>Login</h2>
 
+      <div class="alert" style ="display: <%= val %>">
+        <span class="closebtn"> x </span>
+        Incorrect username / password entered
+      </div>
+      
+      <form action="/login" method="post">
+        <table>
+          <tbody>
+            <tr>
+              <td>Enter your email: &nbsp;</td>
+              <td><input type="email" name="login_email" required /> </td>
+            </tr>
 
-          <div class="alert" style ="display: <%= val %>">
-            <span class="closebtn"> x </span>
-            Incorrect username / password entered
-          </div>
-          
-          <form action="/login" method="post">
-            <table>
-              <tbody>
-                <tr>
-                  <td>Enter your email: &nbsp;</td>
-                  <td><input type="email" id="login_user" name="login_user"/></td>
-                </tr>
+            <tr>
+              <td>Enter your password: &nbsp;</td>
+              <td><input type="password" name="login_pass" required /> </td>
+            </tr>
 
-                <tr>
-                  <td>Enter your password: &nbsp;</td>
-                  <td><input type="password" id="login_pass" name="login_pass"/></td>
-                </tr>
+          </tbody>
+        </table>
 
-              </tbody>
-            </table>
-
-            <br/>
-            <button id="submitbutton" > Submit </button>
-          </form>
-
-        </header>
+        <br/>
+        <button id="submitbutton" > Submit </button>
+      </form>
+    </header>
 	</div>
 </body>
 </html>
