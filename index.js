@@ -25,7 +25,7 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/app'))
 
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
-app.get('/register', (req, res) => res.render('pages/register'))
+app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
 
 app.get('/db', async (req, res) => {
@@ -41,31 +41,56 @@ app.get('/db', async (req, res) => {
     }
   })
 
-app.post('/register', function( request, response) {
-  var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
-  pool.query("insert into users values " + data)
-  response.redirect('/')
-  console.log("User Created")
-});
+// app.post('/register', function( request, response) {
+//   var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
+//   pool.query("insert into users values " + data, function(err,table){
+//     if(err){
+//       response.render('pages/register',{val:'block'})
+//       console.log("repeated")
+//     }
+//     else{
+//       response.redirect('/')
+//       console.log("all good")
+//     }
 
 
-app.post('/login', function( request, response) {
-  var data = "'" + request.body.login_user + "';"
+//   })
+//   response.redirect('/')
+//   console.log("User Created")
+// });
+
+app.post('/register', async (req, res) => {
+  try {
+    const client = await pool.connect()
+    var data = "('" + req.body.fname + "','"  + req.body.lname + "','" + req.body.email + "','" + req.body.password + "');"
+    const result = await client.query("insert into users values " + data);
+    res.redirect('/')
+    client.release();
+  }
+  catch (err) {
+    console.error("Email exists: Primary key error");
+    res.render('pages/register',{val:'block'})
+  }
+})
+
+
+app.post('/login', function( req, res) {
+  var data = "'" + req.body.login_email + "';"
   pool.query("select password from users where email= " + data, function(err,table){
     if (table.rows.length == 1) {
-      var result = (table.rows[0].password==request.body.login_pass);
+      var result = (table.rows[0].password==req.body.login_pass);
       if ( result ){
-        console.log("User found '" + request.body.login_user + "' || result " + result )
-        response.redirect('/')
+        console.log("User found '" + req.body.login_email + "' || result " + result )
+        res.redirect('/')
       }
       else{
-        console.log("User found '" + request.body.login_user + "' || result " + result )
-        response.render('pages/login',{val:'block'})
+        console.log("User found '" + req.body.login_email + "' || result " + result )
+        res.render('pages/login',{val:'block'})
       }
     }
     else {
       console.log("User not found" )
-      response.render('pages/login',{val:'block'})
+      res.render('pages/login',{val:'block'})
     }
   })
 });

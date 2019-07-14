@@ -2,7 +2,6 @@ body {
   text-align: center;
   background-color: #222324;
   font-family: Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +23,8 @@ button:hover{
 }
 
 button#currfile{
-  background-color: red;
+  background-color: green;
+  color: white;
 }
 
 input{
@@ -42,7 +42,7 @@ text-align: left;
 
 .alert {
   border-radius: 70px;
-  padding: 20px;
+  padding: 8px;
   background-color: #f44336;
   color: white;
   opacity: 1;
@@ -51,10 +51,9 @@ text-align: left;
 }
 
 .closebtn {
-  margin-left: 15px;
+  margin-left: 20px;
   color: white;
   font-weight: bold;
-  float: right;
   font-size: 22px;
   line-height: 20px;
   cursor: pointer;
@@ -63,7 +62,6 @@ text-align: left;
 
 .closebtn:hover {
   color: black;
-  background: #bbb;
 }
 
 ul {
