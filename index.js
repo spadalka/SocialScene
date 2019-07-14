@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
+const request = require('request')
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
@@ -25,7 +26,6 @@ app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login'))
 app.get('/register', (req, res) => res.render('pages/register'))
-<<<<<<< HEAD
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
 
 app.get('/db', async (req, res) => {
@@ -40,8 +40,6 @@ app.get('/db', async (req, res) => {
       res.send("Error " + err);
     }
   })
-=======
->>>>>>> 04edb54114fbd6bf14fbc5d909f1b8c12233873d
 
 app.post('/register', function( request, response) {
   var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
@@ -59,7 +57,6 @@ app.post('/login', function( request, response) {
   })
 });
 
-<<<<<<< HEAD
 //tmdb api start
 app.post('/searchtv',async(req,res)=>{
   console.log('entered a search value')
@@ -83,22 +80,5 @@ app.post('/searchtv',async(req,res)=>{
   })
 })
 // tmdb api end
-=======
-app.get('/db', async (req, res) => {
-    try {
-      const client = await pool.connect()
-      const result = await client.query('SELECT * FROM test_table');
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
-      client.release();
-    } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
-  })
-
-
-
->>>>>>> 04edb54114fbd6bf14fbc5d909f1b8c12233873d
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
