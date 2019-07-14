@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<h1>Enter here</h1>
+	<div>
+	<!-- a search box -->
+		<form method= 'post' action = '/search'>
+			<input type="text" name="keyword" placeholder ="search here"required>
+			<button>search</button>
+		</form>
+	</div>
+	<div>
+	<!-- this is useless just wanted to test dynamic page -->
+		<ul>
+		    <% results.forEach(function(r) { %>
+		    <li><%= r.stuid %>, <%= r.fname %>, <%= r.haircolor %>,<%= r.weight %>, <%= r.height %>, <%= r.gpa %></li>
+			    <% }); %>
+		</ul>
+	</div>
+
+</body>
+</html>
