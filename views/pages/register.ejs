@@ -74,17 +74,18 @@ for (i = 0; i < close.length; i++) {
 <script>
   var check = function() {
     if ( document.getElementById("password").value == document.getElementById('pass_confirm').value ) {
-      document.getElementById("chkermsg").style.display = 'none';
+      // document.getElementById("chkermsg").style.display = 'none';
       document.getElementById("submitbutton").disabled = false;
-      document.getElementById("password").style.backgroundColor = 'white';
-      document.getElementById("pass_confirm").style.backgroundColor = 'white';
+      document.getElementById("chkermsg").style.color = 'green';
+      document.getElementById("chkermsg").innerHTML = 'The passwords match &nbsp; ┬─┬ ノ( ゜-゜ノ) ';
+      document.getElementById("password").style.backgroundColor = 'lightgreen';
+      document.getElementById("pass_confirm").style.backgroundColor = 'lightgreen';
     }
     else {
       document.getElementById("chkermsg").style.display = 'inline-block';
+      document.getElementById("submitbutton").disabled = true;
       document.getElementById("chkermsg").style.color = 'red';
       document.getElementById("chkermsg").innerHTML = 'The passwords do not match (╯°□°）╯︵ ┻━┻ ';
-      document.getElementById("submitbutton").disabled = true;
-      document.getElementById("submitbutton").disabled = true;
       document.getElementById("password").style.backgroundColor = 'pink';
       document.getElementById("pass_confirm").style.backgroundColor = 'pink';
     }
