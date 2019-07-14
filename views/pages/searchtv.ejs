@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+</head>
+<body>
+	<h1> Results</h1>
+	<ul>
+		<!-- listing out the data -->
+		<% data.forEach(function(r) { %>
+		<li>ID :<%= r.id %><br>
+			Title :<%= r.title, %><br>
+			Description: <%= r.overview %><br>
+			Poster_path: <%= r.poster_path %></li>
+		    <% }); %>
+	</ul>
+</body>
+</html>
