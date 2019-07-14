@@ -13,9 +13,7 @@
   "dependencies": {
     "ejs": "^2.5.6",
     "express": "^4.15.2",
-    "pg": "^7.11.0"
-  },
-  "devDependencies": {
+    "pg": "^7.11.0",
     "request": "^2.88.0",
     "tape": "^4.7.0"
   },

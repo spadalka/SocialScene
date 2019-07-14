@@ -7,7 +7,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
   // user: 'postgres',
-  // password: 'pgsqlsucks',
+  // password: 'root',
   // host: 'localhost',
   // database: 'postgres'
 });
@@ -28,6 +28,18 @@ app.get('/login', (req, res) => res.render('pages/login'))
 app.get('/register', (req, res) => res.render('pages/register'))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
 
+app.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect()
+      const result = await client.query('SELECT * FROM test_table');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
 
 app.post('/register', function( request, response) {
   var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
@@ -46,7 +58,7 @@ app.post('/login', function( request, response) {
 });
 
 //tmdb api start
-app.post('/search',async(req,res)=>{
+app.post('/searchtv',async(req,res)=>{
   console.log('entered a search value')
   var key = req.body.keyword;
   var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
@@ -63,27 +75,10 @@ app.post('/search',async(req,res)=>{
       // console.log(body);
       data = { 'data': (body.results[0]) ? body.results : [] };
       // console.log(data);
-      res.render('pages/search',data);
+      res.render('pages/searchtv',data);
     }
   })
 })
 // tmdb api end
-
-
-app.get('/db', async (req, res) => {
-    try {
-      const client = await pool.connect()
-      const result = await client.query('SELECT * FROM test_table');
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
-      client.release();
-    } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
-  })
-
-
-
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
