@@ -20,12 +20,13 @@
 			Title :<%= r.title %><br>
 			<!-- Description: <%= r.overview %><br> -->
 			<%if(r.poster_path == null){%>
-				<img src = './unavailable.jpg'>
+				<img src = '/noimg.jpg'>
 			<%}else{%>
 				<%var url = base + r.poster_path%>
 				<img src= '<%=url%>'>
 			<%};%>
 			<!-- Poster_path: <%= r.poster_path %></li> -->
+		</li>
 		    <% }); %>
 	</ul>
 </body>
