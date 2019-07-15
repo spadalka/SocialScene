@@ -8,23 +8,13 @@
 	<%const base = 'https://image.tmdb.org/t/p/w154';%>
 	<button onclick="window.location.href='/tmdb'">Back to Main </button>	<!-- button back to home -->
 	<h1> Search asdasd Results</h1>
-	<% if (data.length == 0){%>
+	<% if (data.total_results == 0){%>
 		<p style="color: red">There are no results to display. Please try a different keyword </p>
 	<%}else{%>
-		<p>Now Displaying <span style="color: red;"><%=data.length%></span> Results.</p>
+		<p>Now Displaying <span style="color: red;"></span> Results.</p>
 	<%};%>
 
-	<% data.forEach(function(r) { %>
-	<div style="background-color: red; display: inline-block;">
-		<%= r.name %><br>
-		<%if(r.poster_path == null){%>
-			<img src = '/noimg.jpg'>
-		<%}else{%>
-			<%var url = base + r.poster_path%>
-			<img src= '<%=url%>'>
-		<%};%>
-	</div>
-	<% }); %>
+	
 
 </body>
 </html>

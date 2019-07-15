@@ -26,6 +26,19 @@ or
 
 Deploying to heroku is automatic after pushing to github
 
+## Built With
+nodejs - the frame work
+html - the language
+sql - the database
+tmdb - the api
+
+## Authors
+-Ibrahim Abdulmelik
+-Sergii Padalka
+-Johnson Tan
+-Abel Thomas
+
+
 ## Documentation
 
 For more information about using Node.js on Heroku, see these Dev Center articles:
