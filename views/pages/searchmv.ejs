@@ -15,7 +15,7 @@
 	<%};%>
 	<!-- listing out the data -->
 	<% results.forEach(function(r) { %>
-	<div style=" display: inline-block;">
+	<div name='<%=r.id%>' onclick='rate(<%=r.id%>)' style=" display: inline-block;">
 		<%= r.title %><br>
 		<%if(r.poster_path == null){%>
 			<img src = '/noimg.jpg'>
@@ -52,3 +52,10 @@
 	</div>
 </body>
 </html>
+
+<script >
+	function rate(id){
+		console.log('you have clicked on movie',id);
+		return
+	};
+</script>
