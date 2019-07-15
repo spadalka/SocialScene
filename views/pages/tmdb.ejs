@@ -10,12 +10,12 @@
 	<!-- a search box -->
 		<form method= 'post' style="border:2px solid; border-color: red; padding:10px;">
 			<input type="text" name="keyword" placeholder ="Enter Keyword to search"required>
+			<input type="hidden" name="pg" value="1">
 			<table>
 				<td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchmv">search movie</button></td>
 				<td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchtv">search tv</button></td>
 			</table>
 		</form>
-		<form name = 'tvsubmit' method='post' action = '/searchtv'></form>
 	</div>
 
 </body>

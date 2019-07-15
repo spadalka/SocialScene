@@ -15,7 +15,7 @@
 	<%};%>
 	<!-- listing out the data -->
 	<% results.forEach(function(r) { %>
-	<div style="background-color: red; display: inline-block;">
+	<div style=" display: inline-block;">
 		<%= r.title %><br>
 		<%if(r.poster_path == null){%>
 			<img src = '/noimg.jpg'>
@@ -26,10 +26,28 @@
 	</div>
 	    <% }); %>
 	<div style="margin-top: 10px;">
+		<p>page <%=page%></p>
 		<% if (results.length != 0){%>
-		<button>previous</button>
-		<button>current:<%=page%></button>
-		<button>next</button>
+		<table width="100%">
+			<td>
+				<form method="post">
+					<input type="hidden" name="keyword_prev" value="<%=key%>">
+					<input type="hidden" name="pg_prev" value="<%=page-1%>">
+					<%if(page > 1){%>
+						<button formaction="/prevmv">previous</button>
+					<%};%>
+				</form>
+			</td>
+			<td style="text-align: right;">
+				<form method="post">
+					<input type="hidden" name="keyword" value="<%=key%>">
+					<input type="hidden" name="pg" value="<%=page+1%>">
+					<%if(page < total_pages){%>
+						<button formaction="/searchmv">next</button>
+					<%};%>
+				</form>
+			</td>
+		</table>
 		<%};%>
 	</div>
 </body>

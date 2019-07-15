@@ -100,8 +100,9 @@ app.post('/searchtv',async(req,res)=>{
   console.log('entered a search value')
   var key = req.body.keyword;
   var front = 'https://api.themoviedb.org/3/search/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
-  var end = '&page=1';
-  var url = front + key + end;    //concatenating url
+  var end = '&page=';
+  var pg = req.body.pg;
+  var url = front + key + end + pg;    //concatenating url
   console.log('fetching data from',url);
   request({
   //fetching data from the url
@@ -110,6 +111,28 @@ app.post('/searchtv',async(req,res)=>{
   }, function (error, response, body) {
     //body is going to store json string
     if(!error){
+      body.key = key;
+      // console.log(body);
+      res.render('pages/searchtv',body);
+    }
+  })
+})
+app.post('/prevtv',async(req,res)=>{
+  console.log('entered a search value')
+  var key = req.body.keyword_prev;
+  var front = 'https://api.themoviedb.org/3/search/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
+  var end = '&page=';
+  var pg = req.body.pg_prev;
+  var url = front + key + end + pg;    //concatenating url
+  console.log('fetching data from',url);
+  request({
+  //fetching data from the url
+    url: url,
+    json: true
+  }, function (error, response, body) {
+    //body is going to store json string
+    if(!error){
+      body.key = key;
       // console.log(body);
       res.render('pages/searchtv',body);
     }
@@ -118,10 +141,11 @@ app.post('/searchtv',async(req,res)=>{
 
 app.post('/searchmv',async(req,res)=>{
   console.log('entered a search value')
-  var key = req.body.keyword;
   var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
-  var end = '&page=1';
-  var url = front + key + end;    //concatenating url
+  var key = req.body.keyword;
+  var end = '&page=';
+  var pg = req.body.pg
+  var url = front + key + end + pg;    //concatenating url
   console.log('fetching data from',url);
   request({
   //fetching data from the url
@@ -130,6 +154,29 @@ app.post('/searchmv',async(req,res)=>{
   }, function (error, response, body) {
     //body is going to store json string
     if(!error){
+      body.key = key;
+      // console.log(body);
+      res.render('pages/searchmv',body);
+    }
+  })
+})
+app.post('/prevmv',async(req,res)=>{
+  console.log('entered a search value')
+  var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
+  var key = req.body.keyword_prev;
+  var end = '&page=';
+  var pg = req.body.pg_prev;
+  var url = front + key + end + pg;    //concatenating url
+  console.log('fetching data from',url);
+  request({
+  //fetching data from the url
+    url: url,
+    json: true
+  }, function (error, response, body) {
+    //body is going to store json string
+    if(!error){
+      body.key = key;
+      // console.log(body);
       res.render('pages/searchmv',body);
     }
   })
