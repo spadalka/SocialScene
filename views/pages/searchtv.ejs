@@ -15,7 +15,7 @@
 	<%};%>
 	<!-- listing out the data -->
 	<% results.forEach(function(r) { %>
-	<div name='<%=r.id%>' onclick='rate(<%=r.id%>)' style=" display: inline-block;">
+	<form name='<%=r.id%>' onclick='rate(<%=r.id%>)' style=" display: inline-block;">
 		<%= r.name %><br>
 		<%if(r.poster_path == null){%>
 			<img src = '/noimg.jpg'>
@@ -23,13 +23,16 @@
 			<%var url = base + r.poster_path%>
 			<img src= '<%=url%>'>
 		<%};%>
-	</div>
+	</form>
 	<% }); %>
+
+	<!-- change page button -->
 	<div style="margin-top: 10px;">
-		<p>page <%=page%></p>
+		<p>page <%=page%></p>	<!-- current page value -->
 		<% if (results.length != 0){%>
 				<table width="100%">
 			<td>
+				<!-- previous page -->
 				<form method="post">
 					<input type="hidden" name="keyword_prev" value="<%=key%>">
 					<input type="hidden" name="pg_prev" value="<%=page-1%>">
@@ -39,6 +42,7 @@
 				</form>
 			</td>
 			<td style="text-align: right;">
+				<!-- next page -->
 				<form method="post">
 					<input type="hidden" name="keyword" value="<%=key%>">
 					<input type="hidden" name="pg" value="<%=page+1%>">

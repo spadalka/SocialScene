@@ -181,6 +181,14 @@ app.post('/prevmv',async(req,res)=>{
     }
   })
 })
+app.post('/details', (req,res)=>{
+  var data = {
+    "id": req.body.id,
+    "title":req.body.title,
+    "overview":req.body.overview
+  }
+  res.render('pages/summary',data)
+})
 // tmdb api end
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))

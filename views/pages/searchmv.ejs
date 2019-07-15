@@ -14,8 +14,10 @@
 		<p>Now Displaying <span style="color: red;"><%=results.length%></span> Results.</p>
 	<%};%>
 	<!-- listing out the data -->
-	<% results.forEach(function(r) { %>
-	<div name='<%=r.id%>' onclick='rate(<%=r.id%>)' style=" display: inline-block;">
+	<% var n = results.length;%>
+	<% for (var i=0; i<n ; i++) { %>
+	<div onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
+		<% r = results[i]; %>
 		<%= r.title %><br>
 		<%if(r.poster_path == null){%>
 			<img src = '/noimg.jpg'>
@@ -23,8 +25,14 @@
 			<%var url = base + r.poster_path%>
 			<img src= '<%=url%>'>
 		<%};%>
+		<!-- data to load a detailed page -->
+		<form name='<%=r.id%>' method="post" action="/details">
+			<input type="hidden" name="id" value="<%=r.id%>">
+			<input type="hidden" name="title" value="<%=r.title%>">
+			<input type="hidden" name="overview" value = "<%=r.overview%>">
+		</form>
 	</div>
-	    <% }); %>
+	    <% }; %>
 	<div style="margin-top: 10px;">
 		<p>page <%=page%></p>
 		<% if (results.length != 0){%>
