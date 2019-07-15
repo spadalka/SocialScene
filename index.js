@@ -111,10 +111,7 @@ app.post('/searchtv',async(req,res)=>{
     //body is going to store json string
     if(!error){
       // console.log(body);
-      // data = { 'data': (body.results[0]) ? body.results : [] };
-      data = body;
-      // console.log(data);
-      res.render('pages/searchtv',data);
+      res.render('pages/searchtv',body);
     }
   })
 })
@@ -133,10 +130,7 @@ app.post('/searchmv',async(req,res)=>{
   }, function (error, response, body) {
     //body is going to store json string
     if(!error){
-      // console.log(body);
-      data = { 'data': (body.results[0]) ? body.results : [] };
-      // console.log(data);
-      res.render('pages/searchmv',data);
+      res.render('pages/searchmv',body);
     }
   })
 })

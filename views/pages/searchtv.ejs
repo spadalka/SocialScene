@@ -7,14 +7,30 @@
 <body style="float: left;display: inline-block;">
 	<%const base = 'https://image.tmdb.org/t/p/w154';%>
 	<button onclick="window.location.href='/tmdb'">Back to Main </button>	<!-- button back to home -->
-	<h1> Search asdasd Results</h1>
-	<% if (data.total_results == 0){%>
+	<h1> Search Results</h1>
+	<% if (total_results == 0){%>
 		<p style="color: red">There are no results to display. Please try a different keyword </p>
 	<%}else{%>
-		<p>Now Displaying <span style="color: red;"></span> Results.</p>
+		<p>Now Displaying <span style="color: red;"><%=results.length%></span> Results.</p>
 	<%};%>
-
-	
-
+	<!-- listing out the data -->
+	<% results.forEach(function(r) { %>
+	<div style="background-color: red; display: inline-block;">
+		<%= r.name %><br>
+		<%if(r.poster_path == null){%>
+			<img src = '/noimg.jpg'>
+		<%}else{%>
+			<%var url = base + r.poster_path%>
+			<img src= '<%=url%>'>
+		<%};%>
+	</div>
+	<% }); %>
+	<div style="margin-top: 10px;">
+		<% if (results.length != 0){%>
+		<button>previous</button>
+		<button>current:<%=page%></button>
+		<button>next</button>
+		<%};%>
+	</div>
 </body>
 </html>
