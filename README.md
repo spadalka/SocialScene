@@ -1,32 +1,30 @@
-# node-js-getting-started
+# Social Scene
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+ **SocialScene** is a social-networking service that provides a platform for users to discover and rate tv shows and movies. All movie and tv show data is powered by and provided by TMDB API. The objective of this app is to allow for the ease of coordination of content viewing amongst friends. Our primary targeted audience consists of people who enjoys to watch and share media. 
 
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/), [PostgreSQL](https://www.postgresql.org/) the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
+$ git clone https://github.com/spadalka/SocialScene.git
+$ cd SocialScene
 $ npm install
 $ npm start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
+## Deploying to Github
 
 ```
-$ heroku create
-$ git push heroku master
-$ heroku open
+$ git add .
+$ git commit -m "Enter message"
+$ git push
 ```
 or
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Deploying to heroku is automatic after pushing to github
 
 ## Documentation
 
