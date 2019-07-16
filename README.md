@@ -18,7 +18,7 @@
 
 
 ## Deployment
-The app has been designed to automatically deploy to Heroku after a push occurs to GitHub repository.
+This app has been designed to automatically deploy to Heroku after a push occurs to GitHub repository.
 
 
 ## Running Locally
