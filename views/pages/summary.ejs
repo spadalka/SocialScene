@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
+	<%console.log(email_gl.email)%>
 	<%const url = 'https://image.tmdb.org/t/p/w185'+poster;%>
 	<h1> SocialScene </h1>
 	<h2> Summary </h2>
@@ -52,7 +53,8 @@
 	</table>
 	<form>
 		<p>Reviews (INCOMPLETE)</p>
-		Title:<input type="input" name="title" value='<%=title%>' disabled>
+		Title:<input type="text" name="title" value='<%=title%>' disabled>
+		<!-- Email:<input type="text" name="email" value ='document.getelementbyid("email")'> -->
 	</form>
 </body>
 </html>
