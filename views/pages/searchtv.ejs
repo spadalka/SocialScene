@@ -16,7 +16,7 @@
 	<!-- listing out the data -->
 	<% var n = results.length;%>
 	<% for (var i=0; i<n ; i++) { %>
-	<div onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
+	<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
 		<% r = results[i]; %>
 		<%= r.name %><br>
 		<%if(r.poster_path == null){%>

@@ -49,6 +49,14 @@ table.display{
   border:solid black;
   padding: 20px;
 }
+div.collection{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis
+  white-space: nowrap;
+  max-width: 154px;
+
+}
 
 .alert {
   border-radius: 70px;
