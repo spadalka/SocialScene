@@ -193,3 +193,4 @@ app.post('/details', (req,res)=>{
 // tmdb api end
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+module.exports = app;

@@ -26,9 +26,24 @@
 			<p><%=title%></p>
 		</td>
 		<td style="padding-left: 20px">
-			<p>Overview: <%=overview%></p>
-			<p>Release Date:<%=date%></p>
-			<p>Original language: <%=language%></p>
+			<!-- overview -->
+			<%if(overview == ''){%>
+				<p>Overview: N/A</p>
+			<%}else{%>
+				<p>Overview: <%=overview%></p>
+			<%};%>
+			<!-- poster -->
+			<%if(date == ''){%>
+				<p>Release Date: N/A</p>
+			<%}else{%>
+				<p>Release Date:<%=date%></p>
+			<%};%>
+			<!--  -->
+			<%if(language == ''){%>
+				<p>Original language: N/A</p>
+			<%}else{%>
+				<p>Original language: <%=language%></p>
+			<%};%>
 			<table>
 				<td>Votes: (Not yet implemented)</td>
 				<td>Ratings: (Not yet implemented)</td>
@@ -39,10 +54,5 @@
 		<p>Reviews (INCOMPLETE)</p>
 		Title:<input type="input" name="title" value='<%=title%>' disabled>
 	</form>
-
-
-	<ul>
-		<!-- <li><%=id%></li> -->
-	</ul>
 </body>
 </html>
