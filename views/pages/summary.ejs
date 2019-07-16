@@ -5,12 +5,14 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
-	<%const url = 'https://image.tmdb.org/t/p/w154'+poster;%>
-	<table>
+	<%const url = 'https://image.tmdb.org/t/p/w185'+poster;%>
+	<h1> SocialScene </h1>
+	<h2> Summary </h2>
+	<table width="100%">
 		<td>
-			<button onclick="window.history.back()">Back to Searh </button>	<!-- button back to home -->
+			<button onclick="window.history.back()">Back to Search </button>	<!-- button back to home -->
 		</td>
-		<td>
+		<td style="text-align: right;">
 			<button onclick="window.location.href='/tmdb'">Back to Main </button><!-- button back to home -->
 		</td>
 	</table>
@@ -24,7 +26,7 @@
 			<p><%=title%></p>
 		</td>
 		<td style="padding-left: 20px">
-			<p>Summary: <%=overview%></p>
+			<p>Overview: <%=overview%></p>
 			<p>Release Date:<%=date%></p>
 			<p>Original language: <%=language%></p>
 			<table>

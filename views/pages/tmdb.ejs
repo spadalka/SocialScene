@@ -5,15 +5,16 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body style="align-items: center;">
-	<h1>Enter here</h1>
+	<h1> SocialScene </h1>
+	<h2> TMDB Query </h2>
 	<div>
 	<!-- a search box -->
 		<form method= 'post' style="border:2px solid; border-color: red; padding:10px;">
-			<input type="text" name="keyword" placeholder ="Enter Keyword to search"required>
+			<input type="text" name="keyword" placeholder ="Enter Keyword to search" style="width:300px" required>
 			<input type="hidden" name="pg" value="1">
-			<table>
-				<td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchmv">search movie</button></td>
-				<td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchtv">search tv</button></td>
+			<table style="padding: 10px">
+				<td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchmv">Search Movies</button></td>
+				<td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchtv">Search TV </button></td>
 			</table>
 		</form>
 	</div>

@@ -5,13 +5,14 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body style="float: left;display: inline-block;">
-	<%const base = 'https://image.tmdb.org/t/p/w154';%>
+	<%const base = 'https://image.tmdb.org/t/p/w185';%>
+	<h1> SocialScene </h1>
 	<button onclick="window.location.href='/tmdb'">Back to Main </button>	<!-- button back to home -->
-	<h1> Search Results</h1>
+	<h2> Search Results</h2>
 	<% if (total_results == 0){%>
 		<p style="color: red">There are no results to display. Please try a different keyword </p>
 	<%}else{%>
-		<p>Now Displaying <span style="color: red;"><%=results.length%></span> Results.</p>
+		<p>Now Displaying <span style="color: red;"><%=results.length%></span> Results</p>
 	<%};%>
 	<!-- listing out the data -->
 	<% var n = results.length;%>
@@ -38,26 +39,34 @@
 	    <% }; %>
 	<!-- change page button -->
 	<div style="margin-top: 10px;">
-		<p>page <%=page%></p>
 		<% if (results.length != 0){%>
 		<table width="100%">
 			<td>
-				<form method="post">
 				<!-- previous page -->
+				<form method="post">
 					<input type="hidden" name="keyword_prev" value="<%=key%>">
 					<input type="hidden" name="pg_prev" value="<%=page-1%>">
 					<%if(page > 1){%>
-						<button formaction="/prevmv">previous</button>
+						<button formaction="/prevmv">Previous</button>
+					<% } else { %>
+						<button style="visibility: hidden">Previous</button>
 					<%};%>
 				</form>
 			</td>
+
+			<td>
+				<p align="center">Page <%=page%></p>
+			</td>
+
 			<td style="text-align: right;">
-				<form method="post">
 				<!-- next page -->
+				<form method="post">
 					<input type="hidden" name="keyword" value="<%=key%>">
 					<input type="hidden" name="pg" value="<%=page+1%>">
 					<%if(page < total_pages){%>
-						<button formaction="/searchmv">next</button>
+						<button formaction="/searchmv">Next</button>
+					<% } else { %>
+						<button style="visibility: hidden">Next</button>
 					<%};%>
 				</form>
 			</td>
@@ -66,7 +75,3 @@
 	</div>
 </body>
 </html>
-
-<script >
-
-</script>

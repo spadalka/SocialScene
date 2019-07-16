@@ -44,17 +44,19 @@ table {
 }
 
 table.display{
-  max-width: 75%;
-  padding-left: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px ;
   border:solid black;
   padding: 20px;
 }
+
 div.collection{
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis
   white-space: nowrap;
-  max-width: 154px;
+  max-width: 185px;
 
 }
 
