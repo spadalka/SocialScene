@@ -14,10 +14,9 @@
 			<button onclick="window.location.href='/tmdb'">Back to Main </button><!-- button back to home -->
 		</td>
 	</table>
-	<h1>Summary</h1>
 	<table class="display">
 		<td style="min-width: 20%; text-align: center; align-items: center;">
-			<%if(poster == null){%>
+			<%if(poster == ''){%>
 				<img src = '/noimg.jpg'>
 			<%}else{%>
 				<img src= '<%=url%>'>

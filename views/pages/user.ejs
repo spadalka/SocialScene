@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Scene</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<div id="outerdiv" >
+		<header className="App-header" key="splash_screen">
+      <h1>SocialScene</h1>
+      <h2 style="text-align: left;margin-left: 30px;"> 
+        Welcome <%= email %>
+        <button onclick="window.location.href='/'" style="width: 150px; height:40px; float: right;"> Logout </button>
+        <button onclick="window.location.href='/'" style="width: 150px; height:40px; margin-right: 20px; float: right;"> Edit Info </button>
+      </h2>
+
+
+
+      <div style="display: inline-block;float: right;">
+      <!-- a search box -->
+        <form method= 'post' style="border:2px solid; border-color: red;padding: 10px; margin-right: 20px;">
+          <input type="text" name="keyword" placeholder ="Enter Keyword to search"required>
+          <input type="hidden" name="pg" value="1">
+          <table>
+            <td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchmv">search movie</button></td>
+            <td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchtv">search tv</button></td>
+          </table>
+        </form>
+      </div>
+
+      <div id="tablediv" style="display: inline-block;float: left;padding-left: 30px">
+      <strong> Your Favorites </strong>
+      <table id="tablet" style="padding: 10px">
+        <th> Name </th>
+        <th> Rating </th>
+        <tr>
+          <td>movie name</td>
+          <td>rating of movie</td>
+        </tr>
+      </table>
+      </div>
+
+      <div id="tablediv" style="display: inline-block;float: left;al">
+      <strong> Your Favorites </strong>
+      <table id="tablet" style="padding: 10px">
+        <th> Name </th>
+        <th> Rating </th>
+        <tr>
+          <td>movie name</td>
+          <td>rating of movie</td>
+        </tr>
+      </table>
+      </div>
+
+    </header>
+	</div>
+</body>
+</html>

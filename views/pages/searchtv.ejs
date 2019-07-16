@@ -25,6 +25,7 @@
 			<%var url = base + r.poster_path%>
 			<img src= '<%=url%>'>
 		<%};%>
+		<!-- data to load a detailed page -->
 		<form name='<%=r.id%>' method="post" action="/details">
 			<input type="hidden" name="id" value="<%=r.id%>">
 			<input type="hidden" name="title" value="<%=r.name%>">
