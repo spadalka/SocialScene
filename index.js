@@ -27,37 +27,7 @@ app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
-
-app.get('/db', async (req, res) => {
-    try {
-      const client = await pool.connect()
-      const result = await client.query('SELECT * FROM test_table');
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
-      client.release();
-    } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
-  })
-
-// app.post('/register', function( request, response) {
-//   var data = "('" + request.body.fname + "','"  + request.body.lname + "','" + request.body.username + "','" + request.body.password + "');"
-//   pool.query("insert into users values " + data, function(err,table){
-//     if(err){
-//       response.render('pages/register',{val:'block'})
-//       console.log("repeated")
-//     }
-//     else{
-//       response.redirect('/')
-//       console.log("all good")
-//     }
-
-
-//   })
-//   response.redirect('/')
-//   console.log("User Created")
-// });
+app.get('/user',(req,res)=>res.render('pages/user',{email:"admin@admin"}))
 
 app.post('/register', async (req, res) => {
   try {
