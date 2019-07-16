@@ -4,12 +4,12 @@ const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
 const request = require('request')
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 
