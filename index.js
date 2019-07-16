@@ -28,6 +28,18 @@ app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
 app.get('/user',(req,res)=>res.render('pages/user',{email:"admin@admin"}))
+app.get('/edituser', async (req, res) => {
+    try {
+      const client = await pool.connect()
+      const result = await client.query("SELECT * FROM users where email='test@test.com';");
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/edituser', result.rows[0] );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
 
 app.post('/register', async (req, res) => {
   try {
@@ -64,6 +76,22 @@ app.post('/login', function( req, res) {
     }
   })
 });
+
+
+app.post('/edituser', async (req, res) => {
+  try {
+    const client = await pool.connect()
+    var data = "fname='" + req.body.fname + "',lname='"  + req.body.lname + "',password='" + req.body.password + "'"
+    const result = await client.query("update users set " + data + " where email='test@test.com';");
+    console.log("User Edited")
+    res.redirect('/user')
+    client.release();
+  }
+  catch (err) {
+    console.error(err);
+    res.render('pages/edituser')
+  }
+})
 
 //tmdb api start
 app.post('/searchtv',async(req,res)=>{
