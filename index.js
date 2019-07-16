@@ -185,7 +185,10 @@ app.post('/details', (req,res)=>{
   var data = {
     "id": req.body.id,
     "title":req.body.title,
-    "overview":req.body.overview
+    "overview":req.body.overview,
+    "date": req.body.date,
+    "poster": req.body.poster,
+    "language": req.body.language
   }
   res.render('pages/summary',data)
 })

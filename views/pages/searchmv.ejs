@@ -16,7 +16,7 @@
 	<!-- listing out the data -->
 	<% var n = results.length;%>
 	<% for (var i=0; i<n ; i++) { %>
-	<div onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
+	<div onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
 		<% r = results[i]; %>
 		<%= r.title %><br>
 		<%if(r.poster_path == null){%>
@@ -30,15 +30,20 @@
 			<input type="hidden" name="id" value="<%=r.id%>">
 			<input type="hidden" name="title" value="<%=r.title%>">
 			<input type="hidden" name="overview" value = "<%=r.overview%>">
+			<input type="hidden" name="date" value="<%=r.first_air_date%>">
+			<input type="hidden" name="poster" value="<%=r.poster_path%>">
+			<input type="hidden" name="language" value="<%=r.original_language%>">
 		</form>
 	</div>
 	    <% }; %>
+	<!-- change page button -->
 	<div style="margin-top: 10px;">
 		<p>page <%=page%></p>
 		<% if (results.length != 0){%>
 		<table width="100%">
 			<td>
 				<form method="post">
+				<!-- previous page -->
 					<input type="hidden" name="keyword_prev" value="<%=key%>">
 					<input type="hidden" name="pg_prev" value="<%=page-1%>">
 					<%if(page > 1){%>
@@ -48,6 +53,7 @@
 			</td>
 			<td style="text-align: right;">
 				<form method="post">
+				<!-- next page -->
 					<input type="hidden" name="keyword" value="<%=key%>">
 					<input type="hidden" name="pg" value="<%=page+1%>">
 					<%if(page < total_pages){%>
@@ -62,8 +68,5 @@
 </html>
 
 <script >
-	function rate(id){
-		console.log('you have clicked on movie',id);
-		return
-	};
+
 </script>

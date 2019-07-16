@@ -39,7 +39,12 @@ table {
 text-align: left;
 }
 
-
+table.display{
+  max-width: 75%;
+  padding-left: 10px;
+  border:solid black;
+  padding: 20px;
+}
 .alert {
   border-radius: 70px;
   padding: 8px;

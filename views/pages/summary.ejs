@@ -2,13 +2,46 @@
 <html>
 <head>
 	<title>Summary</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
+	<%const url = 'https://image.tmdb.org/t/p/w154'+poster;%>
+	<table>
+		<td>
+			<button onclick="window.history.back()">Back to Searh </button>	<!-- button back to home -->
+		</td>
+		<td>
+			<button onclick="window.location.href='/tmdb'">Back to Main </button><!-- button back to home -->
+		</td>
+	</table>
 	<h1>Summary</h1>
+	<table class="display">
+		<td style="min-width: 20%; text-align: center; align-items: center;">
+			<%if(poster == null){%>
+				<img src = '/noimg.jpg'>
+			<%}else{%>
+				<img src= '<%=url%>'>
+			<%};%>
+			<p><%=title%></p>
+		</td>
+		<td style="padding-left: 20px">
+			<p>Summary: <%=overview%></p>
+			<p>Release Date:<%=date%></p>
+			<p>Original language: <%=language%></p>
+			<table>
+				<td>Votes: (Not yet implemented)</td>
+				<td>Ratings: (Not yet implemented)</td>
+			</table>
+		</td>
+	</table>
+	<form>
+		<p>Reviews (INCOMPLETE)</p>
+		Title:<input type="input" name="title" value='<%=title%>' disabled>
+	</form>
+
+
 	<ul>
-		<li><%=id%></li>
-		<li><%=overview%></li>
-		<li><%=title%></li>
+		<!-- <li><%=id%></li> -->
 	</ul>
 </body>
 </html>

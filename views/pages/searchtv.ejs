@@ -14,8 +14,10 @@
 		<p>Now Displaying <span style="color: red;"><%=results.length%></span> Results.</p>
 	<%};%>
 	<!-- listing out the data -->
-	<% results.forEach(function(r) { %>
-	<form name='<%=r.id%>' onclick='rate(<%=r.id%>)' style=" display: inline-block;">
+	<% var n = results.length;%>
+	<% for (var i=0; i<n ; i++) { %>
+	<div onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
+		<% r = results[i]; %>
 		<%= r.name %><br>
 		<%if(r.poster_path == null){%>
 			<img src = '/noimg.jpg'>
@@ -23,8 +25,16 @@
 			<%var url = base + r.poster_path%>
 			<img src= '<%=url%>'>
 		<%};%>
-	</form>
-	<% }); %>
+		<form name='<%=r.id%>' method="post" action="/details">
+			<input type="hidden" name="id" value="<%=r.id%>">
+			<input type="hidden" name="title" value="<%=r.name%>">
+			<input type="hidden" name="overview" value = "<%=r.overview%>">
+			<input type="hidden" name="date" value="<%=r.first_air_date%>">
+			<input type="hidden" name="poster" value="<%=r.poster_path%>">
+			<input type="hidden" name="language" value="<%=r.original_language%>">
+		</form>
+	</div>
+	<% }; %>
 
 	<!-- change page button -->
 	<div style="margin-top: 10px;">
@@ -58,8 +68,5 @@
 </html>
 
 <script >
-	function rate(id){
-		console.log('you have clicked on movie',id);
-		return
-	};
+
 </script>
