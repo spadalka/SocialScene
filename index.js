@@ -4,14 +4,15 @@ const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
 const request = require('request')
 const pool = new Pool({
-  // connectionString: process.env.DATABASE_URL,
-  // ssl: true
-  user: 'postgres',
-  password: 'pgsqlsucks',
-  host: 'localhost',
-  database: 'postgres'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  // user: 'postgres',
+  // password: 'root',
+  // host: 'localhost',
+  // database: 'postgres'
 });
 
+var user = {fname:null,lname:null,email:null}
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -27,7 +28,7 @@ app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
-app.get('/user',(req,res)=>res.render('pages/user',{email:"admin@admin"}))
+app.get('/user',(req,res)=>res.render('pages/user',user))
 app.get('/edituser', async (req, res) => {
     try {
       const client = await pool.connect()
@@ -55,7 +56,7 @@ app.post('/register', async (req, res) => {
   }
 })
 
-
+//  Abel  | Thomas | a@asd.com | asd123
 app.post('/login', function( req, res) {
   var data = "'" + req.body.login_email + "';"
   pool.query("select password from users where email= " + data, function(err,table){
@@ -63,7 +64,8 @@ app.post('/login', function( req, res) {
       var result = (table.rows[0].password==req.body.login_pass);
       if ( result ){
         console.log("User found '" + req.body.login_email + "' || result " + result )
-        res.redirect('/')
+        user.email = req.body.login_email
+        res.render('pages/user',user)
       }
       else{
         console.log("User found '" + req.body.login_email + "' || result " + result )
