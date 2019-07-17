@@ -32,7 +32,7 @@ app.get('/user',(req,res)=>res.render('pages/user',user))
 app.get('/edituser', async (req, res) => {
     try {
       const client = await pool.connect()
-      const result = await client.query("SELECT * FROM users where email='test@test.com';");
+      const result = await client.query("SELECT * FROM users where email= '" + user.email + "';");
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/edituser', result.rows[0] );
       client.release();
@@ -59,13 +59,15 @@ app.post('/register', async (req, res) => {
 //  Abel  | Thomas | a@asd.com | asd123
 app.post('/login', function( req, res) {
   var data = "'" + req.body.login_email + "';"
-  pool.query("select password from users where email= " + data, function(err,table){
+  pool.query("select fname,lname,password from users where email= " + data, function(err,table){
     if (table.rows.length == 1) {
       var result = (table.rows[0].password==req.body.login_pass);
       if ( result ){
         console.log("User found '" + req.body.login_email + "' || result " + result )
+        user.fname = table.rows[0].fname
+        user.lname = table.rows[0].lname
         user.email = req.body.login_email
-        res.render('pages/user',user)
+        res.redirect('/user')
       }
       else{
         console.log("User found '" + req.body.login_email + "' || result " + result )
@@ -84,8 +86,10 @@ app.post('/edituser', async (req, res) => {
   try {
     const client = await pool.connect()
     var data = "fname='" + req.body.fname + "',lname='"  + req.body.lname + "',password='" + req.body.password + "'"
-    const result = await client.query("update users set " + data + " where email='test@test.com';");
+    const result = await client.query("update users set " + data + " where email= '" + user.email + "';");
     console.log("User Edited")
+    user.fname = req.body.fname
+    user.lname = req.body.lname
     res.redirect('/user')
     client.release();
   }
