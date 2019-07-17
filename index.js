@@ -219,9 +219,10 @@ app.post('/details', (req,res)=>{
 // tmdb api end
 
 app.post('/rateuser', async (req, res) => {
+	console.log("User has posted review")
   try {
     const client = await pool.connect()
-    var data = "('" + user.email + "', "+req.body.id+" , " + req.body.rating + " , '" + req.body.review + "');"
+    var data = "('" + user.email + "','"+req.body.title+"', " + req.body.rating + " , '" + req.body.review + "');"
     const result = await client.query("insert into review values " + data);
     res.redirect('/details')
     client.release();

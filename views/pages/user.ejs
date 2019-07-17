@@ -27,22 +27,21 @@
         </form>
       </div>
 
-      <div id="tablediv" style="display: inline-block;float: left;padding-left: 30px">
-      <strong> Your Favorites </strong>
-      <table id="display" style="padding: 10px;">
-        <th> Name </th>
-        <th> Rating </th>
+      <strong> Your Reviews </strong>
+      <table class="display" style="border-collapse: collapse;">
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Movie&nbsp;Name </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
         <% results.forEach(function(r) { %>
-        <tr>
-          <td><%= r.movid %></td>
-          <td><%= r.rating %></td>
-          <td><%= r.review %></td>
+        <tr style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
+            <td style="padding-left: 10px;padding-right: 10px"><%= r.title %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
         </tr>
           <% }); %>
       </table>
-      </div>
 
-      <div id="tablediv" style="display: inline-block;float: left;margin-left: 200px">
+<!--       <div id="tablediv" style="display: inline-block;float: left;margin-left: 200px">
       <strong> Most Popular </strong>
       <table id="tablet" style="padding: 10px">
         <th> Name </th>
@@ -53,7 +52,7 @@
         </tr>
       </table>
       </div>
-
+ -->
     </header>
 	</div>
 </body>
