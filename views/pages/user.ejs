@@ -10,7 +10,7 @@
 		<header className="App-header" key="splash_screen">
       <h1> SocialScene </h1>
       <h2 style="text-align: left;margin-left: 30px;"> 
-        Welcome <%= fname %> <%= lname %>,
+        Welcome <%= user.fname %> <%= user.lname %>,
         <button onclick="window.location.href='/logout'" style="width: 150px; height:40px; float: right;"> Logout </button>
         <button onclick="window.location.href='/edituser'" style="width: 150px; height:40px; margin-right: 20px; float: right;"> Edit Info </button>
       </h2>
@@ -29,13 +29,16 @@
 
       <div id="tablediv" style="display: inline-block;float: left;padding-left: 30px">
       <strong> Your Favorites </strong>
-      <table id="tablet" style="padding: 10px">
+      <table id="display" style="padding: 10px;">
         <th> Name </th>
         <th> Rating </th>
+        <% results.forEach(function(r) { %>
         <tr>
-          <td>movie name</td>
-          <td>rating of movie</td>
+          <td><%= r.movid %></td>
+          <td><%= r.rating %></td>
+          <td><%= r.review %></td>
         </tr>
+          <% }); %>
       </table>
       </div>
 

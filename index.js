@@ -29,7 +29,16 @@ app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
-app.get('/user',(req,res)=>res.render('pages/user',user))
+app.get('/user', async (req,res)=>{
+  const client = await pool.connect()
+  const result = await client.query("SELECT * FROM review where email= '" + user.email + "';");
+  const results = { 'results': (result) ? result.rows : null};
+  results.user = user
+  res.render('pages/user',results)
+})
+
+
+
 app.get('/logout',(req,res)=>{
   console.log("User logout '" + user.email + "'")
   user.fname = null
