@@ -13,7 +13,7 @@ const pool = new Pool({
 });
 
 var user = {fname:null,lname:null,email:null}
-var movieobj = {id:null, title:null ,overview:null ,date:null ,poster:null ,language:null}
+var movieobj = {id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -203,6 +203,8 @@ app.post('/details', (req,res)=>{
   movieobj.date = req.body.date,
   movieobj.poster = req.body.poster,
   movieobj.language = req.body.language
+  movieobj.vote = req.body.vote,
+  movieobj.rating = req.body.rating
   res.render('pages/summary',movieobj)
 })
 // tmdb api end
