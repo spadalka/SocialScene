@@ -198,5 +198,20 @@ app.post('/details', (req,res)=>{
 })
 // tmdb api end
 
+app.post('/rateuser', async (req, res)=>{
+  console.log("Nice Nice")
+  try {
+    const client = await pool.connect()
+    var data = "('" + user.email + "', "+req.body.id+" , " + req.body.rating + " , '" + req.body.review + "');"
+    const result = await client.query("insert into review values " + data);
+    res.redirect('/details')
+    client.release();
+  }
+  catch (err) {
+    console.error("Error ");
+    res.redirect('/details')
+  }
+})
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 module.exports = app;

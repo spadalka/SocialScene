@@ -49,10 +49,53 @@
 				<td>Ratings: (Not yet implemented)</td>
 			</table>
 		</td>
+
 	</table>
 	<form>
-		<p>Reviews (INCOMPLETE)</p>
-		Title:<input type="text" name="title" value='<%=title%>' disabled>
+	  <p>Reviews (User)</p>
+	  Title:<input type="text" name="title" value='<%=title%>' disabled>
+	  <br>
+	  <!-- <table>
+		<td>Rating: <input type="text" name="" </td>
+		<td>Review: <input type="text" name="" </td>
+	  </table> -->
+
+	  <table>
+	  <div style = "float:left; margin-left: 30px"> 
+	  
+		<!-- <p>Rating</p> -->
+		<br>
+		<form action="/rateuser" method = "post">
+		  Rating:<br>
+		  <input type="text" name="rating" value="">
+		  <br>
+		  <input type="submit" value="Rating">
+		  <br>
+		  <br>
+		  Review:<br>
+		  <input type="text" name="review" value="">
+		  <br>
+		  <input type="submit" value="Review">
+
+		  <input type="hidden" name="id" value="<%=r.id%>">
+		</form>
+		
+	  </div>
+	
+	  <!-- <div style = "float:left; margin-left: 80px"> 
+	
+		<p>Review</p>
+		
+		<form action="/reviewuser" method = "get">
+		  User Email:<br>
+		  <input type="text" name="email_gl" value="">
+		  <br>
+		  <br><br>
+		  <input type="submit" value="Review">
+		</form>
+		
+	  </div> -->
+
 		<!-- Email:<input type="text" name="email" value ='document.getelementbyid("email")'> -->
 	</form>
 </body>
