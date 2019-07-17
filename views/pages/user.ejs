@@ -10,19 +10,19 @@
 		<header className="App-header" key="splash_screen">
       <h1> SocialScene </h1>
       <h2 style="text-align: left;margin-left: 30px;"> 
-        Welcome <%= fname %> <%= lname %> ,
+        Welcome <%= fname %> <%= lname %>,
         <button onclick="window.location.href='/logout'" style="width: 150px; height:40px; float: right;"> Logout </button>
         <button onclick="window.location.href='/edituser'" style="width: 150px; height:40px; margin-right: 20px; float: right;"> Edit Info </button>
       </h2>
 
       <div style="display: inline-block;float: right;">
       <!-- a search box -->
-        <form method= 'post' style="border:2px solid; border-color: red;padding: 10px; margin-right: 20px;">
-          <input type="text" name="keyword" placeholder ="Enter Keyword to search"required>
+        <form method= 'post' style="padding: 10px;">
+          <input type="text" name="keyword" placeholder =" Enter Keyword to search" style="width: 300px" required>
           <input type="hidden" name="pg" value="1">
           <table>
-            <td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchmv">search movie</button></td>
-            <td><button style="width: 100px; height: 25px; font-size : 10px;" formaction="/searchtv">search tv</button></td>
+            <td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchmv">Search Movies</button></td>
+            <td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchtv">Search TV</button></td>
           </table>
         </form>
       </div>
@@ -39,8 +39,8 @@
       </table>
       </div>
 
-      <div id="tablediv" style="display: inline-block;float: left;al">
-      <strong> Your Favorites </strong>
+      <div id="tablediv" style="display: inline-block;float: left;margin-left: 200px">
+      <strong> Most Popular </strong>
       <table id="tablet" style="padding: 10px">
         <th> Name </th>
         <th> Rating </th>
