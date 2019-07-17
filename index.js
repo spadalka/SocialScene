@@ -13,6 +13,7 @@ const pool = new Pool({
 });
 
 var user = {fname:null,lname:null,email:null}
+var movieobj = {id:null, title:null ,overview:null ,date:null ,poster:null ,language:null}
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -29,6 +30,14 @@ app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
 app.get('/user',(req,res)=>res.render('pages/user',user))
+app.get('/logout',(req,res)=>{
+  console.log("User logout '" + user.email + "'")
+  user.fname = null
+  user.lname = null
+  user.email = null
+  res.redirect('/')
+})
+
 app.get('/edituser', async (req, res) => {
     try {
       const client = await pool.connect()
@@ -41,6 +50,7 @@ app.get('/edituser', async (req, res) => {
       res.send("Error " + err);
     }
   })
+app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
 
 app.post('/register', async (req, res) => {
   try {
@@ -185,21 +195,19 @@ app.post('/prevmv',async(req,res)=>{
     }
   })
 })
+
 app.post('/details', (req,res)=>{
-  var data = {
-    "id": req.body.id,
-    "title":req.body.title,
-    "overview":req.body.overview,
-    "date": req.body.date,
-    "poster": req.body.poster,
-    "language": req.body.language
-  }
-  res.render('pages/summary',data)
+  movieobj.id = req.body.id,
+  movieobj.title = req.body.title,
+  movieobj.overview = req.body.overview,
+  movieobj.date = req.body.date,
+  movieobj.poster = req.body.poster,
+  movieobj.language = req.body.language
+  res.render('pages/summary',movieobj)
 })
 // tmdb api end
 
-app.post('/rateuser', async (req, res)=>{
-  console.log("Nice Nice")
+app.post('/rateuser', async (req, res) => {
   try {
     const client = await pool.connect()
     var data = "('" + user.email + "', "+req.body.id+" , " + req.body.rating + " , '" + req.body.review + "');"
@@ -208,7 +216,7 @@ app.post('/rateuser', async (req, res)=>{
     client.release();
   }
   catch (err) {
-    console.error("Error ");
+    console.error("Error: " + err);
     res.redirect('/details')
   }
 })

@@ -49,38 +49,38 @@
 				<td>Ratings: (Not yet implemented)</td>
 			</table>
 		</td>
-
 	</table>
-	<form>
-	  <p>Reviews (User)</p>
-	  Title:<input type="text" name="title" value='<%=title%>' disabled>
-	  <br>
+
+
+
+	<div >
+	  <h3>Reviews</h3>
+	  Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
+	  <br/>
 	  <!-- <table>
 		<td>Rating: <input type="text" name="" </td>
 		<td>Review: <input type="text" name="" </td>
 	  </table> -->
 
 	  <table>
-	  <div style = "float:left; margin-left: 30px"> 
+	  <div > 
 	  
 		<!-- <p>Rating</p> -->
 		<br>
 		<form action="/rateuser" method = "post">
-		  Rating:<br>
-		  <input type="text" name="rating" value="">
-		  <br>
-		  <input type="submit" value="Rating">
+		  Rating: <br> <input type="number" name="rating" placeholder="Enter a rating between [0-5]" max="5" min="0" step="0.5">
 		  <br>
 		  <br>
-		  Review:<br>
-		  <input type="text" name="review" value="">
+		  Review: <br> <input type="text" name="review" style="width: 500px; height: 100px;">
 		  <br>
-		  <input type="submit" value="Review">
-
+		  <br>
+		  <button id="submitbutton" > Submit </button>
 		  <input type="hidden" name="id" value="<%=r.id%>">
 		</form>
+	</div>
 		
 	  </div>
+	</table>
 	
 	  <!-- <div style = "float:left; margin-left: 80px"> 
 	
@@ -96,7 +96,5 @@
 		
 	  </div> -->
 
-		<!-- Email:<input type="text" name="email" value ='document.getelementbyid("email")'> -->
-	</form>
 </body>
 </html>
