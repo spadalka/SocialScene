@@ -4,16 +4,26 @@
 	<title>Results</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
-<body style="float: left;display: inline-block;">
+<body style="float: left; display: inline-block;">
 	<%const base = 'https://image.tmdb.org/t/p/w185';%>
-	<h1> SocialScene </h1>
-	<button onclick="window.location.href='/user'">Back to Main </button>	<!-- button back to home -->
-	<h2> Search Results</h2>
-	<% if (total_results == 0){%>
-		<p style="color: red">There are no results to display. Please try a different keyword </p>
-	<%}else{%>
-		<p>Now Displaying <span style="color: red;"><%=results.length%></span> Results</p>
-	<%};%>
+	<header key="splash_screen">
+			<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+				SocialScene
+			</div>
+		<div class="header_div" style="align-content: center;">
+			<% if (total_results == 0){%>
+				<p style="color: red">There are no results to display. Please try a different keyword </p>
+			<%}else{%>
+				<p>Now Displaying <span style="color: red;"><%=results.length%></span> Search Results</p>
+			<%};%>
+		</div>
+	</header>
+	
+	<br/>
+
+	 
+	
+	
 	<!-- listing out the data -->
 	<% var n = results.length;%>
 	<% for (var i=0; i<n ; i++) { %>
@@ -57,7 +67,7 @@
 			</td>
 
 			<td>
-				<p align="center">Page <%=page%></p>
+				<p align="center" style="color: white">Page <%=page%></p>				
 			</td>
 
 			<td style="text-align: right;">
@@ -72,6 +82,17 @@
 					<%};%>
 				</form>
 			</td>
+
+			<tr>
+				<td></td>
+				<td>
+					<div  align="center">
+						<button onclick="window.location.href='/user'" style="width: 175px;">Back to Main</button>
+					</div>
+				</td>
+				<td></td>
+				
+			</tr>
 		</table>
 		<%};%>
 	</div>

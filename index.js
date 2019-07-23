@@ -9,7 +9,7 @@ const pool = new Pool({
   user: 'postgres',
   password: 'root',
   host: 'localhost',
-  database: 'postgres'
+  database: 'simonbarer'
 });
 
 var user = {fname:null,lname:null,email:null}
@@ -66,7 +66,10 @@ app.post('/register', async (req, res) => {
     const client = await pool.connect()
     var data = "('" + req.body.fname + "','"  + req.body.lname + "','" + req.body.email + "','" + req.body.password + "');"
     const result = await client.query("insert into users values " + data);
-    res.redirect('/')
+    user.fname = req.body.fname
+    user.lname = req.body.lname
+    user.email = req.body.email
+    res.redirect('/user')
     client.release();
   }
   catch (err) {

@@ -6,16 +6,27 @@
 </head>
 <body>
 	<%const url = 'https://image.tmdb.org/t/p/w185'+poster;%>
-	<h1> SocialScene </h1>
-	<h2> Summary </h2>
-	<table width="100%">
-		<td>
-			<button onclick="window.history.back()">Back to Search </button>	<!-- button back to results-->
-		</td>
-		<td style="text-align: right;">
-			<button onclick="window.location.href='/user'">Back to Main </button><!-- button back to home -->
-		</td>
-	</table>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+		<div class="header_div" style="align-content: center;">
+			<table width="100%">
+				<td>
+					<button onclick="window.history.back()">Back to Search</button>
+				</td>
+				<td>
+					<p class="title_header" align="center">|  <%=title%>  |</p>
+				</td>
+				<td style="text-align: right;">
+					<button style="border-radius: 10px" onclick="window.location.href='/user'">Back to Main</button>
+				</td>
+			</table>
+		</div>
+	</header>
+
+
+	
 	<table class="display">
 		<td style="min-width: 20%; text-align: center; align-items: center;">
 			<%if(poster == ''){%>
