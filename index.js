@@ -38,7 +38,6 @@ app.get('/user', async (req,res)=>{
 })
 
 
-
 app.get('/logout',(req,res)=>{
   console.log("User logout '" + user.email + "'")
   user.fname = null
@@ -103,6 +102,16 @@ app.post('/login', function( req, res) {
   })
 });
 
+
+app.post('/searchfriend',async(req,res)=>{
+  console.log('entered a friend search value')
+  console.log(req.body.keyword)
+
+  var data = "'" + req.body.keyword + "';"
+  const result = await pool.query("select fname,lname from users;")
+  const results = { 'results': (result) ? result.rows : null};
+  res.render('pages/searchfriend', results)
+});
 
 app.post('/edituser', async (req, res) => {
   try {
@@ -208,6 +217,8 @@ app.post('/prevmv',async(req,res)=>{
   })
 })
 
+
+
 app.post('/details', (req,res)=>{
   movieobj.id = req.body.id,
   movieobj.title = req.body.title,
@@ -238,3 +249,6 @@ app.post('/rateuser', async (req, res) => {
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 module.exports = app;
+
+
+// where fname ~ " + data + " or lname ~ " + data

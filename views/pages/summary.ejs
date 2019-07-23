@@ -39,9 +39,9 @@
 		<td style="padding-left: 20px">
 			<!-- overview -->
 			<%if(overview == ''){%>
-				<p>Overview: N/A</p>
+				<!-- <p>Overview: N/A</p> -->
 			<%}else{%>
-				<p>Overview: <%=overview%></p>
+				<p><%=overview%></p>
 			<%};%>
 			<!-- poster -->
 			<%if(date == ''){%>
@@ -63,9 +63,9 @@
 		</td>
 	</table>
 
+	<br/>
 
-
-	<div >
+	<div style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
 	  <h3>Your Review</h3>
 	  Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
 	  <br/>
@@ -75,10 +75,10 @@
 	  
 		<br>
 		<form action="/rateuser" method = "post">
-		  Rating:<input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5">
+		  Rating:  <input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5">
 		  <br>
 		  <br>
-		  Review: <br> <input type="text" name="review" style="width: 500px; height: 100px;">
+		  Review:  <br> <input type="text" name="review" style="width: 500px; height: 100px;">
 		  <br>
 		  <br>
 		  <button id="submitbutton" > Submit </button>

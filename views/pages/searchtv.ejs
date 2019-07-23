@@ -4,7 +4,7 @@
 	<title>Results</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
-<body style="float: left;display: inline-block;">
+<body <% if (total_results != 0){%>style="float: left; display: inline-block;"<%};%>>
 	<%const base = 'https://image.tmdb.org/t/p/w185';%>
 	<header key="splash_screen">
 		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
@@ -12,7 +12,7 @@
 		</div>
 		<div class="header_div" style="align-content: center;">
 			<% if (total_results == 0){%>
-				<p style="color: red">There are no results to display. Please try a different keyword </p>
+				<p style="color: red">There are no results to display.<br/>Please try a different keyword </p>
 			<%}else{%>
 				<p>Now Displaying <span style="color: red;"><%=results.length%></span> Search Results</p>
 			<%};%>
@@ -21,7 +21,28 @@
 	
 	<br/>
 
+	<br/>
+	<% if (total_results == 0){%>
+		<br/>
+		<div class="login_body" align="center" >
+		<br/><br/>
+		Please Enter a New Search
+		<br/><br/><br/><br/>
+		<!-- a search box -->
+			<form method= 'post'">
+			<input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 300px" required>
+			<input type="hidden" name="pg" value="1">
+			<table style="margin:auto;" align="center">
+				<td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
+				<td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
+				<td><button class="button user_div_user_bttn" formaction="/searchfriend">Search Friend</button></td>
+			</table>
+			</form>
+			<br/><br/>
+			<button onclick="window.location.href='/user'"> Back to Main</button>
 
+		</div>
+	<%};%>
 
 	
 	<!-- listing out the data -->
