@@ -6,45 +6,56 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body style="align-items: center;">
-	<div id="outerdiv">
-		<header className="App-header" key="register_screen">
-      <h1>SocialScene</h1>
-      <div>
-        <button id="currfile" disabled> Register </button>
-        &nbsp;
-        &nbsp;
-        <button onclick="window.location.href='/login'"> Login </button>
-      </div>
-      &nbsp;
-      <h2>Register</h2>
+  <header class="App-header" key="splash_screen">
+    SocialScene
+  </header>
+  <br/>
 
+  <div>
+    <button class="button back_button" onclick="window.location.href='/'"> Back </button>
+  </div>
+  <br/>
+  
+  <div class="register_body" id="outerdiv">
+    <br/>
+    <div class="login_header">
+      Register
+    </div>
+    <br/>
       <div class="alert" style ="display: <%= val %>">
         This email has been already registered
         <span class="closebtn"> x </span>
       </div>
 
       <form action="/register" method="post">
-        <table>
-          <tbody>
+        <table name="login_table" align="center">
+          <tbody align="center" style="padding: 2px;">
             <tr>
-              <td>Enter your first name: &nbsp;</td>
-              <td><input type="text" name="fname" required /> </td>
+              <td>First Name:</td>
+              <td>&nbsp;</td>
+              <td>Last Name:</td>
             </tr>
             <tr>
-              <td>Enter your last name: &nbsp;</td>
+              <td><input type="text" name="fname" required /> </td>
+              <td>&nbsp;</td>
               <td><input type="text" name="lname" required /> </td>
             </tr>
+            
             <tr>
-              <td>Enter your email: &nbsp;</td>
-              <td><input type="email" id="email" name="email" required /> </td>
+              <td>Password:</td>
+              <td>&nbsp;</td>
+              <td>Confirm Password:</td>
             </tr>
             <tr>
-              <td>Enter your password: &nbsp;</td>
               <td><input type="password" id="password" name="password" value="" required /> </td>
+              <td>&nbsp;</td>
+              <td><input type="password" id="pass_confirm" name="pass_confirm" value="" required onkeyup='check();' /> </td>
             </tr>
             <tr>
-              <td>Confirm your password: &nbsp;</td>
-              <td><input type="password" id="pass_confirm" name="pass_confirm" value="" required onkeyup='check();' /> </td>
+              <td colspan="3">Email:</td>
+            </tr>
+            <tr>
+              <td colspan="3"><input type="email" id="email" name="email" required /> </td>
             </tr>
           </tbody>
         </table>
@@ -77,7 +88,7 @@ for (i = 0; i < close.length; i++) {
       // document.getElementById("chkermsg").style.display = 'none';
       document.getElementById("submitbutton").disabled = false;
       document.getElementById("chkermsg").style.color = 'green';
-      document.getElementById("chkermsg").innerHTML = 'The passwords match &nbsp; ┬─┬ ノ( ゜-゜ノ) ';
+      document.getElementById("chkermsg").innerHTML = 'Please Ensure Passwords Match';
       document.getElementById("password").style.backgroundColor = 'lightgreen';
       document.getElementById("pass_confirm").style.backgroundColor = 'lightgreen';
     }
@@ -85,7 +96,7 @@ for (i = 0; i < close.length; i++) {
       document.getElementById("chkermsg").style.display = 'inline-block';
       document.getElementById("submitbutton").disabled = true;
       document.getElementById("chkermsg").style.color = 'red';
-      document.getElementById("chkermsg").innerHTML = 'The passwords do not match (╯°□°）╯︵ ┻━┻ ';
+      document.getElementById("chkermsg").innerHTML = 'Please Ensure Passwords Match';
       document.getElementById("password").style.backgroundColor = 'pink';
       document.getElementById("pass_confirm").style.backgroundColor = 'pink';
     }

@@ -5,45 +5,52 @@
 	<title>Social Scene</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
-<body style="align-items: center;">
-	<div id="outerdiv">
-    <header className="App-header" key="login_screen">
-      <h1>SocialScene</h1>
-      <div>
-        <button onclick="window.location.href='/register'"> Register </button>
-        &nbsp;
-        &nbsp;
-        <button id="currfile" disabled> Login </button>
-      </div>
-      &nbsp;
-      <h2>Login</h2>
+<body>
+  <header class="App-header" key="splash_screen">
+    SocialScene
+  </header>
+  <br/>
 
-      <div class="alert" style ="display: <%= val %>">
-        Incorrect username / password
-        <span class="closebtn"> x </span>
-      </div>
+  <div>
+    <button class="button back_button" onclick="window.location.href='/'"> Back </button>
+  </div>
+  <br/>
+  <div class="login_body" id="outerdiv">
+    <br/>
+    <div class="login_header">
+      Login
+    </div>
+    <br/>
+    <div class="alert" style ="display: <%= val %>">
+      <span class="closebtn"> X </span>
       
-      <form action="/login" method="post" >
-        <table>
-          <tbody>
-            <tr>
-              <td>Email: &nbsp;</td>
-              <td><input type="email" name="login_email" required /> </td>
-            </tr>
+      Incorrect username / password
+    </div>
+    
+    <form action="/login" method="post" >
+      <table align="center">
+        <tbody align="center">
+          <tr>
+            <td>Email:</td>
+          </tr>
+          <tr>
+            <td><input type="email" name="login_email" align="center" required /> </td>
+          </tr>
 
-            <tr>
-              <td>Password: &nbsp;</td>
-              <td><input type="password" name="login_pass" required /> </td>
-            </tr>
+          <tr>
+            <td><br/>Password:</td>
+          </tr>
+          <tr>
+            <td><input type="password" name="login_pass" required /> </td>
+          </tr>
 
-          </tbody>
-        </table>
+        </tbody>
+      </table>
 
-        <br/>
-        <button id="submitbutton" > Submit </button>
-      </form>
-    </header>
-	</div>
+      <br/>
+      <button class="button submit_button" id="submitbutton" > Submit </button>
+    </form>
+  </div>
 </body>
 </html>
 
