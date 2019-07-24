@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Friends</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+		<div class="header_div" style="align-content: center;">
+			<br/>Manage Friends<br/><br/>
+		</div>
+	</header>
+	
+	<br/>
+	<div class="register_body" id="outerdiv">
+		<br/>
+			Search for a Friend <br/>
+		<br/>
+	
+		<form action="/searchfriends" method="post">
+		<table name="login_table" align="center">
+			<tbody align="center" style="padding: 2px;">
+			<tr>
+				<td>First Name:</td>
+			</tr>
+			<tr>
+				<td><input type="text" name="fname" required /> </td>
+			</tr>
+			<tr>		
+				<td>Last Name:</td>
+			</tr>
+			<tr>
+				<td><input type="text" name="lname" required /> </td>
+			</tr>
+			</tbody>
+		</table>
+		<span id="chkermsg" style="display:none;font-size:calc(4px + 2vmin)" ></span>
+		<br/>
+		<br/>
+			<button id="submitbutton"> Search </button>
+		</form>
+		<br/>
+		<div>
+			<button class="button submit_button" onclick="window.location.href='/user'"> Back </button>
+		</div>
+	</div>
+	
+
+</body>
+</html>

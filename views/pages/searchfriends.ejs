@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Results</title>
+	<title>Friends</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
-	<header key="splash_screen">
+<header key="splash_screen">
 		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
 			SocialScene
 		</div>
@@ -19,27 +19,41 @@
 	</header>
 	
 	<br/>
-
 	<br/>
 	<% if (results.length == 0){%>
 		<br/>
-		<div class="login_body" align="center" >
-		<br/><br/>
-		Please Enter a New Search
-		<br/><br/><br/><br/>
-			<form method= 'post'">
-			<input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 300px" required>
-			<input type="hidden" name="pg" value="1">
-			<table style="margin:auto;" align="center">
-				<td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
-				<td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
-				<td><button class="button user_div_user_bttn" formaction="/searchfriend">Search Friend</button></td>
-			</table>
-			</form>
-			<br/><br/>
-			<button onclick="window.location.href='/user'"> Back to Main</button>
-
-		</div>
+		<div class="register_body" id="outerdiv">
+				<br/>
+					Please Enter a New<br/>Search for a Friend <br/>
+				<br/>
+			
+				<form action="/searchfriends" method="post">
+				<table name="login_table" align="center">
+					<tbody align="center" style="padding: 2px;">
+					<tr>
+						<td>First Name:</td>
+					</tr>
+					<tr>
+						<td><input type="text" name="fname" required /> </td>
+					</tr>
+					<tr>		
+						<td>Last Name:</td>
+					</tr>
+					<tr>
+						<td><input type="text" name="lname" required /> </td>
+					</tr>
+					</tbody>
+				</table>
+				<span id="chkermsg" style="display:none;font-size:calc(4px + 2vmin)" ></span>
+				<br/>
+				<br/>
+					<button id="submitbutton"> Search </button>
+				</form>
+				<br/>
+				<div>
+					<button class="button submit_button" onclick="window.location.href='/user'"> Back </button>
+				</div>
+			</div>
 	<%};%>
 
 	

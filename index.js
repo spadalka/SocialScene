@@ -60,6 +60,10 @@ app.get('/edituser', async (req, res) => {
   })
 app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
 
+app.get('/friends',(req,res)=>{
+  res.render('pages/friends')
+})
+
 app.post('/register', async (req, res) => {
   try {
     const client = await pool.connect()
@@ -103,15 +107,27 @@ app.post('/login', function( req, res) {
 });
 
 
-app.post('/searchfriend',async(req,res)=>{
-  console.log('entered a friend search value')
-  console.log(req.body.keyword)
+app.post('/searchfriends', async(req,res) => {
+  console.log('entered friend post')
+  console.log(req.body.fname)
+  console.log(req.body.lname)
 
-  var data = "'" + req.body.keyword + "';"
-  const result = await pool.query("select fname,lname from users;")
+
+  var fname = "'" + req.body.fname + "'"
+  var lname = "'" + req.body.lname + "'"
+
+  
+
+  const result  = await pool.query("select fname,lname from users where fname ilike" + fname + "and lname ilike " + lname + ";")
+  // const result2 = await pool.query("SELECT fname,lname from users where strpos(fname, " + data + ")>0 or strpos(lname, " + data + ")>0;")
+  // console.log(result)
+  console.log(result)
+
   const results = { 'results': (result) ? result.rows : null};
-  res.render('pages/searchfriend', results)
-});
+
+  res.render('pages/searchfriends', results) 
+   
+})
 
 app.post('/edituser', async (req, res) => {
   try {
