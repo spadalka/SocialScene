@@ -26,7 +26,7 @@ body {
   justify-content: center;
   font-size: calc(30px + 6vw);
   color: white;
-  letter-spacing: 30px;
+  letter-spacing: 25px;
 }
 
 
@@ -44,6 +44,15 @@ body {
   margin: auto;
 }
 
+.user_box {
+  border-radius: 5px;
+  border: 1px dashed white;
+  border-color: white;
+  padding: 5px;
+  margin: 5px;
+  width: auto;
+}
+
 .register_body {
   border-radius: 5px;
   border: 4px dashed white;
@@ -56,6 +65,13 @@ body {
   justify-content: center;
   color: white;
   margin: auto;
+}
+
+.display_box {
+  border-collapse: collapse; 
+  border: 3px solid white;
+  border-radius: 5px;
+  color: white;
 }
 
 .TMDB_pic {
@@ -153,6 +169,19 @@ div.collection{
   text-overflow: ellipsis
   white-space: nowrap;
   max-width: 185px;
+}
+
+.collectionFriends {
+  color: white;
+}
+
+div.collectionFriends{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis
+  white-space: nowrap;
+  max-width: 275px;
+ 
 }
 
 .header_div {

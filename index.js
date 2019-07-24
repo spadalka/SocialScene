@@ -60,8 +60,18 @@ app.get('/edituser', async (req, res) => {
   })
 app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
 
-app.get('/friends',(req,res)=>{
-  res.render('pages/friends')
+app.get('/friends', async (req,res) => {
+  try {
+    console.log(user)
+    // const client = await pool.connect()
+    // const result = await client.query("SELECT * FROM users where email= '" + user.email + "';");
+    // const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/friends', user );
+    // client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
 })
 
 app.post('/register', async (req, res) => {
@@ -107,26 +117,18 @@ app.post('/login', function( req, res) {
 });
 
 
-app.post('/searchfriends', async(req,res) => {
+app.post('/searchfriends', async (req,res) => {
   console.log('entered friend post')
-  console.log(req.body.fname)
-  console.log(req.body.lname)
-
+  console.log(user)
 
   var fname = "'" + req.body.fname + "'"
   var lname = "'" + req.body.lname + "'"
 
-  
-
-  const result  = await pool.query("select fname,lname from users where fname ilike" + fname + "and lname ilike " + lname + ";")
-  // const result2 = await pool.query("SELECT fname,lname from users where strpos(fname, " + data + ")>0 or strpos(lname, " + data + ")>0;")
+  const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + ";")
   // console.log(result)
-  console.log(result)
-
-  const results = { 'results': (result) ? result.rows : null};
-
+  const results = { 'results': (result) ? result.rows : null, 'user': user};
+  console.log(results)
   res.render('pages/searchfriends', results) 
-   
 })
 
 app.post('/edituser', async (req, res) => {
@@ -263,8 +265,52 @@ app.post('/rateuser', async (req, res) => {
   }
 })
 
+
+app.post('/FriendRequest', async (req, res) => {
+  try {
+    console.log("entered sendFriendRequest in index.js")
+    console.log(req.body)
+    var value = req.body.value
+    const client = await pool.connect()
+    var data1 = "('" + req.body.email1 + "','"  + req.body.fname1 + "','" + req.body.lname1 + "', "
+    var data2 = "'" + req.body.email2 + "','"  + req.body.fname2 + "','" + req.body.lname2 + "');"
+
+    if (value == "Send Friend Request") {
+      // ADD REQUEST TO FRIENDS TABLE IN DB
+      console.log("entered search friends db")
+      // search friend db to ensure that the request hasnt been submitted already
+      const search = await pool.query("select * from friends where email1 =" + req.body.email1 + "and email2 = " + req.body.email2 + ";")
+      if (search.rowCount != 0) {
+        // then it does exist, so do nothing
+        return
+      }
+      else {
+        // then the request doesnt exist yet, so insert it into the table
+        console.log("entered insert into friends db")
+        const result = await client.query("insert into friends values " + data1 + data2);
+      }
+    }
+    else {
+      // VALUE == "Cancel Request"
+      // REMOVE FRIEND REQUEST FROM FRIENDS TABLE IN DB
+      console.log("entered delete from friends db")
+      const result = await client.query("delete from friends where email1 =" + req.body.email1 + "and email2 = " + req.body.email2 + ";");
+    }
+  }
+  catch (err) {
+    console.error("Something went wrong with DB request");
+    res.render('pages/searchfriends',{val:'block'})
+  }
+})
+
+function sendFriendRequest(fname2, lname2, email2, fname1, lname1, email1) {
+  console.log(fname2)
+  console.log(fname1)
+  res.redirect('/user')
+}
+
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 module.exports = app;
 
 
-// where fname ~ " + data + " or lname ~ " + data

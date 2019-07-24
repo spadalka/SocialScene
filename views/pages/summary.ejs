@@ -16,7 +16,7 @@
 					<button onclick="window.history.back()">Back to Search</button>
 				</td>
 				<td>
-					<p class="title_header" align="center">|  <%=title%>  |</p>
+					<p class="title_header" align="center"><%=title%></p>
 				</td>
 				<td style="text-align: right;">
 					<button style="border-radius: 10px" onclick="window.location.href='/user'">Back to Main</button>
@@ -34,7 +34,6 @@
 			<%}else{%>
 				<img src= '<%=url%>'>
 			<%};%>
-			<p><%=title%></p>
 		</td>
 		<td style="padding-left: 20px">
 			<!-- overview -->
@@ -51,8 +50,8 @@
 			<%};%>
 			<!--  -->
 			<table>
-				<col width="130">
-				<td>Ratings: <%=rating%>/10</td>
+				<col width="280">
+				<td>TMDB Rating: <%=rating%>/10</td>
 				<td>Votes: <%=vote%></td>
 			</table>
 			<%if(language == ''){%>
@@ -64,29 +63,37 @@
 	</table>
 
 	<br/>
+	<table style="margin:auto">
+		<tr>
+			<td>
+				<div style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
+					<h3>Your Review</h3>
+					Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
+					<br/>
 
-	<div style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
-	  <h3>Your Review</h3>
-	  Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
-	  <br/>
-
-	  <table>
-	  <div > 
-	  
-		<br>
-		<form action="/rateuser" method = "post">
-		  Rating:  <input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5">
-		  <br>
-		  <br>
-		  Review:  <br> <input type="text" name="review" style="width: 500px; height: 100px;">
-		  <br>
-		  <br>
-		  <button id="submitbutton" > Submit </button>
-		  <input type="hidden" name="title" value="<%=title%>">
-		</form>
-	</div>
-		
-	  </div>
+					<table>
+					<div> 
+						<br>
+						<form action="/rateuser" method = "post">
+						Rating:  <input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5">
+						<br>
+						<br>
+						Review:  <br> <input type="text" name="review" style="width: 500px; height: 100px;">
+						<br>
+						<br>
+						<button id="submitbutton" > Submit </button>
+						<input type="hidden" name="title" value="<%=title%>">
+						</form>
+					</div>
+					</table>
+				</div>
+			</td>
+			<td>
+				<div style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
+					Friend's Reviews
+				</div>
+			</td>
+		</tr>
 	</table>
 
 </body>
