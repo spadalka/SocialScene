@@ -27,6 +27,19 @@
         </form>
       </div>
 
+      <strong> Your Reviews </strong>
+      <table class="display" style="border-collapse: collapse;">
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Movie&nbsp;Name </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
+        <% rows.forEach(function(r) { %>
+        <tr style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
+            <td style="padding-left: 10px;padding-right: 10px"><%= r.title %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
+        </tr>
+          <% }); %>
+      </table>
 
     </header>
   </div>

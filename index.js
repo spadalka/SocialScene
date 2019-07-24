@@ -43,17 +43,22 @@ app.get('/user', function (req,res){
     var data = "'" + req.session.user.email + "';"
     pool.query("select fname,lname,password from users where email= " + data, function(err,table){
     if (table.rows.length == 1) {
-      console.log(table.rows[0])
-      res.locals.user = table.rows[0]
-      res.render('pages/user',res.locals.user)
+      pool.query ( "select * from review where email="+data,function(err,result) {
+        res.locals.user = table.rows[0]
+        if (result.rows.length != null) {
+          res.locals.user.rows = result.rows
+        }
+        res.render('pages/user',res.locals.user)
+      })
     }
     else{
-      console.log("ok weird " )
+      console.log("Unauthorised access" )
       res.render('pages/app')
     }
     })
   }
   else {
+    console.log("Unauthorised access login " )
     res.redirect('/login')
   }
 })
@@ -68,7 +73,7 @@ app.get('/logout',(req,res)=>{
 app.get('/edituser', async (req, res) => {
     try {
       const client = await pool.connect()
-      const result = await client.query("SELECT * FROM users where email= '" + user.email + "';");
+      const result = await client.query("SELECT * FROM users where email= '" + req.session.user.email + "';");
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/edituser', result.rows[0] );
       client.release();
@@ -94,6 +99,7 @@ app.post('/register', async (req, res) => {
 })
 
 //  Abel  | Thomas | a@asd.com | asd123
+//  asd   | asd    | a@a.com   | asd
 app.post('/login', function( req, res) {
   var data = "'" + req.body.login_email + "';"
   pool.query("select fname,lname,password from users where email= " + data, function(err,table){
@@ -124,10 +130,8 @@ app.post('/edituser', async (req, res) => {
   try {
     const client = await pool.connect()
     var data = "fname='" + req.body.fname + "',lname='"  + req.body.lname + "',password='" + req.body.password + "'"
-    const result = await client.query("update users set " + data + " where email= '" + user.email + "';");
+    const result = await client.query("update users set " + data + " where email= '" + req.session.user.email + "';");
     console.log("User Edited")
-    user.fname = req.body.fname
-    user.lname = req.body.lname
     res.redirect('/user')
     client.release();
   }
@@ -241,7 +245,7 @@ app.post('/rateuser', async (req, res) => {
   console.log("User has posted review")
   try {
     const client = await pool.connect()
-    var data = "('" + user.email + "','"+req.body.title+"', " + req.body.rating + " , '" + req.body.review + "');"
+    var data = "('" + req.session.user.email + "','"+req.body.title+"', " + req.body.rating + " , '" + req.body.review + "');"
     const result = await client.query("insert into review values " + data);
     res.redirect('/details')
     client.release();
