@@ -3,6 +3,7 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
 const request = require('request')
+var session = require('client-sessions');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
@@ -20,6 +21,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
+app.use(session({
+  cookieName: 'session',
+  secret: 'random_string_goes_here',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
@@ -29,21 +37,31 @@ app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
-app.get('/user', async (req,res)=>{
-  const client = await pool.connect()
-  const result = await client.query("SELECT * FROM review where email= '" + user.email + "';");
-  const results = { 'results': (result) ? result.rows : null};
-  results.user = user
-  res.render('pages/user',results)
+app.get('/user', function (req,res){
+  if (req.session && req.session.user)
+  {
+    var data = "'" + req.session.user.email + "';"
+    pool.query("select fname,lname,password from users where email= " + data, function(err,table){
+    if (table.rows.length == 1) {
+      console.log(table.rows[0])
+      res.locals.user = table.rows[0]
+      res.render('pages/user',res.locals.user)
+    }
+    else{
+      console.log("ok weird " )
+      res.render('pages/app')
+    }
+    })
+  }
+  else {
+    res.redirect('/login')
+  }
 })
 
 
-
 app.get('/logout',(req,res)=>{
-  console.log("User logout '" + user.email + "'")
-  user.fname = null
-  user.lname = null
-  user.email = null
+  console.log("User logout '" + req.session.user.email + "'")
+  req.session.reset();
   res.redirect('/')
 })
 
@@ -86,6 +104,7 @@ app.post('/login', function( req, res) {
         user.fname = table.rows[0].fname
         user.lname = table.rows[0].lname
         user.email = req.body.login_email
+        req.session.user = user
         res.redirect('/user')
       }
       else{
@@ -219,7 +238,7 @@ app.post('/details', (req,res)=>{
 // tmdb api end
 
 app.post('/rateuser', async (req, res) => {
-	console.log("User has posted review")
+  console.log("User has posted review")
   try {
     const client = await pool.connect()
     var data = "('" + user.email + "','"+req.body.title+"', " + req.body.rating + " , '" + req.body.review + "');"
