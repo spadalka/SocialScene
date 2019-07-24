@@ -48,10 +48,56 @@
 				</div>
 			</td>
 			<td>
+				<% var n = results.length;%>
+				<% if (n == 0) { %>
+					<div class="login_body" id="outerdiv" align="center">
+							<br/><br/><br/><br/><br/><br/>
+								No Pending Friend Requests<br/>
+							<br/>
+				<%}else{%>
 				<div class="login_body" id="outerdiv" align="center">
 					<br/><br/>
 						Pending Friend Requests<br/>
 					<br/>
+				<!-- listing out the data -->
+				
+				<% for (var i=0; i<n ; i++) { %>
+
+				<div class='collectionFriends' style=" display: inline-block;">
+					<% r = results[i]; %>
+					<% if (r.email == user.email){%>
+					<%}else{%>
+						
+					<form action="/FriendRequest" method="post">
+					<div class="user_box" style="height: 100px; width: 240px; padding: 10px;">
+						<div style="padding: 5px">
+							<%= r.fname1 %> <%= r.lname1 %> 
+						</div>
+						<div style="font-size: 14px; font-weight: 200">
+							<%= r.email1 %>
+						</div>
+						<input type="submit" id="Accept" onclick="sendFriendRequest('<%= r.fname %>', '<%= r.lname %>', '<%= r.email %>', '<%= user.fname %>', '<%= user.lname %>', '<%= user.email %>')" class="button user_div_user_bttn" style="width: 100px; margin: 14px; text-align: center" value="Accept"></input>
+						<input type="submit" id="Reject" onclick="sendFriendRequest('<%= r.fname %>', '<%= r.lname %>', '<%= r.email %>', '<%= user.fname %>', '<%= user.lname %>', '<%= user.email %>')" class="button user_div_user_bttn" style="width: 100px; margin: 14px; text-align: center" value="Reject"></input>
+						
+						<!-- Send Values to index.js to add to friends table in db -->
+						<input style="display:none" type="fname1" id="fname1" name="fname1" value="<%= user.fname %>"/>
+						<input style="display:none" type="lname1" id="lname1" name="lname1" value="<%= user.lname %>"/>
+						<input style="display:none" type="email1" id="email1" name="email1" value="<%= user.email %>"/>
+
+						<input style="display:none" type="fname2" id="fname2" name="fname2" value="<%= r.fname %>"/>
+						<input style="display:none" type="lname2" id="lname2" name="lname2" value="<%= r.lname %>"/>
+						<input style="display:none" type="email2" id="email2" name="email2" value="<%= r.email %>"/>
+
+						<input style="display:none" type="value" id="value" name="value" value=""/>
+					</div>
+					</form>
+				</div>
+				<%};%>
+				<%};%>
+				<% }; %>
+
+
+
 				</div>
 			</td>
 		</tr>

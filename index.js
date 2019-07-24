@@ -63,11 +63,10 @@ app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
 app.get('/friends', async (req,res) => {
   try {
     console.log(user)
-    // const client = await pool.connect()
-    // const result = await client.query("SELECT * FROM users where email= '" + user.email + "';");
-    // const results = { 'results': (result) ? result.rows : null};
-    res.render('pages/friends', user );
-    // client.release();
+    const result  = await pool.query("select f.fname1, f.lname1, f.email1 from friends f where f.email2 = '" + user.email + "' and '" + user.email + "'  not in (select ff.email1 from friends ff where ff.email2 = f.email1);")    
+    console.log(result)
+    const results = { 'results': (result) ? result.rows : null, user: user};
+    res.render('pages/friends', results);
   } catch (err) {
     console.error(err);
     res.send("Error " + err);
@@ -279,9 +278,11 @@ app.post('/FriendRequest', async (req, res) => {
       // ADD REQUEST TO FRIENDS TABLE IN DB
       console.log("entered search friends db")
       // search friend db to ensure that the request hasnt been submitted already
-      const search = await pool.query("select * from friends where email1 =" + req.body.email1 + "and email2 = " + req.body.email2 + ";")
+      const search = await client.query("select * from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';")
+      console.log("search: ", search)
       if (search.rowCount != 0) {
         // then it does exist, so do nothing
+        console.log("entered rowcount!=0")
         return
       }
       else {
@@ -294,12 +295,11 @@ app.post('/FriendRequest', async (req, res) => {
       // VALUE == "Cancel Request"
       // REMOVE FRIEND REQUEST FROM FRIENDS TABLE IN DB
       console.log("entered delete from friends db")
-      const result = await client.query("delete from friends where email1 =" + req.body.email1 + "and email2 = " + req.body.email2 + ";");
+      const result = await client.query("delete from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';");
     }
   }
   catch (err) {
-    console.error("Something went wrong with DB request");
-    res.render('pages/searchfriends',{val:'block'})
+    res.send("Error " + err);
   }
 })
 
