@@ -13,7 +13,6 @@ const pool = new Pool({
   // database: 'postgres'
 });
 
-var user = {fname:null,lname:null,email:null}
 var movieobj = {id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
 
 const app = express()
@@ -107,10 +106,12 @@ app.post('/login', function( req, res) {
       var result = (table.rows[0].password==req.body.login_pass);
       if ( result ){
         console.log("User found '" + req.body.login_email + "' || result " + result )
+        var user = {fname:null,lname:null,email:null}
         user.fname = table.rows[0].fname
         user.lname = table.rows[0].lname
         user.email = req.body.login_email
         req.session.user = user
+        console.log(req.session.user)
         res.redirect('/user')
       }
       else{
