@@ -5,12 +5,12 @@ const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
 const pool = new Pool({
-  // connectionString: process.env.DATABASE_URL,
-  // ssl: true
-  user: 'postgres',
-  password: 'pgsqlsucks',
-  host: 'localhost',
-  database: 'postgres'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  // user: 'postgres',
+  // password: 'root',
+  // host: 'localhost',
+  // database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
