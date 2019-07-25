@@ -64,7 +64,7 @@ app.get('/friends', async (req,res) => {
   try {
     console.log(user)
     const result  = await pool.query("select f.fname1, f.lname1, f.email1 from friends f where f.email2 = '" + user.email + "' and '" + user.email + "'  not in (select ff.email1 from friends ff where ff.email2 = f.email1);")    
-    console.log(result)
+    // console.log(result)
     const results = { 'results': (result) ? result.rows : null, user: user};
     res.render('pages/friends', results);
   } catch (err) {
@@ -118,16 +118,20 @@ app.post('/login', function( req, res) {
 
 app.post('/searchfriends', async (req,res) => {
   console.log('entered friend post')
-  console.log(user)
+  // console.log(user)
 
-  var fname = "'" + req.body.fname + "'"
-  var lname = "'" + req.body.lname + "'"
+  var fname = "'%" + req.body.fname + "%'"
+  var lname = "'%" + req.body.lname + "%'"
 
-  const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + ";")
-  // console.log(result)
-  const results = { 'results': (result) ? result.rows : null, 'user': user};
-  console.log(results)
-  res.render('pages/searchfriends', results) 
+
+    const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + " and email not in (select f.email2 from friends f where f.email1 = '" + user.email + "') order by lower(fname) ASC;")
+    const friends  = await pool.query("select f.fname2,f.lname2,f.email2 from friends f where f.email1 = '" + user.email + "'order by lower(fname) ASC;")
+    console.log(result)
+    console.log(friends)
+
+    const results = { 'results': (result) ? result.rows : null, 'user': user, 'friends': (friends) ? friends.rows : null};
+    res.render('pages/searchfriends', results) 
+  
 })
 
 app.post('/edituser', async (req, res) => {
@@ -268,7 +272,7 @@ app.post('/rateuser', async (req, res) => {
 app.post('/FriendRequest', async (req, res) => {
   try {
     console.log("entered sendFriendRequest in index.js")
-    console.log(req.body)
+    // console.log(req.body)
     var value = req.body.value
     const client = await pool.connect()
     var data1 = "('" + req.body.email1 + "','"  + req.body.fname1 + "','" + req.body.lname1 + "', "
@@ -296,6 +300,71 @@ app.post('/FriendRequest', async (req, res) => {
       // REMOVE FRIEND REQUEST FROM FRIENDS TABLE IN DB
       console.log("entered delete from friends db")
       const result = await client.query("delete from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';");
+    }
+  }
+  catch (err) {
+    res.send("Error " + err);
+  }
+})
+
+app.post('/FriendRequest2', async (req, res) => {
+  try {
+    console.log("entered sendFriendRequest in index.js")
+    // console.log(req.body)
+    var value = req.body.value
+    const client = await pool.connect()
+    var data1 = "('" + req.body.email1 + "','"  + req.body.fname1 + "','" + req.body.lname1 + "', "
+    var data2 = "'" + req.body.email2 + "','"  + req.body.fname2 + "','" + req.body.lname2 + "');"
+
+    if (value == "Send Friend Request") {
+      // ADD REQUEST TO FRIENDS TABLE IN DB
+      console.log("entered search friends db")
+      // search friend db to ensure that the request hasnt been submitted already
+      const search = await client.query("select * from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';")
+      console.log("search: ", search)
+      if (search.rowCount != 0) {
+        // then it does exist, so do nothing
+        console.log("entered rowcount!=0")
+        return
+      }
+      else {
+        // then the request doesnt exist yet, so insert it into the table
+        console.log("entered insert into friends db")
+        const result = await client.query("insert into friends values " + data1 + data2);
+      }
+    }
+    else {
+      // VALUE == "Cancel Request"
+      // REMOVE FRIEND REQUEST FROM FRIENDS TABLE IN DB
+      console.log("entered delete from friends db")
+      const result = await client.query("delete from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';");
+      const result2 = await client.query("delete from friends where email1 = '" + req.body.email2 + "' and email2 = '" + req.body.email1 + "';");
+    }
+  }
+  catch (err) {
+    res.send("Error " + err);
+  }
+})
+
+app.post('/FriendRequestResponse', async (req, res) => {
+  try {
+    // console.log("entered FriendRequestResponse in index.js")
+    // console.log(req.body)
+    var value = req.body.value
+    const client = await pool.connect()
+    var data1 = "('" + req.body.email1 + "','"  + req.body.fname1 + "','" + req.body.lname1 + "', "
+    var data2 = "'" + req.body.email2 + "','"  + req.body.fname2 + "','" + req.body.lname2 + "');"
+
+    if (value == "Accept") {
+      // ADD REQUEST TO FRIENDS TABLE IN DB
+        console.log("entered insert into friends db")
+        const result = await client.query("insert into friends values " + data1 + data2);
+    }
+    else {
+      // VALUE == "Reject"
+      // REMOVE FRIEND REQUEST FROM FRIENDS TABLE IN DB
+      console.log("entered delete from friends db")
+      const result = await client.query("delete from friends where email1 = '" + req.body.email2 + "' and email2 = '" + req.body.email1 + "';");
     }
   }
   catch (err) {

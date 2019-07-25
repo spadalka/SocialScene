@@ -166,7 +166,7 @@ table.display{
 div.collection{
   display: inline-block;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 185px;
 }
@@ -178,7 +178,7 @@ div.collection{
 div.collectionFriends{
   display: inline-block;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 275px;
  
