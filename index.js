@@ -5,16 +5,15 @@ const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
 const pool = new Pool({
-  // connectionString: process.env.DATABASE_URL,
-  // ssl: true
-  user: 'postgres',
-  password: 'root',
-  host: 'localhost',
-  database: 'simonbarer'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  // user: 'postgres',
+  // password: 'root',
+  // host: 'localhost',
+  // database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
-var user = {fname:null,lname:null,email:null}
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -44,13 +43,11 @@ app.get('/user', function (req,res){
     pool.query("select fname,lname,password from users where email= " + data, function(err,table){
     if (table.rows.length == 1) {
       pool.query ( "select * from review where email="+data,function(err,result) {
-        const results = { 'results': (result) ? result.rows : null};
-        results.user = table.rows[0]
         res.locals.user = table.rows[0]
         if (result.rows.length != null) {
           res.locals.user.rows = result.rows
         }
-        res.render('pages/user', results)
+        res.render('pages/user',res.locals.user)
       })
     }
     else{
@@ -60,17 +57,13 @@ app.get('/user', function (req,res){
     })
   }
   else {
-    console.log("Unauthorised access login" )
+    console.log("Unauthorised access login " )
     res.redirect('/login')
   }
 })
 
-
 app.get('/logout',(req,res)=>{
   console.log("User logout '" + req.session.user.email + "'")
-  user.fname = null
-  user.lname = null
-  user.email = null
   req.session.reset();
   res.redirect('/')
 })
@@ -87,6 +80,7 @@ app.get('/edituser', async (req, res) => {
       res.send("Error " + err);
     }
   })
+
 app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
 
 app.get('/friends', async (req,res) => {
@@ -107,11 +101,6 @@ app.post('/register', async (req, res) => {
     const client = await pool.connect()
     var data = "('" + req.body.fname + "','"  + req.body.lname + "','" + req.body.email + "','" + req.body.password + "');"
     const result = await client.query("insert into users values " + data);
-         // ** to use if we want register to also auto-login
-    // user.fname = req.body.fname
-    // user.lname = req.body.lname
-    // user.email = req.body.email
-    // res.redirect('/user')
     res.redirect('/')
     client.release();
   }
@@ -130,6 +119,7 @@ app.post('/login', function( req, res) {
       var result = (table.rows[0].password==req.body.login_pass);
       if ( result ){
         console.log("User found '" + req.body.login_email + "' || result " + result )
+        var user = {fname:null,lname:null,email:null}
         user.fname = table.rows[0].fname
         user.lname = table.rows[0].lname
         user.email = req.body.login_email
@@ -149,14 +139,12 @@ app.post('/login', function( req, res) {
   })
 });
 
-
 app.post('/searchfriends', async (req,res) => {
   console.log('entered friend post')
   console.log(user)
 
   var fname = "'%" + req.body.fname + "%'"
   var lname = "'%" + req.body.lname + "%'"
-
 
     const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + " and email not in (select f.email2 from friends f where f.email1 = '" + user.email + "') order by lower(fname) ASC;")
     console.log("results: \n", result)
@@ -165,7 +153,6 @@ app.post('/searchfriends', async (req,res) => {
 
     const results = { 'results': (result) ? result.rows : null, 'user': user, 'friends': (friends) ? friends.rows : null};
     res.render('pages/searchfriends', results) 
-  
 })
 
 app.post('/edituser', async (req, res) => {
@@ -205,6 +192,7 @@ app.post('/searchtv',async(req,res)=>{
     }
   })
 })
+
 app.post('/prevtv',async(req,res)=>{
   console.log('entered a search value')
   var key = req.body.keyword_prev;
@@ -248,6 +236,7 @@ app.post('/searchmv',async(req,res)=>{
     }
   })
 })
+
 app.post('/prevmv',async(req,res)=>{
   console.log('entered a search value')
   var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
@@ -269,8 +258,6 @@ app.post('/prevmv',async(req,res)=>{
     }
   })
 })
-
-
 
 app.post('/details', (req,res)=>{
   movieobj.category = req.body.category,
@@ -333,10 +320,9 @@ app.post('/details_rev', (req,res)=>{
 app.post('/rateuser', async (req, res) => {
   try {
     console.log("User has posted review")
-    console.log(user)
     const client = await pool.connect()
     var data = "('" + req.session.user.email + "','"+req.body.id+"', '"+req.body.category+"', \
-    '"+req.body.title+"', "+ req.body.rating +", '" + req.body.review + "', '"+ user.fname +"', '" + user.lname + "');"
+    '"+req.body.title+"',  "+ req.body.rating +"  , '" + req.body.review + "');"
     const result = await client.query("insert into review values " + data);
     res.redirect('/details')
     client.release();
@@ -451,14 +437,5 @@ app.post('/FriendRequestResponse', async (req, res) => {
   }
 })
 
-function sendFriendRequest(fname2, lname2, email2, fname1, lname1, email1) {
-  console.log(fname2)
-  console.log(fname1)
-  res.redirect('/user')
-}
-
-
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 module.exports = app;
-
-
