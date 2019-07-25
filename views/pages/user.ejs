@@ -48,6 +48,36 @@
 
   <br/>
   <div>
+    <table class="display" style="border-collapse: collapse;">
+      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
+      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
+      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Movie&nbsp;Name </th>
+      <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
+      <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
+      <% var n = rows.length;%>
+      <% for (var i=0; i<n ; i++) { %>
+      <% r = rows[i]; %>
+      <tr style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
+          <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td>
+          <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
+          <td style="color:red; padding-left: 10px;padding-right: 10px;border: 2px solid black"
+          onclick="document.forms[<%=i+1%>].submit()"><%= r.title %></td>
+          <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+          <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
+
+          <form name='<%=r.id%>' method="post" action="/details_rev">
+            <input type="hidden" name="category" value="<%=r.category%>">
+            <input type="hidden" name="id" value="<%=r.id%>">
+          </form>
+      </tr>
+        <% }; %>
+    </table>
+	</div>
+</body>
+</html>
+
+
+<!-- 
     <table class="display" style="border-collapse: collapse; border: 2px solid white; border-radius: 10px">
       <th style="display: none; padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
       <th style="display: none; padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
@@ -81,20 +111,4 @@
     <% }; %>
   <% }; %>
   </table>
-
-<!--       <div id="tablediv" style="display: inline-block;float: left;margin-left: 200px">
-      <strong> Most Popular </strong>
-      <table id="tablet" style="padding: 10px">
-        <th> Name </th>
-        <th> Rating </th>
-        <tr>
-          <td>movie name</td>
-          <td>rating of movie</td>
-        </tr>
-      </table>
-      </div>
- -->
-
-	</div>
-</body>
-</html>
+   -->
