@@ -86,7 +86,7 @@ app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
 app.get('/friends', async (req,res) => {
   try {
     console.log(user)
-    const result  = await pool.query("select f.fname1, f.lname1, f.email1 from friends f where f.email2 = '" + user.email + "' and '" + user.email + "'  not in (select ff.email1 from friends ff where ff.email2 = f.email1);")    
+    const result  = await pool.query("select f.fname1, f.lname1, f.email1 from friends f where f.email2 = '" + req.session.user.email + "' and '" + req.session.user.email + "'  not in (select ff.email1 from friends ff where ff.email2 = f.email1);")    
     // console.log(result)
     const results = { 'results': (result) ? result.rows : null, user: user};
     res.render('pages/friends', results);
@@ -321,8 +321,9 @@ app.post('/rateuser', async (req, res) => {
   try {
     console.log("User has posted review")
     const client = await pool.connect()
-    var data = "('" + req.session.user.email + "','"+req.body.id+"', '"+req.body.category+"', \
-    '"+req.body.title+"',  "+ req.body.rating +"  , '" + req.body.review + "');"
+var data = "('" + req.session.user.email + "','"+req.body.id+"', '"+req.body.category+"', '"+req.body.title+"', "+ req.body.rating +", '" + req.body.review + "', '"+ req.session.user.fname +"', '" + req.session.user.lname + "');"
+
+
     const result = await client.query("insert into review values " + data);
     res.redirect('/details')
     client.release();

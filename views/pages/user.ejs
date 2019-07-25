@@ -17,7 +17,7 @@
             <table>
               <tr>
                 <td colspan="3" align="center">
-                  <%= user.fname %> <%= user.lname %><br/>
+                  <%= fname %> <%= lname %><br/>
                 </td>
               </tr>
               <tr>
@@ -31,7 +31,7 @@
           <td rowspan="2">
               <div style="display: inline-block;float: right;">
               <!-- a search box -->
-                <form method= 'post'">
+                <form method= 'post'>
                   <input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
                   <input type="hidden" name="pg" value="1">
                   <table style="margin:auto;" align="center">
@@ -55,7 +55,7 @@
       <th style="padding-left: 10px;padding-right: 10px;border: 2px solid white"> Movie&nbsp;Name </th>
       <th style="padding-left: 10px;padding-right: 10px; border: 2px solid white"> Rating </th>
       <th style="padding-left: 10px;padding-right: 10px; border: 2px solid white"> Review </th>
-      <% var n = results.length;%>
+      <% var n = rows.length;%>
       <% if (n == 0){%>
         <tr style="text-align: center; margin: auto">
           <td colspan="4" >No Reviews Yet</td>
@@ -64,12 +64,12 @@
       
         
       <% for (var i=0; i<n ; i++) { %>
-      <% r = results[i]; %>
-      <tr style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black" onclick="document.forms[<%=i+1%>].submit()">
+      <% r = rows[i]; %>
+      <tr style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
         <td style="display: none; padding-left: 10px;padding-right: 10px"><%= r.id %></td>
         <td style="display: none; padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.category %></td>
         <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= user.fname %> <%= user.lname %></td>
-        <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.title %></td>
+        <td style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid white" onclick="document.forms[<%=i+1%>].submit()"><%= r.title %></td>
         <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.rating %></td>
         <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.review %></td>
 
