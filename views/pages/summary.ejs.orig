@@ -71,6 +71,37 @@
 					Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
 					<br/>
 
+<<<<<<< HEAD
+					<table>
+					<div> 
+						<br>
+						<form action="/rateuser" method = "post">
+						Rating:  <input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5">
+						<br>
+						<br>
+						Review:  <br> <input type="text" name="review" style="width: 500px; height: 100px;">
+						<br>
+						<br>
+						<button id="submitbutton" > Submit </button>
+						<input type="hidden" name="title" value="<%=title%>">
+						</form>
+					</div>
+					</table>
+				</div>
+			</td>
+			<td>
+				<div style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
+					Friend's Reviews
+				</div>
+			</td>
+		</tr>
+=======
+
+	<div >
+	  <h3>Your Review</h3>
+	  Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
+	  <br/>
+
 	  <table>
 	  <div > 
 	  
@@ -90,6 +121,7 @@
 	</div>
 		
 	  </div>
+>>>>>>> c3fee2b2aa137b44771ff7fbc094cf82e9334c0d
 	</table>
 
 </body>
