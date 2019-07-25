@@ -4,17 +4,9 @@
 	<meta charset="utf-8" />
 	<title>Social Scene</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
-  <style type="text/css">
-    tr.rev_display:hover{
-      background-color: grey;
-    }
-    td.title:hover{
-      text-decoration: underline;
-      font-weight:bold;
-    }
-  </style>
 </head>
 <body>
+  <%const base = 'https://image.tmdb.org/t/p/w185';%>
   <header key="splash_screen">
     <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
       SocialScene
@@ -58,70 +50,71 @@
   <br/>
   <% var n = rows.length;%>
   <%if (n !=0){%>
-  <div>
     <!-- review table -->
-    <table class="display" style="border-collapse: collapse;">
-      <!-- column names -->
-      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
-      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
-      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Movie&nbsp;Name </th>
-      <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
-      <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
-      <!-- displaying the data -->
-      <% for (var i=0; i<n ; i++) { %>
-      <% r = rows[i]; %>
-      <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
-          <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td>
-          <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
-          <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black" onclick="document.forms[<%=i+1%>].submit()"><%= r.title %></td>
-          <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
-          <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
+    <div>
+      <table class="display" style="border-collapse: collapse;">
+        <!-- column names -->
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Movie&nbsp;Name </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
+        <!-- displaying the data -->
+        <% for (var i=0; i<n ; i++) { %>
+        <% r = rows[i]; %>
+        <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
+            <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
+            <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black" onclick="document.forms[<%=i+1%>].submit()"><%= r.title %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
 
-          <form name='<%=r.id%>' method="post" action="/details_rev">
-            <input type="hidden" name="category" value="<%=r.category%>">
-            <input type="hidden" name="id" value="<%=r.id%>">
-          </form>
-      </tr>
-        <% }; %>
-    </table>
-	</div>
+            <!-- data for detailed page -->
+            <form name='<%=r.id%>' method="post" action="/details_rev">
+              <input type="hidden" name="category" value="<%=r.category%>">
+              <input type="hidden" name="id" value="<%=r.id%>">
+            </form>
+        </tr>
+          <% }; %>
+      </table>
+  	</div>
   <%};%>
+
+  <!-- popular movie -->
+  <h3 style="color: red;">Popular Movies</h3>
+  <div class="popular">
+    <%var m =popularmv.length%>
+    <% for (var i=0; i<m ; i++) { %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()'>
+        <% r = popularmv[i]; %>
+        <%= r.title %><br>
+        <%if(r.poster_path == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster_path%>
+          <img src= '<%=url%>'>
+        <%};%>
+      </div>
+    <%};%>
+  </div>
+
+  <!-- popular tv shows -->
+  <h3 style="color: red;">Popular TV Shows</h3>
+  <div class='popular'>
+    <%var m =populartv.length%>
+    <% for (var i=0; i<m ; i++) { %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()'>
+        <% r = populartv[i]; %>
+        <%= r.name %><br>
+        <%if(r.poster_path == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster_path%>
+          <img src= '<%=url%>'>
+        <%};%>
+      </div>
+    <%};%>
+  </div>
+
 </body>
 </html>
-
-
-<!-- 
-    <table class="display" style="border-collapse: collapse; border: 2px solid white; border-radius: 10px">
-      <th style="display: none; padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
-      <th style="display: none; padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
-      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid white"> Friend&nbsp;Name </th>
-      <th style="padding-left: 10px;padding-right: 10px;border: 2px solid white"> Movie&nbsp;Name </th>
-      <th style="padding-left: 10px;padding-right: 10px; border: 2px solid white"> Rating </th>
-      <th style="padding-left: 10px;padding-right: 10px; border: 2px solid white"> Review </th>
-      <% var n = rows.length;%>
-      <% if (n == 0){%>
-        <tr style="text-align: center; margin: auto">
-          <td colspan="4" >No Reviews Yet</td>
-        </tr>
-        <%}else{%>
-      
-        
-      <% for (var i=0; i<n ; i++) { %>
-      <% r = rows[i]; %>
-      <tr style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
-        <td style="display: none; padding-left: 10px;padding-right: 10px"><%= r.id %></td>
-        <td style="display: none; padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.category %></td>
-        <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= user.fname %> <%= user.lname %></td>
-        <td style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid white" onclick="document.forms[<%=i+1%>].submit()"><%= r.title %></td>
-        <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.rating %></td>
-        <td style="padding-left: 10px;padding-right: 10px;border: 2px solid white"><%= r.review %></td>
-
-        <form name='<%=r.id%>' method="post" action="/details_rev">
-        <input type="hidden" name="category" value="<%=r.category%>">
-        <input type="hidden" name="id" value="<%=r.id%>">
-        </form>
-      </tr>
-    <% }; %>
-  <% }; %>
-  </table>
-   -->

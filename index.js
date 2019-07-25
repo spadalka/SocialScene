@@ -5,15 +5,24 @@ const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
+
+function retrieve(url) {
+  return new Promise((resolve, reject) => {
+    request({ url: url, json: true }, function(err, res, body) {
+      if (err) reject(err);
+      else resolve(body);
+    });
+  });
+}
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -36,7 +45,16 @@ app.get('/', (req, res) => res.render('pages/app'))
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
-app.get('/user', function (req,res){
+app.get('/user', async function (req,res){
+
+  //retrieving popular data from url
+  var urlmv = 'https://api.themoviedb.org/3/discover/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1'
+  console.log('retrieving popularmv from', urlmv)
+  var urltv = 'https://api.themoviedb.org/3/discover/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false'
+  console.log('retrieving populartv from', urltv)
+  var popularmv = await retrieve(urlmv);  //contains the data from the api
+  var populartv = await retrieve(urltv);
+
   if (req.session && req.session.user)
   {
     var data = "'" + req.session.user.email + "';"
@@ -47,6 +65,8 @@ app.get('/user', function (req,res){
         if (result.rows.length != null) {
           res.locals.user.rows = result.rows
         }
+        res.locals.user.popularmv = popularmv.results;  //adding popularmv to obj
+        res.locals.user.populartv = populartv.results;  //adding populartv to obj
         res.render('pages/user',res.locals.user)
       })
     }

@@ -149,6 +149,7 @@ table {
   text-align: left;
 }
 
+/*summary.ejs*/
 table.display{
   margin-top: 10px;
   margin-left: 10px;
@@ -163,12 +164,30 @@ table.display{
   color: white;
 }
 
+/*searchtv.ejs / searchmv.ejs*/
 div.collection{
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 185px;
+}
+
+/*user.ejs review table*/
+tr.rev_display:hover{
+      background-color: grey;
+    }
+td.title:hover{
+  text-decoration: underline;
+  font-weight:bold;
+}
+
+/*user.ejs popular displays*/
+div.popular{
+  max-width: 90%;
+  align-self: center;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .collectionFriends {
