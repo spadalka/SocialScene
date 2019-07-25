@@ -28,6 +28,7 @@
 		<%};%>
 		<!-- data to load a detailed page -->
 		<form name='<%=r.id%>' method="post" action="/details">
+			<input type="hidden" name="category" value="tv">
 			<input type="hidden" name="id" value="<%=r.id%>">
 			<input type="hidden" name="title" value="<%=r.name%>">
 			<input type="hidden" name="overview" value = "<%=r.overview%>">
@@ -36,7 +37,6 @@
 			<input type="hidden" name="language" value="<%=r.original_language%>">
 			<input type="hidden" name="vote" value="<%=r.vote_count%>">
 			<input type="hidden" name="rating" value="<%=r.vote_average%>">
-
 		</form>
 	</div>
 	<% }; %>

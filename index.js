@@ -4,16 +4,16 @@ const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
 const request = require('request')
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var user = {fname:null,lname:null,email:null}
-var movieobj = {id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
+var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -206,6 +206,7 @@ app.post('/prevmv',async(req,res)=>{
 })
 
 app.post('/details', (req,res)=>{
+  movieobj.category = req.body.category,
   movieobj.id = req.body.id,
   movieobj.title = req.body.title,
   movieobj.overview = req.body.overview,
@@ -216,13 +217,19 @@ app.post('/details', (req,res)=>{
   movieobj.rating = req.body.rating
   res.render('pages/summary',movieobj)
 })
+
+app.post('/details_rev', (req,res)=>{
+  console.log("Category:",req.body.category);
+  console.log(req.body.category,"ID:",req.body.id);
+})
 // tmdb api end
 
 app.post('/rateuser', async (req, res) => {
-	console.log("User has posted review")
   try {
+  	console.log("User has posted review")
     const client = await pool.connect()
-    var data = "('" + user.email + "','"+req.body.title+"', " + req.body.rating + " , '" + req.body.review + "');"
+    var data = "('" + user.email + "','"+req.body.id+"', '"+req.body.category+"', \
+    '"+req.body.title+"',  "+ req.body.rating +"  , '" + req.body.review + "');"
     const result = await client.query("insert into review values " + data);
     res.redirect('/details')
     client.release();

@@ -64,14 +64,16 @@
 	  
 		<br>
 		<form action="/rateuser" method = "post">
-		  Rating:<input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5">
+		  Rating:<input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5" required>
 		  <br>
 		  <br>
 		  Review: <br> <input type="text" name="review" style="width: 500px; height: 100px;">
 		  <br>
 		  <br>
-		  <button id="submitbutton" > Submit </button>
+		  <input type="hidden" name="id" value="<%=id%>">
+  		  <input type="hidden" name="category" value="<%=category%>">
 		  <input type="hidden" name="title" value="<%=title%>">
+		  <button id="submitbutton" > Submit </button>
 		</form>
 	</div>
 		
