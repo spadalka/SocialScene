@@ -29,7 +29,7 @@
 		Please Enter a New Search
 		<br/><br/><br/><br/>
 		<!-- a search box -->
-			<form method= 'post'">
+			<form method= 'post'>
 			<input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
 			<input type="hidden" name="pg" value="1">
 			<table style="margin:auto;" align="center">
@@ -60,16 +60,9 @@
 			<img src= '<%=url%>'>
 		<%};%>
 		<!-- data to load a detailed page -->
-		<form name='<%=r.id%>' method="post" action="/details">
+		<form name='<%=r.id%>' method="post" action="/details_rev">
 			<input type="hidden" name="category" value="tv">
 			<input type="hidden" name="id" value="<%=r.id%>">
-			<input type="hidden" name="title" value="<%=r.name%>">
-			<input type="hidden" name="overview" value = "<%=r.overview%>">
-			<input type="hidden" name="date" value="<%=r.first_air_date%>">
-			<input type="hidden" name="poster" value="<%=r.poster_path%>">
-			<input type="hidden" name="language" value="<%=r.original_language%>">
-			<input type="hidden" name="vote" value="<%=r.vote_count%>">
-			<input type="hidden" name="rating" value="<%=r.vote_average%>">
 		</form>
 	</div>
 	<% }; %>
