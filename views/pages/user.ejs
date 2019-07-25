@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title>Social Scene</title>
-	<link rel="stylesheet" href="./stylesheets/app.css">
+  <meta charset="utf-8" />
+  <title>Social Scene</title>
+  <link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
-	<div id="outerdiv" >
-		<header className="App-header" key="splash_screen">
+  <div id="outerdiv" >
+    <header className="App-header" key="splash_screen">
       <h1> SocialScene </h1>
       <h2 style="text-align: left;margin-left: 30px;"> 
-        Welcome <%= user.fname %> <%= user.lname %>,
+        Welcome <%= fname %> <%= lname %>,
         <button onclick="window.location.href='/logout'" style="width: 150px; height:40px; float: right;"> Logout </button>
         <button onclick="window.location.href='/edituser'" style="width: 150px; height:40px; margin-right: 20px; float: right;"> Edit Info </button>
       </h2>
@@ -34,9 +34,9 @@
         <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Movie&nbsp;Name </th>
         <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
         <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
-        <% var n = results.length;%>
+        <% var n = rows.length;%>
         <% for (var i=0; i<n ; i++) { %>
-        <% r = results[i]; %>
+        <% r = rows[i]; %>
         <tr style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
             <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td>
             <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
@@ -46,26 +46,14 @@
             <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
 
             <form name='<%=r.id%>' method="post" action="/details_rev">
-              <input type="hidden" name="category" value="tv">
+              <input type="hidden" name="category" value="<%=r.category%>">
               <input type="hidden" name="id" value="<%=r.id%>">
             </form>
         </tr>
           <% }; %>
       </table>
 
-<!--       <div id="tablediv" style="display: inline-block;float: left;margin-left: 200px">
-      <strong> Most Popular </strong>
-      <table id="tablet" style="padding: 10px">
-        <th> Name </th>
-        <th> Rating </th>
-        <tr>
-          <td>movie name</td>
-          <td>rating of movie</td>
-        </tr>
-      </table>
-      </div>
- -->
     </header>
-	</div>
+  </div>
 </body>
 </html>
