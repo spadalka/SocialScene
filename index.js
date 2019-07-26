@@ -101,7 +101,7 @@ app.get('/edituser', async (req, res) => {
       res.send("Error " + err);
     }
   })
-app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
+app.get('/details_rev', (req,res)=>{res.render('pages/summary',movieobj)})
 
 app.post('/register', async (req, res) => {
   try {
@@ -301,12 +301,12 @@ app.post('/rateuser', async (req, res) => {
     var data = "('" + req.session.user.email + "','"+req.body.id+"', '"+req.body.category+"', \
     '"+req.body.title+"',  "+ req.body.rating +"  , '" + req.body.review + "');"
     const result = await client.query("insert into review values " + data);
-    res.redirect('/details')
+    res.redirect('/details_rev')
     client.release();
   }
   catch (err) {
     console.error("Error: " + err);
-    res.redirect('/details')
+    res.redirect('/details_rev')
   }
 })
 
