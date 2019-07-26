@@ -326,6 +326,8 @@ li a {
   text-align: center;
   padding: 10px 20px;
   text-decoration: none;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
 }
 
 li a:hover:not(.active) {

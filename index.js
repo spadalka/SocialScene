@@ -44,7 +44,16 @@ app.get('/', (req, res) => res.render('pages/app'))
 
 app.get('/login', (req, res) => res.render('pages/login',{val:'none'}))
 app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
-app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
+app.get('/tmdb', function(req,res){
+  if (req.session && req.session.user){
+    res.render('pages/tmdb')
+  }
+  else {
+    console.log("Unauthorised access TMDB")
+    res.redirect('/login')
+  }
+})
+
 app.get('/user', async function (req,res){
 
   //retrieving popular data from url
