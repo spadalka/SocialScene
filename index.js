@@ -5,12 +5,12 @@ const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
 const pool = new Pool({
-  // connectionString: process.env.DATABASE_URL,
-  // ssl: true
-  user: 'postgres',
-  password: 'pgsqlsucks',
-  host: 'localhost',
-  database: 'postgres'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  // user: 'postgres',
+  // password: 'root',
+  // host: 'localhost',
+  // database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -108,6 +108,7 @@ app.post('/register', async (req, res) => {
     const client = await pool.connect()
     var data = "('" + req.body.fname + "','"  + req.body.lname + "','" + req.body.email + "','" + req.body.password + "');"
     const result = await client.query("insert into users values " + data);
+    console.log("User created '" + req.body.email + "'")
     res.redirect('/')
     client.release();
   }
@@ -131,7 +132,6 @@ app.post('/login', function( req, res) {
         user.lname = table.rows[0].lname
         user.email = req.body.login_email
         req.session.user = user
-        console.log(req.session.user)
         res.redirect('/user')
       }
       else{

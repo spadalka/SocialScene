@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<title>Edit User</title>
-	<link rel="stylesheet" href="./stylesheets/app.css">
+  <meta charset="utf-8" />
+  <title>Social Scene</title>
+  <link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body>
   <header key="splash_screen">
     <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
       SocialScene
     </div>
-    <div class="header_div" style="align-content: center;font-size: 20px;">
-        <br/><%= fname %> <%= lname %><br/><br/>
-    </div>
   </header>
+
+  <!-- nav bar stuff -->
+  <ul>
+    <li><a href="/user" >Home</a></li>
+    <li><a class="active" href="/edituser">Edit User</a></li>
+    <li style="float: right"><a href="/logout">Logout</a></li>
+    <li style="float: right"><a href="/tmdb">Search</a></li>
+  </ul> 
+
   <br/>
       <div class="login_body" style="padding: 10px; height: 550px; width: 450px">
           <br/><br/>Edit Your Information<br/><br/>

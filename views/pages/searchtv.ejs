@@ -4,20 +4,28 @@
 	<title>Results</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
-<body <% if (total_results != 0){%>style="float: left; display: inline-block;"<%};%>>
+<body>
 	<%const base = 'https://image.tmdb.org/t/p/w185';%>
-	<header key="splash_screen">
+	<header key="splash_screen" style="width: 100%">
 		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
 			SocialScene
 		</div>
-		<div class="header_div" style="align-content: center;">
-			<% if (total_results == 0){%>
-				<p style="color: red">There are no results to display.<br/>Please try a different keyword </p>
-			<%}else{%>
-				<p>Now Displaying <span style="color: red;font-weight: bold"><%=results.length%></span> Search Results</p>
-			<%};%>
-		</div>
 	</header>
+
+	<ul>
+	  <li><a href="/user" >Home</a></li>
+	  <li><a href="/edituser">Edit User</a></li>
+	  <li style="float: right"><a href="/logout">Logout</a></li>
+	  <li  style="float: right"><a href="/tmdb">Search</a></li>
+	</ul> 
+
+	<div style="align-content: center; color: white">
+		<% if (total_results == 0){%>
+			<p style="color: red">There are no results to display.<br/>Please try a different keyword </p>
+		<%}else{%>
+			<p>Now Displaying <span style="color: red;font-weight: bold"><%=results.length%></span> Search Results</p>
+		<%};%>
+	</div>
 	
 	<br/>
 
@@ -46,6 +54,7 @@
 	
 	<!-- listing out the data -->
 	<% var n = results.length;%>
+	<div style="float: left;display: inline-block;" >
 	<% for (var i=0; i<n ; i++) { %>
 		<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=results[i].id%>).submit()' style=" display: inline-block;">
 			<% r = results[i]; %>
@@ -63,6 +72,7 @@
 			</form>
 		</div>
 	<% }; %>
+	</div>
 
 	<!-- change page button -->
 	<div style="margin-top: 10px;">
@@ -97,17 +107,6 @@
 					<%};%>
 				</form>
 			</td>
-
-			<tr>
-				<td></td>
-				<td>
-					<div  align="center">
-						<button onclick="window.location.href='/user'" style="width: 175px;">Back to Main</button>
-					</div>
-				</td>
-				<td></td>
-				
-			</tr>
 		</table>
 		<%};%>
 	</div>
