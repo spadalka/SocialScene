@@ -103,6 +103,8 @@ app.get('/edituser', async (req, res) => {
   })
 app.get('/details_rev', (req,res)=>{res.render('pages/summary',movieobj)})
 
+app.get('/fsearch',(req,res)=>res.render('pages/fsearch'))
+
 app.post('/register', async (req, res) => {
   try {
     const client = await pool.connect()
@@ -294,6 +296,21 @@ app.post('/details_rev', (req,res)=>{
 })
 // tmdb api end
 
+//friends start
+app.post('/fsearch', async(req,res)=>{
+  try{
+    const client = await pool.connect()
+    // console.log("insert into friends values ('"+req.session.user.email+"', '"+req.body.email2+"', 0);")
+    const result = await client.query("insert into friends values ('"+req.session.user.email+"', '"+req.body.email2+"',0);")
+    console.log('sent friend request');
+    res.redirect("/fsearch")
+  }
+  catch (err){
+    console.log("failed to send friend request");
+    res.redirect("/fsearch")
+  }
+})
+//friends end
 app.post('/rateuser', async (req, res) => {
   try {
   	console.log("User has posted review")

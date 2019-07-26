@@ -336,3 +336,15 @@ li a:hover:not(.active) {
 .active {
   background-color: green;
 }
+
+/*fsearch.ejs displays*/
+td.f_display{
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 375px;
+  height: 550px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
