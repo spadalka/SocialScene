@@ -12,17 +12,14 @@
   <br/>
   <br/>
   <div class="login_body" id="outerdiv">
-    <br/>
+    <br>
     <div class="login_header">
       Login
     </div>
-    <br/>
     <div class="alert" style ="display: <%= val %>">
-      <span class="closebtn"> X </span>
-      
       Incorrect username / password
+      <span class="closebtn"> X </span>
     </div>
-    
     <form action="/login" method="post" >
       <table align="center">
         <tbody align="center">
@@ -48,7 +45,7 @@
     </form>
     <br/>
     <div>
-      <button class="button submit_button" onclick="window.location.href='/'"> Back </button>
+      <button class="button submit_button" onclick="window.location.href='/'" style="margin-bottom: 20px"> Back </button>
     </div>
   </div>
   
