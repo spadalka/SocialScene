@@ -184,9 +184,9 @@ td.title:hover{
 
 /*user.ejs popular displays*/
 div.popular{
-  max-width: 90%;
+  width: 90%;
   align-self: center;
-  overflow: auto;
+  overflow:auto;
   white-space: nowrap;
 }
 

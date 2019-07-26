@@ -47,7 +47,7 @@
 	<!-- listing out the data -->
 	<% var n = results.length;%>
 	<% for (var i=0; i<n ; i++) { %>
-		<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()' style=" display: inline-block;">
+		<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=results[i].id%>).submit()' style=" display: inline-block;">
 			<% r = results[i]; %>
 			<%= r.name %><br>
 			<%if(r.poster_path == null){%>
@@ -57,7 +57,7 @@
 				<img src= '<%=url%>'>
 			<%};%>
 			<!-- data to load a detailed page -->
-			<form name='<%=r.id%>' method="post" action="/details_rev">
+			<form id='<%=r.id%>' method="post" action="/details_rev">
 				<input type="hidden" name="category" value="tv">
 				<input type="hidden" name="id" value="<%=r.id%>">
 			</form>

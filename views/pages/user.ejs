@@ -65,12 +65,12 @@
         <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
             <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td>
             <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
-            <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black" onclick="document.forms[<%=i+1%>].submit()"><%= r.title %></td>
+            <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black" onclick="document.getElementById(<%=i%>).submit()"><%= r.title %></td>
             <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
             <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
 
-            <!-- data for detailed page -->
-            <form name='<%=r.id%>' method="post" action="/details_rev">
+            <!-- data to render detailed page on a movie reviewed -->
+            <form id='<%=i%>' method="post" action="/details_rev">
               <input type="hidden" name="category" value="<%=r.category%>">
               <input type="hidden" name="id" value="<%=r.id%>">
             </form>
@@ -81,11 +81,11 @@
   <%};%>
 
   <!-- popular movie -->
-  <h3 style="color: red;">Popular Movies</h3>
+  <h3 style="color: white;">Popular Movies</h3>
   <div class="popular">
     <%var m =popularmv.length%>
     <% for (var i=0; i<m ; i++) { %>
-      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()'>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=popularmv[i].id%>).submit()'>
         <% r = popularmv[i]; %>
         <%= r.title %><br>
         <%if(r.poster_path == null){%>
@@ -95,15 +95,20 @@
           <img src= '<%=url%>'>
         <%};%>
       </div>
+      <!-- onclick submit this form to render mv summary -->
+      <form style="display:none" id='<%=r.id%>' method="post" action="/details_rev">
+        <input type="hidden" name="category" value="mv">
+        <input type="hidden" name="id" value="<%=r.id%>">
+      </form>
     <%};%>
   </div>
 
   <!-- popular tv shows -->
-  <h3 style="color: red;">Popular TV Shows</h3>
+  <h3 style="color: white;">Popular TV Shows</h3>
   <div class='popular'>
     <%var m =populartv.length%>
     <% for (var i=0; i<m ; i++) { %>
-      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()'>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById("<%=populartv[i].id%>").submit()'>
         <% r = populartv[i]; %>
         <%= r.name %><br>
         <%if(r.poster_path == null){%>
@@ -113,6 +118,11 @@
           <img src= '<%=url%>'>
         <%};%>
       </div>
+      <!-- onclick submit this form to render tv summary -->
+      <form style="display:none" id='<%=r.id%>' method="post" action="/details_rev">
+        <input type="hidden" name="category" value="tv">
+        <input type="hidden" name="id" value="<%=r.id%>">
+      </form>
     <%};%>
   </div>
 

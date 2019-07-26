@@ -49,9 +49,9 @@ app.get('/user', async function (req,res){
 
   //retrieving popular data from url
   var urlmv = 'https://api.themoviedb.org/3/discover/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1'
-  console.log('retrieving popularmv from', urlmv)
+  // console.log('retrieving popularmv from', urlmv)
   var urltv = 'https://api.themoviedb.org/3/discover/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false'
-  console.log('retrieving populartv from', urltv)
+  // console.log('retrieving populartv from', urltv)
   var popularmv = await retrieve(urlmv);  //contains the data from the api
   var populartv = await retrieve(urltv);
 

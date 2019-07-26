@@ -44,7 +44,7 @@
 	<!-- listing out the data -->
 	<% var n = results.length;%>
 	<% for (var i=0; i<n ; i++) { %>
-	<div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()'>
+	<div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=results[i].id%>).submit()'>
 		<% r = results[i]; %>
 		<%= r.title %><br>
 		<%if(r.poster_path == null){%>
@@ -54,7 +54,7 @@
 			<img src= '<%=url%>'>
 		<%};%>
 		<!-- data to load a detailed page -->
-		<form name='<%=r.id%>' method="post" action="/details_rev">
+		<form id='<%=r.id%>' method="post" action="/details_rev">
 			<input type="hidden" name="category" value="mv">
 			<input type="hidden" name="id" value="<%=r.id%>">
 		</form>
@@ -94,6 +94,7 @@
 				</form>
 			</td>
 
+			<!-- back to main -->
 			<tr>
 				<td></td>
 				<td>
@@ -102,7 +103,6 @@
 					</div>
 				</td>
 				<td></td>
-				
 			</tr>
 		</table>
 		<%};%>
