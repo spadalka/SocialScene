@@ -11,41 +11,33 @@
     <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
       SocialScene
     </div>
-    <div class="header_div">
-    <table class="user_div_table">
-        <tr>
-          <td style="font-size: 20px;" align="left">
-            <table>
-              <tr>
-                <td colspan="3" align="center">
-                  <%= fname %> <%= lname %><br/>
-                </td>
-              </tr>
-              <tr>
-                <td><button class="button user_div_user_bttn1" onclick="window.location.href='/logout'"> Logout </button></td>
-                <td><button class="button user_div_user_bttn1" onclick="window.location.href='/edituser'"> Edit Info </button></td>
-                <td><button class="button user_div_user_bttn1" onclick="window.location.href='/friends'"> Friends </button></td>
-              </tr>
-            </table>
-          </td>
-          <td></td>
-          <td rowspan="2">
-              <div style="display: inline-block;float: right;">
-              <!-- a search box -->
-                <form method= 'post'>
-                  <input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
-                  <input type="hidden" name="pg" value="1">
-                  <table style="margin:auto;" align="center">
-                    <td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
-                    <td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
-                  </table>
-                </form>
-              </div>
-          </td>
-        </tr>
-      </table>
-    </div>
   </header>
+
+  <!-- nav bar stuff -->
+  <ul>
+    <li><a class="active" href="/user" >Home</a></li>
+    <li><a href="/edituser">Edit User</a></li>
+    <li style="float: right"><a href="/logout">Logout</a></li>
+    <li style="float: right"><a href="/tmdb">Search</a></li>
+  </ul> 
+
+  <p align="left" style="color: white; font-size: 30px;margin:10px">
+    <strong> Welcome <%= fname %> <%= lname %>, </strong>
+  </p>
+  
+<!-- old seach bar
+  <div style="display: inline-block;float: right;">
+    <form method= 'post' style="padding: 10px;">
+      <input type="text" name="keyword" placeholder =" Enter Keyword to search" style="width: 300px" required>
+      <input type="hidden" name="pg" value="1">
+      <table>
+        <td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchmv">Search Movies</button></td>
+        <td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchtv">Search TV</button></td>
+      </table>
+    </form>
+  </div>
+ -->
+
 
   <br/>
   <% var n = rows.length;%>

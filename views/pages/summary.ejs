@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="utf-8" />
 	<title>Summary</title>
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
@@ -10,23 +11,17 @@
 		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
 			SocialScene
 		</div>
-		<div class="header_div" style="align-content: center;">
-			<table width="100%">
-				<td>
-					<button onclick="window.history.back()">Back to Search</button>
-				</td>
-				<td>
-					<p class="title_header" align="center"><%=title%></p>
-				</td>
-				<td style="text-align: right;">
-					<button style="border-radius: 10px" onclick="window.location.href='/user'">Back to Main</button>
-				</td>
-			</table>
-		</div>
 	</header>
 
+	<ul>
+	  <li><a href="/user" >Home</a></li>
+	  <li><a href="/edituser">Edit User</a></li>
+	  <li style="margin-left: 33%"><a onclick="window.history.back()">Back</a></li>
+	  <li style="float: right"><a href="/logout">Logout</a></li>
+	  <li style="float: right"><a href="/tmdb">Search</a></li>
+	</ul> 
 
-	
+
 	<table class="display">
 		<td style="min-width: 20%; text-align: center; align-items: center;">
 			<%if(poster == ''){%>
@@ -36,6 +31,7 @@
 			<%};%>
 		</td>
 		<td style="padding-left: 20px">
+			<p align="center"><%=title%></p>
 			<!-- overview -->
 			<%if(overview == ''){%>
 				<!-- <p>Overview: N/A</p> -->
@@ -63,6 +59,7 @@
 	</table>
 
 	<br/>
+
 	<table style="margin:auto">
 		<tr>
 			<td>
