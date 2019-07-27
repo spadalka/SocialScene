@@ -110,7 +110,15 @@ app.get('/edituser', async (req, res) => {
       res.send("Error " + err);
     }
   })
-app.get('/details_rev', (req,res)=>{res.render('pages/summary',movieobj)})
+app.get('/details_rev', (req,res)=>{
+  if (req.session && req.session.user){
+    res.render('pages/summary',movieobj)
+  }
+  else{
+    console.log("Unauthorised access details_rev" )
+    res.redirect('/login')
+  }
+})
 
 app.get('/fsearch',async(req,res)=>{
   try{
@@ -294,7 +302,23 @@ app.post('/prevmv',async(req,res)=>{
   })
 })
 
-app.post('/details_rev', (req,res)=>{
+app.post('/details_rev', async (req,res)=>{
+
+  try {
+    const client = await pool.connect()
+    const results = await client.query("select * from review where email='" + req.session.user.email + "' AND id='" + req.body.id +"';")
+    if ( results.rows.length == 1){
+      console.log("in the if")
+      movieobj.usrrate = results.rows[0].rating
+      movieobj.usrrev = results.rows[0].review
+    }
+    else{
+      console.log("ELSE CAEEEEES")
+      movieobj.usrrate = null
+      movieobj.usrrev = ''
+    }
+
+
   var category = req.body.category;
   var id = req.body.id;
   console.log(id)
@@ -333,10 +357,17 @@ app.post('/details_rev', (req,res)=>{
       movieobj.language = body.original_language,
       movieobj.vote = body.vote_count,
       movieobj.rating = body.vote_average
+
       res.render('pages/summary',movieobj)
     }
   })
-})
+}
+catch (err) {
+  console.error(err);
+  res.redirect('/user')
+}
+}
+)
 // tmdb api end
 
 //friends start
@@ -416,9 +447,21 @@ app.post('/rateuser', async (req, res) => {
   try {
   	console.log("User has posted review")
     const client = await pool.connect()
-    var data = "('" + req.session.user.email + "','"+req.body.id+"', '"+req.body.category+"', \
-    '"+req.body.title+"',  "+ req.body.rating +"  , '" + req.body.review + "');"
-    const result = await client.query("insert into review values " + data);
+    const results = await client.query("select * from review where email='" + req.session.user.email + "' AND id='" + req.body.id +"';")
+
+    if ( results.rows.length == 1){
+      console.log("User has updated old review")
+      var data = "rating='" + req.body.rating + "', review='" + req.body.review + "'"
+      const result = await client.query("update review set " + data + " where email= '" + req.session.user.email + "' AND id='" + req.body.id +"';")
+    }
+    else{
+      console.log("User posted new review")
+      var data = "('" + req.session.user.email + "','"+req.body.id+"', '"+req.body.category+"', \
+      '"+req.body.title+"',  "+ req.body.rating +"  , '" + req.body.review + "');"
+      const result = await client.query("insert into review values " + data);
+    }
+    movieobj.usrrate = req.body.rating
+    movieobj.usrrev = req.body.review
     res.redirect('/details_rev')
     client.release();
   }
