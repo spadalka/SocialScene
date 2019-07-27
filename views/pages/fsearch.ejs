@@ -23,22 +23,46 @@
     <td class="f_display" align="center">
     <!-- friend search form inside another table-->
       <p>Search for a Friend</p>
-      <form action="/fsearch" method="post">
+      <form action="/sendRequest" method="post">
         <!-- using an inner table to format the form -->
         <table>
           <tr>
             <p>Email:</p>
-            <input type="text" name="email2" value="" /><br>
+            <input type="text" name="receiver" value="" /><br>
           </tr>
           <tr>
-            <button style="margin-top: 50px;" id="search"> Search </button>
+            <button style="margin-top: 50px;" id="search"> Send Request </button>
           </tr>
         </table>
       </form>
     </td>
-    <!-- pending requests -->
     <td class="f_display" id="outerdiv" align="center">
-        <p>this going to contain the pending requests</p>
+      <!-- pending requests -->
+      <div class="pending">
+        <h3>Friend Request Received</h3>
+        <%var n = rows.length%>
+        <%for(var i=0; i<n; i++){%>
+          <%var r = rows[i]%>
+          <%if(r.email2 == user){%>
+            <p><%=r.email1%></p>
+            <form id="<%=i%>" method="post">
+              <input type="hidden" name="email1" value="<%=r.email1%>">
+              <button formaction="/accept">Accept</button>
+              <button formaction="/reject">Reject</button>
+            </form>
+          <%}%>
+        <%};%>
+      </div>
+      <!-- requests sent -->
+      <div class="pending">
+        <h3>Friend Request Sent</h3>
+        <%for(var j=0; j<n; j++){%>
+          <%var r = rows[j]%>
+          <%if(r.email1 == user){%>
+            <p><%=r.email2%></p>
+          <%}%>
+        <%};%>
+      </div>
     </td>
   </table>
 </body>

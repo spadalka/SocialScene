@@ -5,12 +5,12 @@ const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -103,7 +103,22 @@ app.get('/edituser', async (req, res) => {
   })
 app.get('/details_rev', (req,res)=>{res.render('pages/summary',movieobj)})
 
-app.get('/fsearch',(req,res)=>res.render('pages/fsearch'))
+app.get('/fsearch',async(req,res)=>{
+  try{
+    var results = {};
+    const client = await pool.connect()
+    var data ="SELECT * FROM friends WHERE (email1='"+req.session.user.email+"'OR email2='"+req.session.user.email+"') AND status = 0;"
+    const result = await client.query(data);
+    results.rows = result.rows,
+    results.user = req.session.user.email;   //creating an object to render pending status
+    // console.log(results);
+    res.render('pages/fsearch',results)
+    client.release();
+  }
+  catch{
+    console.log('error user does not exist')
+  }
+})
 
 app.post('/register', async (req, res) => {
   try {
@@ -297,19 +312,59 @@ app.post('/details_rev', (req,res)=>{
 // tmdb api end
 
 //friends start
-app.post('/fsearch', async(req,res)=>{
+app.post('/sendRequest', async (req,res) =>{
+  const client = await pool.connect();
+  var check = "SELECT * FROM friends WHERE email1='"+req.body.receiver+"' AND email2='"+req.session.user.email+"';"
+  //check is opposite, to confirm that the other party did not send a request and you're not already friends with them"
+  var trigger = await client.query(check,async function(error,result){
+    if (result.rows.length == 0){
+      try{
+        var data = "insert into friends values ('"+req.session.user.email+"', '"+req.body.receiver+"',0);";
+        client.query(data);
+        console.log('sent friend request');
+        client.release();
+        res.redirect("/fsearch");
+      }
+      catch{
+        console.log("Either you've sent already or does not exist");
+        res.redirect("/fsearch");
+      }
+    }
+    else{
+      console.log("Not sending request, other party sent you one")
+      res.redirect("/fsearch");
+    }
+  })
+})
+
+app.post('/accept', async (req,res)=>{
   try{
     const client = await pool.connect()
-    // console.log("insert into friends values ('"+req.session.user.email+"', '"+req.body.email2+"', 0);")
-    const result = await client.query("insert into friends values ('"+req.session.user.email+"', '"+req.body.email2+"',0);")
-    console.log('sent friend request');
-    res.redirect("/fsearch")
+    var data = "UPDATE friends set status = 1 WHERE email1='"+req.body.email1+"' AND email2= '"+req.session.user.email+"';"
+    console.log(data)
+    const result = await client.query(data);
+    res.redirect("/fsearch");
   }
-  catch (err){
-    console.log("failed to send friend request");
-    res.redirect("/fsearch")
+  catch{
+    console.log("failed to accept");
+    res.redirect("/fsearch");
   }
 })
+
+app.post('/reject', async (req,res)=>{
+  try{
+    const client = await pool.connect()
+    var data = "DELETE FROM friends WHERE email1='"+req.body.email1+"' AND email2= '"+req.session.user.email+"';"
+    console.log(data)
+    const result = await client.query(data);
+    res.redirect("/fsearch");
+  }
+  catch{
+    console.log("failed to accept");
+    res.redirect("/fsearch");
+  }
+})
+
 //friends end
 app.post('/rateuser', async (req, res) => {
   try {
