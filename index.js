@@ -5,12 +5,12 @@ const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -125,7 +125,26 @@ app.get('/fsearch',async(req,res)=>{
     client.release();
   }
   catch{
-    console.log('error user does not exist')
+    console.log('error user does not exist');
+    res.render('pages/login',{val:'block'});
+  }
+})
+
+app.get('/fmanage', async (req,res)=>{
+  try{
+    var results = {};
+    const client = await pool.connect()
+    var data ="SELECT * FROM friends WHERE (email1='"+req.session.user.email+"'OR email2='"+req.session.user.email+"') AND status = 1;"
+    const result = await client.query(data);
+    results.rows = result.rows,
+    results.user = req.session.user.email;   //creating an object to render pending status
+    // console.log(results);
+    res.render('pages/fmanage',results)
+    client.release();
+  }
+  catch{
+    console.log('error user does not exist');
+    res.render('pages/login',{val:'block'})
   }
 })
 
@@ -353,6 +372,7 @@ app.post('/accept', async (req,res)=>{
     console.log(data)
     const result = await client.query(data);
     res.redirect("/fsearch");
+    client.release();
   }
   catch{
     console.log("failed to accept");
@@ -367,6 +387,7 @@ app.post('/reject', async (req,res)=>{
     console.log(data)
     const result = await client.query(data);
     res.redirect("/fsearch");
+    client.release();
   }
   catch{
     console.log("failed to accept");
@@ -374,6 +395,22 @@ app.post('/reject', async (req,res)=>{
   }
 })
 
+app.post('/unfriend', async(req,res)=>{
+  try{
+    const client = await pool.connect()
+    var data = "DELETE FROM friends WHERE \
+    (email1='"+req.session.user.email+"' AND email2= '"+req.body.friendEmail+"') OR\
+    (email2='"+req.session.user.email+"' AND email1= '"+req.body.friendEmail+"');"
+    console.log(data)
+    const result = await client.query(data);
+    res.redirect("/fmanage");
+    client.release();
+  }
+  catch{
+    console.log("failed to unfriend");
+    res.redirect("/fmanage");
+  }
+})
 //friends end
 app.post('/rateuser', async (req, res) => {
   try {

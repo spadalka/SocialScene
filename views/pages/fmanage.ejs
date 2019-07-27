@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manage Friends</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<header key="splash_screen" style="width: 100%">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+	</header>
+
+  <!-- navigation bar -->
+	<ul>
+		<li><a href="/user" >Home</a></li>
+		<li><a href="/edituser">Edit User</a></li>
+		<li style="float: right"><a href="/logout">Logout</a></li>
+	 	<li  style="float: right"><a href="/tmdb">Search</a></li>
+  	</ul> 
+
+	<h1>Manage Friends</h1>
+	<%var n = rows.length%>
+	<%var friendEmail=''%>
+	<table class="friendList">
+		<%for(var i=0; i<n;i++){ %>
+			<%var r = rows[i]%>
+				<%if(r.email1 == user){%>
+					<%friendEmail = r.email2;%>
+				<%}else{%>
+					<%friendEmail = r.email1;%>
+				<%};%>
+			<tr>
+				<td style="padding-left: 10%"><%=friendEmail%></td>
+				<td>
+					<form method="post" action="unfriend">
+						<input type="hidden" name="friendEmail" value="<%=friendEmail%>">
+						<button>Unfriend</button>
+					</form>
+				</td>
+			</tr>
+		<%};%>
+	</table>
+</body>
+</html>
