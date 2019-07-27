@@ -7,8 +7,8 @@ body {
   /*align-items: center;*/
   font-size: 22px;
   color: black;
-  min-width: 1000px;  
-  min-height: 800px;
+  /*min-width: 1000px;  */
+  /*min-height: 800px;*/
   /* width: auto;  */
 }
 
@@ -17,8 +17,8 @@ body {
   border: 4px solid white;
   border-radius: 5px;
   width: auto;
-  min-height: 100px;
-  max-height: 16vh;
+  /*min-height: 100px;*/
+  /*max-height: 16vh;*/
   /* margin: 1px; */
   display: flex;
   flex-direction: column;
@@ -29,19 +29,35 @@ body {
   letter-spacing: 25px;
 }
 
-
-.login_body {
+.app_body {
   border-radius: 5px;
   border: 4px dashed white;
   border-color: white;
   width: 375px;
-  height: 500px;
+  height: 400px;
   /* display: flex; */
   /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   color: white;
   margin: auto;
+  margin-top: 30px;
+}
+
+.login_body {
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 375px;
+  /*height: 500px;*/
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: auto;
+  margin-top: 30px;
+  /*margin-bottom: 1px;*/
 }
 
 .user_box {
@@ -58,13 +74,14 @@ body {
   border: 4px dashed white;
   border-color: white;
   width: 575px;
-  height: 550px;
+  /*height: 535px;*/
   /* display: flex; */
   /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   color: white;
   margin: auto;
+  margin-top: 30px;
 }
 
 .display_box {
@@ -151,9 +168,9 @@ table {
 
 /*summary.ejs*/
 table.display{
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px ;
+  margin-top: 20px;
+  /*margin-left: 10px;*/
+  /*margin-right: 10px ;*/
   border:solid white;
   border-radius: 5px;
   padding: 20px;
@@ -326,6 +343,8 @@ li a {
   text-align: center;
   padding: 10px 20px;
   text-decoration: none;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
 }
 
 li a:hover:not(.active) {

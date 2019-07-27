@@ -22,7 +22,7 @@
 	</ul> 
 
 
-	<table class="display">
+	<table class="display" style="width: 100%;">
 		<td style="min-width: 20%; text-align: center; align-items: center;">
 			<%if(poster == ''){%>
 				<img src = '/noimg.jpg'>
@@ -30,8 +30,8 @@
 				<img src= '<%=url%>'>
 			<%};%>
 		</td>
-		<td style="padding-left: 20px">
-			<p align="center"><%=title%></p>
+		<td>
+			<p align="center" style="font-size: 30px"><strong><%=title%></strong></p>
 			<!-- overview -->
 			<%if(overview == ''){%>
 				<!-- <p>Overview: N/A</p> -->
@@ -60,12 +60,12 @@
 
 	<br/>
 
-	<table style="margin:auto">
+	<table style="margin:auto; margin-top: 30px;">
 		<tr>
 			<td>
-				<div style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
+				<div align="center" style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
 					<h3>Your Review</h3>
-					Title: <input align="center" style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
+					Title: &nbsp;&nbsp;&nbsp;&nbsp;<input style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
 					<br/>
 
 	  <table>
@@ -73,16 +73,16 @@
 	  
 		<br>
 		<form action="/rateuser" method = "post">
-		  Rating:<input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5" required>
+		  Rating: &nbsp;<input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5" required>
 		  <br>
 		  <br>
-		  Review: <br> <input type="text" name="review" style="width: 500px; height: 100px;">
+		  Review: <br> <input type="text" name="review" style="width: 500px; height: 100px;margin-left: 30px; margin-right: 30px">
 		  <br>
 		  <br>
 		  <input type="hidden" name="id" value="<%=id%>">
   		  <input type="hidden" name="category" value="<%=category%>">
 		  <input type="hidden" name="title" value="<%=title%>">
-		  <button id="submitbutton" > Submit </button>
+		  <button id="submitbutton" style="margin-bottom: 20px" > Submit </button>
 		</form>
 	</div>
 		

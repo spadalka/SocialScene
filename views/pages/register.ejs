@@ -10,20 +10,15 @@
     SocialScene
   </header>
   <br/>
-
   <br/>
-  
   <div class="register_body" id="outerdiv">
-    <br/>
     <div class="login_header">
       Register
     </div>
-    <br/>
       <div class="alert" style ="display: <%= val %>">
         This email has been already registered
         <span class="closebtn"> x </span>
       </div>
-
       <form action="/register" method="post">
         <table name="login_table" align="center">
           <tbody align="center" style="padding: 2px;">
@@ -58,12 +53,10 @@
         </table>
         <span id="chkermsg" style="display:none;font-size:calc(4px + 2vmin)" ></span>
         <br/>
-        <br/>
         <button id="submitbutton"> Submit </button>
       </form>
-      <br/>
       <div>
-        <button class="button submit_button" onclick="window.location.href='/'"> Back </button>
+        <button class="button submit_button" onclick="window.location.href='/'" style="margin-top: 10px; margin-bottom: 20px"> Back </button>
       </div>
 	</div>
 </body>
