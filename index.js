@@ -313,7 +313,6 @@ app.post('/details_rev', async (req,res)=>{
       movieobj.usrrev = results.rows[0].review
     }
     else{
-      console.log("ELSE CAEEEEES")
       movieobj.usrrate = null
       movieobj.usrrev = ''
     }
@@ -358,6 +357,7 @@ app.post('/details_rev', async (req,res)=>{
       movieobj.vote = body.vote_count,
       movieobj.rating = body.vote_average
 
+      client.release();
       res.render('pages/summary',movieobj)
     }
   })
