@@ -55,17 +55,16 @@ app.get('/tmdb', function(req,res){
 })
 
 app.get('/user', async function (req,res){
-
-  //retrieving popular data from url
-  var urlmv = 'https://api.themoviedb.org/3/discover/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1'
-  // console.log('retrieving popularmv from', urlmv)
-  var urltv = 'https://api.themoviedb.org/3/discover/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false'
-  // console.log('retrieving populartv from', urltv)
-  var popularmv = await retrieve(urlmv);  //contains the data from the api
-  var populartv = await retrieve(urltv);
-
   if (req.session && req.session.user)
   {
+    //retrieving popular data from url
+    var urlmv = 'https://api.themoviedb.org/3/discover/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1'
+    // console.log('retrieving popularmv from', urlmv)
+    var urltv = 'https://api.themoviedb.org/3/discover/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false'
+    // console.log('retrieving populartv from', urltv)
+    var popularmv = await retrieve(urlmv);  //contains the data from the api
+    var populartv = await retrieve(urltv);
+
     var data = "'" + req.session.user.email + "';"
     pool.query("select fname,lname,password from users where email= " + data, function(err,table){
     if (table.rows.length == 1) {
@@ -86,19 +85,28 @@ app.get('/user', async function (req,res){
     })
   }
   else {
-    console.log("Unauthorised access login " )
+    console.log("Unauthorised access login" )
     res.redirect('/login')
   }
 })
 
 
 app.get('/logout',(req,res)=>{
-  console.log("User logout '" + req.session.user.email + "'")
-  req.session.reset();
-  res.redirect('/')
+  if (req.session && req.session.user)
+  {
+    console.log("User logout '" + req.session.user.email + "'")
+    req.session.reset();
+    res.redirect('/')
+  }
+  else {
+    console.log("Unauthorised access logout" )
+    res.redirect('/login')
+  }
 })
 
 app.get('/edituser', async (req, res) => {
+  if (req.session && req.session.user)
+  {
     try {
       const client = await pool.connect()
       const result = await client.query("SELECT * FROM users where email= '" + req.session.user.email + "';");
@@ -109,7 +117,13 @@ app.get('/edituser', async (req, res) => {
       console.error(err);
       res.send("Error " + err);
     }
+  }
+  else {
+    console.log("Unauthorised access edituser")
+    res.redirect('/login')
+  }
   })
+
 app.get('/details_rev', (req,res)=>{
   if (req.session && req.session.user){
     res.render('pages/summary',movieobj)
