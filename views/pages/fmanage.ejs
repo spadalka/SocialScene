@@ -15,14 +15,20 @@
 	<ul>
 		<li><a href="/user" >Home</a></li>
 		<li><a href="/edituser">Edit User</a></li>
+		<li class="drop">
+		  <a class="current" href="/fmanage">Friends List</a>
+		  <div class="droplist">
+		    <a href="/fsearch" style="border: 0px">Manage Friends</a>
+		  </div>
+		</li>
 		<li style="float: right"><a href="/logout">Logout</a></li>
 	 	<li  style="float: right"><a href="/tmdb">Search</a></li>
   	</ul> 
 
-	<h1>Manage Friends</h1>
+	<h1 style="color: white">Friends List</h1>
 	<%var n = rows.length%>
 	<%var friendEmail=''%>
-	<table class="friendList">
+	<table class="friendList" style="text-align: center;">
 		<%for(var i=0; i<n;i++){ %>
 			<%var r = rows[i]%>
 				<%if(r.email1 == user){%>
@@ -31,8 +37,8 @@
 					<%friendEmail = r.email1;%>
 				<%};%>
 			<tr>
-				<td style="padding-left: 10%"><%=friendEmail%></td>
-				<td>
+				<td width="60%"><%=friendEmail%></td>
+				<td >
 					<form method="post" action="unfriend">
 						<input type="hidden" name="friendEmail" value="<%=friendEmail%>">
 						<button>Unfriend</button>
