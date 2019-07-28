@@ -513,8 +513,4 @@ const server = http.listen(5000, function() {
 //chat end
 
 // app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
-<<<<<<< HEAD
 // module.exports = app;
-=======
-// module.exports = app;
->>>>>>> 87a5be29895b24eee7b23980098c9eb2f1cb0404
