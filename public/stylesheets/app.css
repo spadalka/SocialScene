@@ -387,6 +387,7 @@ table.friendList{
   align-self: center;
 }
 
+<<<<<<< HEAD
 /*chatbox formatting*/
 .collapsible {
   border-radius: 0px;
@@ -426,3 +427,5 @@ table.friendList{
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
+=======
+>>>>>>> 2ba13459fe741c96eccc48e74f953fd531677708
