@@ -8,12 +8,12 @@ var session = require('client-sessions');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const pool = new Pool({
-  // connectionString: process.env.DATABASE_URL,
-  // ssl: true
-  user: 'postgres',
-  password: 'root',
-  host: 'localhost',
-  database: 'postgres'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  // user: 'postgres',
+  // password: 'root',
+  // host: 'localhost',
+  // database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -461,7 +461,7 @@ app.post('/unfriend', async(req,res)=>{
 //friends end
 app.post('/rateuser', async (req, res) => {
   try {
-  	console.log("User has posted review")
+    console.log("User has posted review")
     const client = await pool.connect()
     const results = await client.query("select * from review where email='" + req.session.user.email + "' AND id='" + req.body.id +"';")
 
@@ -513,4 +513,8 @@ const server = http.listen(5000, function() {
 //chat end
 
 // app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+<<<<<<< HEAD
 // module.exports = app;
+=======
+// module.exports = app;
+>>>>>>> 87a5be29895b24eee7b23980098c9eb2f1cb0404
