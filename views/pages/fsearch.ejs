@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Friend search</title>
+  <link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <header key="splash_screen" style="width: 100%">
+    <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+      SocialScene
+    </div>
+  </header>
+
+  <!-- navigation bar -->
+  <ul>
+    <li><a href="/user" >Home</a></li>
+    <li><a href="/edituser">Edit User</a></li>
+    <li class="drop">
+      <a href="/fmanage">Friends List</a>
+      <div class="droplist">
+        <a class="current" href="/fsearch" style="border: 0px">Manage Friends</a>
+      </div>
+    </li>
+    <li style="float: right"><a href="/logout">Logout</a></li>
+    <li  style="float: right"><a href="/tmdb">Search</a></li>
+  </ul> 
+
+  <div style="display: inline-block; margin-left: 20%;padding: 0" >
+    <table style="margin-top: 25px; width: 30%;float: left; margin-right: 50px">
+      <td class="f_display" align="center">
+      <!-- friend search form inside another table-->
+        <p>Search for a Friend</p>
+        <form action="/sendRequest" method="post">
+          <!-- using an inner table to format the form -->
+          <table>
+            <tr>
+              <p>Email:</p>
+              <input type="text" name="receiver" value="" /><br>
+            </tr>
+            <tr>
+              <button style="margin-top: 50px;" id="search"> Send Request </button>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </table>
+
+    <table style="margin-top: 25px; width: 50%;float: left;">
+      <td class="f_display" id="outerdiv" align="center" >
+        <!-- pending requests -->
+        <div class="pending">
+          <h3>Friend Request Received</h3>
+          <%var n = rows.length%>
+          <%for(var i=0; i<n; i++){%>
+            <%var r = rows[i]%>
+            <%if(r.email2 == user){%>
+              <p><%=r.email1%></p>
+              <form id="<%=i%>" method="post">
+                <input type="hidden" name="email1" value="<%=r.email1%>">
+                <button formaction="/accept">Accept</button>
+                <button formaction="/reject">Reject</button>
+              </form>
+            <%}%>
+          <%};%>
+        </div>
+        <!-- requests sent -->
+        <div class="pending" style="border-top: 1px solid white">
+          <h3>Friend Request Sent</h3>
+          <%for(var j=0; j<n; j++){%>
+            <%var r = rows[j]%>
+            <%if(r.email1 == user){%>
+              <p><%=r.email2%></p>
+            <%}%>
+          <%};%>
+        </div>
+      </td>
+    </table>
+  </div>
+</body>
+</html>

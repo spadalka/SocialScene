@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Summary</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<%const url = 'https://image.tmdb.org/t/p/w185'+poster;%>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+	</header>
+
+	<ul>
+	  <li><a href="/user" >Home</a></li>
+	  <li><a href="/edituser">Edit User</a></li>
+	  <li class="drop">
+	    <a href="/fmanage">Friends List</a>
+	    <div class="droplist">
+	      <a href="/fsearch" style="border: 0px">Manage Friends</a>
+	    </div>
+	  </li>
+	  <li style="margin-left: 22%"><a onclick="window.history.back()">Back</a></li>
+	  <li style="float: right"><a href="/logout">Logout</a></li>
+	  <li style="float: right"><a href="/tmdb">Search</a></li>
+	</ul>
+
+	<table class="display" style="width: 100%;">
+		<td style="min-width: 20%; text-align: center; align-items: center;">
+			<%if(poster == ''){%>
+				<img src = '/noimg.jpg'>
+			<%}else{%>
+				<img src= '<%=url%>'>
+			<%};%>
+		</td>
+		<td>
+			<p align="center" style="font-size: 30px"><strong><%=title%></strong></p>
+			<!-- overview -->
+			<%if(overview == ''){%>
+				<!-- <p>Overview: N/A</p> -->
+			<%}else{%>
+				<p><%=overview%></p>
+			<%};%>
+			<!-- poster -->
+			<%if(date == ''){%>
+				<p>Release Date: N/A</p>
+			<%}else{%>
+				<p>Release Date: <%=date%></p>
+			<%};%>
+			<!--  -->
+			<table>
+				<col width="280">
+				<td>TMDB Rating: <%=rating%>/10</td>
+				<td>Votes: <%=vote%></td>
+			</table>
+			<%if(language == ''){%>
+				<p>Original language: N/A</p>
+			<%}else{%>
+				<p>Original language: <%=language%></p>
+			<%};%>
+		</td>
+	</table>
+
+	<br/>
+
+	<table style="margin:auto; margin-top: 30px;">
+		<tr>
+			<td>
+				<div align="center" style="color: white; border-radius: 5px;border: 4px dashed white;border-color: white; margin: auto; padding: 10px;">
+					<h3>Your Review</h3>
+					Title: &nbsp;&nbsp;&nbsp;&nbsp;<input style="text-align: center;" type="text" name="title" value='<%=title%>' disabled />
+					<br/>
+
+	  <table>
+	  <div > 
+	  
+		<br>
+		<form action="/rateuser" method = "post">
+		  Rating: &nbsp;<input align="center" type="number" name="rating" placeholder="Enter a rating between [0-10]" max="10" min="0" step="0.5" required value="<%=usrrate%>">
+		  <br>
+		  <br>
+		  Review: <br> <input type="text" name="review" style="width: 500px; height: 100px;margin-left: 30px; margin-right: 30px" value="<%=usrrev%>" >
+		  <br>
+		  <br>
+		  <input type="hidden" name="id" value="<%=id%>">
+  		  <input type="hidden" name="category" value="<%=category%>">
+		  <input type="hidden" name="title" value="<%=title%>">
+		  <button id="submitbutton" style="margin-bottom: 20px" > Submit </button>
+		</form>
+	</div>
+		
+	  </div>
+	</table>
+
+</body>
+</html>

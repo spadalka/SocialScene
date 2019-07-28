@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<%const base = 'https://image.tmdb.org/t/p/w185';%>
+	<header key="splash_screen" style="width: 100%">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+	</header>
+
+	<ul>
+	  <li><a href="/user" >Home</a></li>
+	  <li><a href="/edituser">Edit User</a></li>
+	  <li class="drop">
+	    <a href="/fmanage">Friends List</a>
+	    <div class="droplist">
+	      <a href="/fsearch" style="border: 0px">Manage Friends</a>
+	    </div>
+	  </li>
+	  <li style="float: right"><a href="/logout">Logout</a></li>
+	  <li  style="float: right"><a href="/tmdb">Search</a></li>
+	</ul> 
+
+	<div style="align-content: center; color: white">
+		<% if (total_results == 0){%>
+			<p style="color: red">There are no results to display.<br/>Please try a different keyword </p>
+		<%}else{%>
+			<p>Now Displaying <span style="color: red;font-weight: bold"><%=results.length%></span> Search Results</p>
+		<%};%>
+	</div>
+	
+	<br/>
+
+	<br/>
+	<% if (total_results == 0){%>
+		<br/>
+		<div class="login_body" align="center" >
+		<br/><br/>
+		Please Enter a New Search
+		<br/><br/><br/><br/>
+		<!-- a search box -->
+			<form method= 'post'>
+			<input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
+			<input type="hidden" name="pg" value="1">
+			<table style="margin:auto;" align="center">
+				<td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
+				<td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
+			</table>
+			</form>
+		</div>
+	<%};%>
+
+	
+	<!-- listing out the data -->
+	<% var n = results.length;%>
+	<div style="float: left;display: inline-block;" >
+	<% for (var i=0; i<n ; i++) { %>
+		<div class='collection' onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=results[i].id%>).submit()' style=" display: inline-block;">
+			<% r = results[i]; %>
+			<%= r.name %><br>
+			<%if(r.poster_path == null){%>
+				<img src = '/noimg.jpg'>
+			<%}else{%>
+				<%var url = base + r.poster_path%>
+				<img src= '<%=url%>'>
+			<%};%>
+			<!-- data to load a detailed page -->
+			<form id='<%=r.id%>' method="post" action="/details_rev">
+				<input type="hidden" name="category" value="tv">
+				<input type="hidden" name="id" value="<%=r.id%>">
+			</form>
+		</div>
+	<% }; %>
+	</div>
+
+	<!-- change page button -->
+	<div style="margin-top: 10px;">
+		<% if (results.length != 0){%>
+		<table width="100%">
+			<td>
+				<!-- previous page -->
+				<form method="post">
+					<input type="hidden" name="keyword_prev" value="<%=key%>">
+					<input type="hidden" name="pg_prev" value="<%=page-1%>">
+					<%if(page > 1){%>
+						<button formaction="/prevtv">Previous</button>
+					<% } else { %>
+						<button style="visibility: hidden">Previous</button>
+					<%};%>
+				</form>
+			</td>
+
+			<td>
+				<p align="center" style="color: white">Page <%=page%></p>
+			</td>
+
+			<td style="text-align: right;">
+				<!-- next page -->
+				<form method="post">
+					<input type="hidden" name="keyword" value="<%=key%>">
+					<input type="hidden" name="pg" value="<%=page+1%>">
+					<%if(page < total_pages){%>
+						<button formaction="/searchtv">Next</button>
+					<% } else { %>
+						<button style="visibility: hidden">Next</button>
+					<%};%>
+				</form>
+			</td>
+		</table>
+		<%};%>
+	</div>
+</body>
+</html>

@@ -1,0 +1,428 @@
+body {
+  text-align: center;
+  background-color: #222324;
+  font-family: Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  font-size: 22px;
+  color: black;
+  /*min-width: 1000px;  */
+  /*min-height: 800px;*/
+  /* width: auto;  */
+}
+
+.App-header {
+  background-color: #222324;
+  border: 4px solid white;
+  border-radius: 5px;
+  width: auto;
+  /*min-height: 100px;*/
+  /*max-height: 16vh;*/
+  /* margin: 1px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(30px + 6vw);
+  color: white;
+  letter-spacing: 25px;
+}
+
+.app_body {
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 375px;
+  height: 400px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.login_body {
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 375px;
+  /*height: 500px;*/
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: auto;
+  margin-top: 30px;
+  /*margin-bottom: 1px;*/
+}
+
+.user_box {
+  border-radius: 5px;
+  border: 1px dashed white;
+  border-color: white;
+  padding: 5px;
+  margin: 5px;
+  width: auto;
+}
+
+.register_body {
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 575px;
+  /*height: 535px;*/
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.display_box {
+  border-collapse: collapse; 
+  border: 3px solid white;
+  border-radius: 5px;
+  color: white;
+}
+
+.TMDB_pic {
+  align-content: left;
+  display: block;
+  max-width: 125px;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  position:absolute;                  
+  bottom:0;                          
+  left:0;
+}
+
+.login_table {
+  margin: auto;
+  width: auto;
+}
+
+.login_header {
+  letter-spacing: 15px; 
+  align-self: center; 
+  margin: auto;
+  /* text-align: center; */
+  font-size: 38px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+button{
+  background-color: lightblue;
+  width: 200px;
+  height: 55px;
+  border-radius: 30px;
+  font-size: 20px;
+}
+
+button:hover{
+  background-color: lightgreen;
+}
+
+input{
+  border-radius: 10px;
+  text-align: left;
+  height: 20px;
+  width: 200px;
+  padding: 5px;
+}
+
+table {
+  text-align: left;
+}
+
+/*summary.ejs*/
+table.display{
+  margin-top: 20px;
+  /*margin-left: 10px;*/
+  /*margin-right: 10px ;*/
+  border:solid white;
+  border-radius: 5px;
+  padding: 20px;
+  color: white;
+}
+
+.collection {
+  color: white;
+}
+
+/*searchtv.ejs / searchmv.ejs*/
+div.collection{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 185px;
+}
+
+/*user.ejs review table*/
+tr.rev_display:hover{
+      background-color: grey;
+    }
+td.title:hover{
+  text-decoration: underline;
+  font-weight:bold;
+}
+
+/*user.ejs popular displays*/
+div.popular{
+  width: 90%;
+  align-self: center;
+  overflow:auto;
+  white-space: nowrap;
+}
+
+.collectionFriends {
+  color: white;
+}
+
+div.collectionFriends{
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 275px;
+ 
+}
+
+.header_div {
+  background-color: #222324;
+  border: 4px dashed white;
+  border-top: 0;
+  border-radius: 5px;
+  width: auto;
+  min-height: 4vh;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  font-size: 18px;
+  color: white;
+  letter-spacing: 12px;
+  padding: 1px 10px;
+}
+
+.title_header {
+  font-size: 18px;
+  color: white;
+  letter-spacing: 12px;
+  padding: 1px 10px;
+}
+
+.user_div_table {
+  width: 100%;
+  padding: 1px;
+  align-content: center;
+  align-self: center;
+}
+
+.user_div_user_bttn1 {
+  background-color: white;
+  border-radius: 5px;
+  width: calc(75px + 1.5vw);
+  height: 25px;
+  padding: 3px;
+  font-size: 12px;
+}
+
+.user_div_user_bttn1:hover{
+  background-color: rgb(192, 189, 189);
+}
+
+.user_div_user_bttn {
+  background-color: white;
+  border-radius: 5px;
+  width: 100px;
+  height: 25px;
+  padding: 3px;
+  font-size: 12px;
+}
+
+.user_div_user_bttn2:hover{
+  background-color: rgb(192, 189, 189);
+}
+
+.alert {
+  border-radius: 10px;
+  margin: auto;
+  font-size: 18px;
+  width: 75%;
+  padding: 8px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.closebtn {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: center;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+ul {
+  text-align: left
+}
+
+/*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_close_list_items*/
+/*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_alerts*/
+/*#error_div {
+  width: 400px;
+  padding:10px;
+  color: #D8000C;
+  background-color: #FFD2D2;
+  border-radius: 30px;
+  transition: 1s;
+}
+
+#error_div:hover {
+  width: 450px;
+}*/
+
+ul{
+  position: sticky;
+  top: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /*overflow: hidden;*/
+  background-color: black;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+}
+
+li a:hover:not(.current) {
+  background-color: white;
+  color: black;
+}
+
+.current {
+  background-color: green;
+}
+
+li.drop {
+  display: inline-block;
+}
+
+.droplist {
+  display: none;
+  position: absolute;
+  background-color: black;
+}
+
+.droplist a {
+  color: white;
+  display: block;
+  text-align: left;
+}
+
+.droplist a:hover:not(.current)
+{
+  background-color: white;
+}
+
+.drop:hover .droplist {
+  display: block;
+}
+
+/*fsearch.ejs displays*/
+td.f_display{
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  width: 375px;
+  height: 550px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+div.pending{
+  height: 250px;
+  align-self: center;
+  overflow-y: scroll;
+  white-space: nowrap;
+}
+
+table.friendList{
+  width:40%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white;
+  color: white;
+  align-self: center;
+}
+
+/*chatbox formatting*/
+.collapsible {
+  border-radius: 0px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: 1px solid white;
+  width: 300px;
+}
+
+.active, .collapsible:hover {
+  background-color: green;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  outline: 1px solid white;
+  right: 100px; 
+  bottom: 55px;
+  position: fixed;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
