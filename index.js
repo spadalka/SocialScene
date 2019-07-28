@@ -1,14 +1,10 @@
 const express = require('express')
-<<<<<<< HEAD
 const app = express()
-=======
->>>>>>> 2ba13459fe741c96eccc48e74f953fd531677708
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
 const request = require('request')
 var session = require('client-sessions');
-<<<<<<< HEAD
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const pool = new Pool({
@@ -18,15 +14,6 @@ const pool = new Pool({
   password: 'root',
   host: 'localhost',
   database: 'postgres'
-=======
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
->>>>>>> 2ba13459fe741c96eccc48e74f953fd531677708
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -40,10 +27,6 @@ function retrieve(url) {
   });
 }
 
-<<<<<<< HEAD
-=======
-const app = express()
->>>>>>> 2ba13459fe741c96eccc48e74f953fd531677708
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -504,7 +487,6 @@ app.post('/rateuser', async (req, res) => {
   }
 })
 
-<<<<<<< HEAD
 //chat start
 app.get('/chat', function(req, res) {
     res.render('pages/chat', req.session.user);
@@ -532,7 +514,3 @@ const server = http.listen(5000, function() {
 
 // app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 // module.exports = app;
-=======
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
-module.exports = app;
->>>>>>> 2ba13459fe741c96eccc48e74f953fd531677708
