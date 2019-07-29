@@ -150,7 +150,7 @@ app.get('/fsearch',async(req,res)=>{
   }
   catch{
     console.log('Unauthorised access fsearch');
-    res.render('pages/login',{val:'none'});
+    res.redirect('/user')
   }
 })
 
@@ -168,9 +168,24 @@ app.get('/fmanage', async (req,res)=>{
   }
   catch{
     console.log('Unauthorised access fmanage');
-    res.render('pages/login',{val:'none'})
+    res.redirect('/user')
   }
 })
+
+app.get('/chat', function(req, res) {
+  if (req.session && req.session.user){
+    res.render('pages/chat', req.session.user);
+  }
+  else{
+    console.log("Unauthorised access chat")
+    res.redirect('/login')
+  }
+})
+
+// Wild card so all other calls will be redirected to the main app page
+app.get("*", function(req, res) {res.redirect('/')}) 
+
+
 
 app.post('/register', async (req, res) => {
   try {
@@ -187,8 +202,6 @@ app.post('/register', async (req, res) => {
   }
 })
 
-//  Abel  | Thomas | a@asd.com | asd123
-//  asd   | asd    | a@a.com   | asd
 app.post('/login', function( req, res) {
   var data = "'" + req.body.login_email + "';"
   pool.query("select fname,lname,password from users where email= " + data, function(err,table){
@@ -215,7 +228,6 @@ app.post('/login', function( req, res) {
   })
 });
 
-
 app.post('/edituser', async (req, res) => {
   try {
     const client = await pool.connect()
@@ -230,6 +242,10 @@ app.post('/edituser', async (req, res) => {
     res.render('pages/edituser')
   }
 })
+
+
+
+
 
 //tmdb api start
 app.post('/searchtv',async(req,res)=>{
@@ -253,6 +269,7 @@ app.post('/searchtv',async(req,res)=>{
     }
   })
 })
+
 app.post('/prevtv',async(req,res)=>{
   console.log('entered a search value')
   var key = req.body.keyword_prev;
@@ -296,6 +313,7 @@ app.post('/searchmv',async(req,res)=>{
     }
   })
 })
+
 app.post('/prevmv',async(req,res)=>{
   console.log('entered a search value')
   var front = 'https://api.themoviedb.org/3/search/movie?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&query=';
@@ -319,7 +337,6 @@ app.post('/prevmv',async(req,res)=>{
 })
 
 app.post('/details_rev', async (req,res)=>{
-
   try {
     const client = await pool.connect()
     const results = await client.query("select * from review where email='" + req.session.user.email + "' AND id='" + req.body.id +"';")
@@ -333,10 +350,8 @@ app.post('/details_rev', async (req,res)=>{
       movieobj.usrrev = ''
     }
 
-
   var category = req.body.category;
   var id = req.body.id;
-  console.log(id)
   var front = '';
   var end = '?api_key=7558289524aade3e869fbafc8bb9e8fd';
   if (category == "tv") {
@@ -381,10 +396,12 @@ app.post('/details_rev', async (req,res)=>{
 catch (err) {
   console.error(err);
   res.redirect('/user')
-}
-}
-)
+}})
 // tmdb api end
+
+
+
+
 
 //friends start
 app.post('/sendRequest', async (req,res) =>{
@@ -459,6 +476,11 @@ app.post('/unfriend', async(req,res)=>{
   }
 })
 //friends end
+
+
+
+
+
 app.post('/rateuser', async (req, res) => {
   try {
     console.log("User has posted review")
@@ -487,11 +509,11 @@ app.post('/rateuser', async (req, res) => {
   }
 })
 
-//chat start
-app.get('/chat', function(req, res) {
-    res.render('pages/chat', req.session.user);
-})
 
+
+
+
+//chat start
 io.on('connection', function(socket) {
     socket.on('username', function(username) {
         socket.username = username;
@@ -507,15 +529,9 @@ io.on('connection', function(socket) {
     })
 })
 
-    http.listen(PORT, function() {
-    console.log(`currently listening on ${ PORT }`);
+http.listen(PORT, function() {
+  console.log(`Listening on ${ PORT }`)
 });
-
-
-// const server = http.listen(5000, function() {
-//     console.log(`currently listening on ${ PORT }`);
-// });
-
 //chat end
 
 // app.listen(PORT, () => console.log(`Listening on ${ PORT }`))

@@ -127,7 +127,7 @@ button{
 }
 
 button:hover{
-  background-color: lightgreen;
+  background-color: white;
 }
 
 input{
@@ -398,8 +398,8 @@ table.friendList{
   width: 100%;
   border: none;
   text-align: left;
-  outline: 1px solid white;
-  width: 300px;
+  /*outline: 1px solid white;*/
+  width: 397px;
 }
 
 .active, .collapsible:hover {
@@ -418,9 +418,11 @@ table.friendList{
 }
 
 .content {
-  outline: 1px solid white;
-  right: 100px; 
-  bottom: 55px;
+  /*outline: 1px solid white;*/
+  border-top-left-radius:15px;
+  border-top-right-radius:15px;
+  right: 5.5%; 
+  bottom: 50px;
   position: fixed;
   max-height: 0;
   overflow: hidden;

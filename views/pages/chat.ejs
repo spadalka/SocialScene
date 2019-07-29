@@ -5,8 +5,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif; font-size: 15px; background-color: white;}
         form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
-        form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; }
-        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
+        form input { border-style: solid; border-width: 1px; padding: 10px; width: 81%; margin-right: .5%; }
+        form button { background: rgb(130, 224, 255); border: none; padding: 10px;margin: 0}
         #messages { list-style-type: none; margin: 0; padding: 0;}
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { color: green; }
@@ -15,7 +15,7 @@
     <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
   </head>
   <body>
-    <ul id="messages"></ul>
+    <ul id="messages" style="height: 350px;overflow-y: auto;"></ul>
     <form action="/" method="POST" id="chatForm">
       <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /><button>Send</button>
     </form>
@@ -33,6 +33,10 @@
             // append the chat text message
             socket.on('chat_message', function(msg){
                 $('#messages').append($('<li>').html(msg));
+
+                // auto scroll chat when msg is sent
+                const messages = document.getElementById('messages');
+                messages.scrollTop = messages.scrollHeight;
             });
 
             // append text if someone is online
