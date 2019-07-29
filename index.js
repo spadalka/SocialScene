@@ -508,7 +508,7 @@ io.on('connection', function(socket) {
 })
 
 const server = http.listen(5000, function() {
-    console.log('listening on: 5000');
+    console.log(`currently listening on ${ PORT }`);
 });
 //chat end
 
