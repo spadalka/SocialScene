@@ -341,7 +341,6 @@ app.post('/details_rev', async (req,res)=>{
     const client = await pool.connect()
     const results = await client.query("select * from review where email='" + req.session.user.email + "' AND id='" + req.body.id +"';")
     if ( results.rows.length == 1){
-      console.log("in the if")
       movieobj.usrrate = results.rows[0].rating
       movieobj.usrrev = results.rows[0].review
     }
