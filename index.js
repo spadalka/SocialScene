@@ -64,19 +64,50 @@ app.get('/user', async function (req,res){
     // console.log('retrieving popularmv from', urlmv)
     var urltv = 'https://api.themoviedb.org/3/discover/tv?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false'
     // console.log('retrieving populartv from', urltv)
+
+    var takeId = '';
+    var takeCategory = '';
+
     var popularmv = await retrieve(urlmv);  //contains the data from the api
     var populartv = await retrieve(urltv);
 
     var data = "'" + req.session.user.email + "';"
     pool.query("select fname,lname,password from users where email= " + data, function(err,table){
     if (table.rows.length == 1) {
-      pool.query ( "select * from review where email="+data,function(err,result) {
+      pool.query ( "select * from review where email="+data, async function(err,result) {
         res.locals.user = table.rows[0]
         if (result.rows.length != null) {
           res.locals.user.rows = result.rows
         }
         res.locals.user.popularmv = popularmv.results;  //adding popularmv to obj
         res.locals.user.populartv = populartv.results;  //adding populartv to obj
+
+        if (result.rows.length > 0){
+          takeId = result.rows[result.rows.length-1].id;
+          takeCategory = result.rows[result.rows.length-1].category;
+  
+          var front = '';
+          var end = '/similar?api_key=7558289524aade3e869fbafc8bb9e8fd&language=en-US&page=1';
+          if (takeCategory == "tv") {
+            front = 'https://api.themoviedb.org/3/tv/'
+          }
+          else{
+            front = 'https://api.themoviedb.org/3/movie/'
+          }
+          var urlsimilar = front + takeId + end;
+  
+          var similart = await retrieve(urlsimilar); 
+  
+          res.locals.user.similart = similart.results; //adding similart to obj
+
+          console.log('fetching similar from',urlsimilar);
+          res.locals.user.recquery = result.rows[result.rows.length-1];
+        }
+        else {
+          res.locals.user.similart = [];
+          res.locals.user.recquery = [];
+        }
+
         res.render('pages/user',res.locals.user)
       })
     }

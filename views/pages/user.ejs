@@ -110,6 +110,32 @@
     <%};%>
   </div>
   
+  <!-- Recommended Similar Titles -->
+  <%var m = similart.length;%>
+  <%if (m !=0){%>
+  <h3 style="color: white;">Recommended Titles Based On:</h3>
+  <h3 style="color: white;"><%=recquery.title%></h3>
+  <div class='popular'>
+    <% for (var i=0; i<m ; i++) { %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById("<%=similart[i].id%>").submit()'>
+        <% r = similart[i]; %>
+        <%= r.name %><br>
+        <%if(r.poster_path == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster_path%>
+          <img src= '<%=url%>'>
+        <%};%>
+  </div>
+      <!-- onclick submit this form to render details of title  -->
+      <form style="display:none" id='<%=r.id%>' method="post" action="/details_rev">
+          <input type="hidden" name="category" value="<%=recquery.category%>">
+          <input type="hidden" name="id" value="<%=r.id%>">
+        </form>
+      <%};%>
+    </div>
+    <%};%> 
+    
   <!-- Chatbox -->
   <button class="collapsible" style="position:fixed; right:5.5%; bottom:0px">Chat</button>
     <div class="content">
