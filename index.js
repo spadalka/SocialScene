@@ -100,7 +100,7 @@ app.get('/user', async function (req,res){
   
           res.locals.user.similart = similart.results; //adding similart to obj
 
-          console.log('fetching similar from',urlsimilar);
+          // console.log('fetching similar from',urlsimilar);
           res.locals.user.recquery = result.rows[result.rows.length-1];
         }
         else {
@@ -415,6 +415,19 @@ app.post('/details_rev', async (req,res)=>{
       movieobj.usrrate = null
       movieobj.usrrev = ''
     }
+    const bkmark = await client.query(" select * from bookmark where email='" + req.session.user.email + "' AND id='" + req.body.id + "';")
+    if (bkmark.rows.length == 0) {
+      movieobj.bkmarked = 0;
+    }
+    else{
+      movieobj.bkmarked = 1;
+    }
+    client.release();
+  }
+  catch (err) {
+    console.error(err);
+    res.redirect('/user')
+  }
 
   var category = req.body.category;
   var id = req.body.id;
@@ -453,16 +466,10 @@ app.post('/details_rev', async (req,res)=>{
       movieobj.language = body.original_language,
       movieobj.vote = body.vote_count,
       movieobj.rating = body.vote_average
-
-      client.release();
       res.render('pages/summary',movieobj)
     }
   })
-}
-catch (err) {
-  console.error(err);
-  res.redirect('/user')
-}})
+})
 // tmdb api end
 
 
