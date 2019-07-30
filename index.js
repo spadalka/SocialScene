@@ -8,12 +8,12 @@ var session = require('client-sessions');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const pool = new Pool({
-  // connectionString: process.env.DATABASE_URL,
-  // ssl: true
-  user: 'postgres',
-  password: 'pgsqlsucks',
-  host: 'localhost',
-  database: 'postgres'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  // user: 'postgres',
+  // password: 'root',
+  // host: 'localhost',
+  // database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -649,9 +649,14 @@ io.on('connection', function(socket) {
     })
 })
 
-http.listen(PORT, function() {
-  console.log(`Listening on ${ PORT }`)
+const server = http.listen(PORT, function() { //needed to have this for mocha to connect with the server
+  console.log('Listening on $',{ PORT })      //versus what is on lines 657-659
 });
+module.exports = server;
+
+// http.listen(PORT, function() {
+//   console.log(`Listening on ${ PORT }`)
+// });
 //chat end
 
 // app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
