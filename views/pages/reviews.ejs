@@ -15,7 +15,7 @@
 
   <!-- nav bar stuff -->
   <ul>
-    <li><a class="current" href="/user" >Home</a></li>
+    <li><a href="/user" >Home</a></li>
     <li><a href="/edituser">Edit User</a></li>
     <li class="drop">
       <a href="/fmanage">Friends List</a>
@@ -23,6 +23,7 @@
         <a href="/fsearch" style="border: 0px">Manage Friends</a>
       </div>
     </li>
+    <li><a class="current" href="/reviews">Friends Reviews</a></li>
     <li style="float: right"><a href="/logout">Logout</a></li>
     <li style="float: right"><a href="/tmdb">Search</a></li>
   </ul> 
@@ -42,24 +43,26 @@
         <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
         <!-- displaying the data -->
         <% for (var i=0; i<n ; i++) { %>
-        <% r = rows[i]; %>
-        <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
-            <td style="padding-left: 10px;padding-right: 10px"><%= r.email %></td>
-            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.id %></td>
-            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
-            <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black;" onclick="document.getElementById(<%=i%>).submit()"><%= r.title %></td>
-            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
-            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
+          <% r = rows[i]; %>
+          <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
+              <td style="padding-left: 10px;padding-right: 10px"><%= r.email %></td>
+              <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.id %></td>
+              <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
+              <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black;" onclick="document.getElementById(<%=i%>).submit()"><%= r.title %></td>
+              <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+              <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
 
-            <!-- data to render detailed page on a movie reviewed -->
-            <form id='<%=i%>' method="post" action="/details_rev">
-              <input type="hidden" name="category" value="<%=r.category%>">
-              <input type="hidden" name="id" value="<%=r.id%>">
-            </form>
-        </tr>
-          <% }; %>
+              <!-- data to render detailed page on a movie reviewed -->
+              <form id='<%=i%>' method="post" action="/details_rev">
+                <input type="hidden" name="category" value="<%=r.category%>">
+                <input type="hidden" name="id" value="<%=r.id%>">
+              </form>
+          </tr>
+        <% }; %>
       </table>
   	</div>
-  <%};%>  
+  <%}else{%>  
+  <h1 style="color: white;margin-top: 150px"> Your Friends Have Not Posted Any Reviews :(</h1>
+  <% }; %>
 </body>
 </html>

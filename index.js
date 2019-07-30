@@ -248,7 +248,7 @@ app.get('/bookmarks',async(req,res)=>{
 })
 
 // Wild card so all other calls will be redirected to the main app page
-app.get("*", function(req, res) {res.redirect('/')}) 
+app.get("*", function(req, res) {res.redirect('/user')}) 
 
 
 
