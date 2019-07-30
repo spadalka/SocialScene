@@ -607,6 +607,7 @@ app.post('/bookmark', async(req,res)=>{
     // console.log(data);
     const results = await client.query(data)
     console.log('bookmark added')
+    movieobj.bkmarked = 1;
     res.redirect('/details_rev')
     client.release();
   }
