@@ -7,15 +7,13 @@ const request = require('request')
 var session = require('client-sessions');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const fs = require("fs");
-const multer = require("multer");
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'root',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -248,29 +246,6 @@ app.get('/bookmarks',async(req,res)=>{
     res.redirect('/login')
   }
 })
-
-// profile
-app.get("/profile", (req, res) => {
-  res.render("pages/profile",req.session.user);
-});
-
-
-// Dont change the below, it messes up the app
-const upload = multer({
-  dest: "/path/to/temporary/directory/to/store/uploaded/files"
-});
-
-
-app.post("/upload",upload.single("file"),(req, res) => {
-    const tempPath = req.file.path;
-    const targetPath = path.join(__dirname, "./public/"+ req.session.user.email +".png");
-
-    fs.rename(tempPath, targetPath, err => {
-      res.redirect("/profile");
-    });
-  }
-);
-//end of profile
 
 // Wild card so all other calls will be redirected to the main app page
 app.get("*", function(req, res) {res.redirect('/user')}) 
