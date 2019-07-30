@@ -16,7 +16,7 @@
   <!-- nav bar stuff -->
   <ul>
     <li><a class="current" href="/user" >Home</a></li>
-    <li><a href="/edituser">Edit User</a></li>
+    <li><a href="/bookmarks">Bookmarks</a></li>
     <li class="drop">
       <a href="/fmanage">Friends List</a>
       <div class="droplist">
@@ -24,8 +24,8 @@
       </div>
     </li>
     <li><a href="/reviews">Friends Reviews</a></li>
-    <li><a href="/bookmarks">Bookmarks</a></li>
     <li style="float: right"><a href="/logout">Logout</a></li>
+    <li style="float: right"><a href="/edituser">Edit User</a></li>
     <li style="float: right"><a href="/tmdb">Search</a></li>
   </ul> 
 
@@ -38,22 +38,22 @@
   <%if (n !=0){%>
     <!-- review table -->
     <h3 style="color: white;margin: 0; margin-top: 30px; padding: 0">Your Reviews</h3>
-    <div>
+    <div align="center" >
       <table class="display" style="border-collapse: collapse;margin-bottom: 50px;margin-left: 60px">
         <!-- column names -->
-        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
-        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
+        <!-- <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th> -->
+        <!-- <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th> -->
         <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black;text-align: center;"> Title </th>
-        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
-        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black;text-align: center;"> Rating </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black;text-align: center;"> Review </th>
         <!-- displaying the data -->
         <% for (var i=0; i<n ; i++) { %>
         <% r = rows[i]; %>
         <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
-            <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td>
-            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
+            <!-- <td style="padding-left: 10px;padding-right: 10px"><%= r.id %></td> -->
+            <!-- <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td> -->
             <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black;" onclick="document.getElementById(<%=i%>).submit()"><%= r.title %></td>
-            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black;text-align: center;"><%= r.rating %></td>
             <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
 
             <!-- data to render detailed page on a movie reviewed -->
@@ -142,7 +142,7 @@
 
     
   <!-- Chatbox -->
-  <button class="collapsible" style="position:fixed; right:5.5%; bottom:0px">Chat</button>
+  <button class="collapsible" id="chatbutton" style="position:fixed; right:5.5%; bottom:0px; border-top-left-radius:30px;border-top-right-radius:30px ">Chat</button>
     <div class="content">
       <iframe src="/chat" height="400" width="397" frameBorder="0"></iframe>
   </div>
@@ -153,6 +153,15 @@
 
   for (i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
+      var temp =  document.getElementById("chatbutton")
+      if ( temp.style.borderTopLeftRadius == "30px"){
+      document.getElementById("chatbutton").style.borderTopLeftRadius = "0px";
+      document.getElementById("chatbutton").style.borderTopRightRadius = "0px";
+      }else {
+        document.getElementById("chatbutton").style.borderTopLeftRadius = "30px";
+       document.getElementById("chatbutton").style.borderTopRightRadius = "30px";
+      }
+
       this.classList.toggle("active");
       var content = this.nextElementSibling;
       if (content.style.maxHeight){

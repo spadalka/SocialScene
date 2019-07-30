@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Social Scene</title>
+  <link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <header key="splash_screen">
+    <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+      SocialScene
+    </div>
+  </header>
+
+  <!-- nav bar stuff -->
+  <ul>
+    <li><a href="/user" >Home</a></li>
+    <li><a href="/bookmarks">Bookmarks</a></li>
+    <li class="drop">
+      <a href="/fmanage">Friends List</a>
+      <div class="droplist">
+        <a href="/fsearch" style="border: 0px">Manage Friends</a>
+      </div>
+    </li>
+    <li><a href="/reviews">Friends Reviews</a></li>
+    <li style="float: right"><a href="/logout">Logout</a></li>
+    <li style="float: right"><a class="current"  href="/edituser">Edit User</a></li>
+    <li style="float: right"><a href="/tmdb">Search</a></li>
+  </ul> 
+
+
+
+  <div style="margin-top: 100px">
+  <img src="/image.jpeg">
+  </div>
+
+
+  <form action="/test" method="post" >
+      <input type="file" name="file">
+      <input type="submit" value="Submit">
+  </form>
+
+</body>
+</html>
