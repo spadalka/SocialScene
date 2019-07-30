@@ -8,12 +8,12 @@ var session = require('client-sessions');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -228,6 +228,21 @@ app.get('/reviews',async(req,res)=>{
   }
   else {
     console.log("Unauthorised access reviews")
+    res.redirect('/login')
+  }
+})
+
+app.get('/bookmarks',async(req,res)=>{
+  if (req.session && req.session.user)
+  {
+    const client = await pool.connect()
+    var data ="SELECT * FROM bookmark WHERE email='"+req.session.user.email+"';"
+    const result = await client.query(data);
+    res.render('pages/bookmarks', result);
+    client.release();
+  }
+  else {
+    console.log("Unauthorised access bookmarks")
     res.redirect('/login')
   }
 })
@@ -535,9 +550,6 @@ app.post('/unfriend', async(req,res)=>{
 //friends end
 
 
-
-
-
 app.post('/rateuser', async (req, res) => {
   try {
     console.log("User has posted review")
@@ -580,7 +592,38 @@ app.post('/delrev', async (req, res) => {
   }
 })
 
+// bookmark start
+app.post('/bookmark', async(req,res)=>{
+  try{
+    const client = await pool.connect()
+    const data = "insert into bookmark values ( '"+req.session.user.email+"','" + req.body.id +"','"+req.body.category+"', '"+req.body.title+"', '"+req.body.path+"');"
+    // console.log(data);
+    const results = await client.query(data)
+    console.log('bookmark added')
+    res.redirect('/details_rev')
+    client.release();
+  }
+  catch{
+    console.log('failed to bookmark')
+    res.redirect('/details_rev')
+  }
+})
 
+app.post('/remove', async(req,res)=>{
+  try{
+    const client = await pool.connect();
+    const data = "delete from bookmark where email='"+req.session.user.email+"' AND id='"+req.body.id+"';"
+    // console.log(data);
+    const results = await client.query(data);
+    res.redirect('/bookmarks');
+    client.release();
+  }
+  catch{
+    console.log('failed to remove');
+    res.redirect('/bookmarks');
+  }
+})
+//bookmark end
 
 
 //chat start

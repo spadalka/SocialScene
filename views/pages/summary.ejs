@@ -29,7 +29,15 @@
 
 	<table class="display" style="width: 100%;">
 		<td style="min-width: 20%; text-align: center; align-items: center;">
-			<%if(poster == ''){%>
+			<form method="post" action="/bookmark">
+				<input type="hidden" name="id" value="<%=id%>">
+			    <input type="hidden" name="category" value="<%=category%>">
+				<input type="hidden" name="title" value="<%=title%>">
+			    <input type="hidden" name="path" value="<%=poster%>">
+				<button id="submitbutton" style="margin-bottom: 20px" > Bookmark </button>
+			</form>
+			<%console.log(poster);%>
+			<%if(poster == null){%>
 				<img src = '/noimg.jpg'>
 			<%}else{%>
 				<img src= '<%=url%>'>
@@ -84,7 +92,7 @@
 			<br>
 			<br>
 			<input type="hidden" name="id" value="<%=id%>">
-			  <input type="hidden" name="category" value="<%=category%>">
+		    <input type="hidden" name="category" value="<%=category%>">
 			<input type="hidden" name="title" value="<%=title%>">
 			<button id="submitbutton" style="margin-bottom: 20px" > Submit </button>
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Bookmarks</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+	<%const base = 'https://image.tmdb.org/t/p/w185'%>
+	<header key="splash_screen">
+		<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+			SocialScene
+		</div>
+	</header>
+
+	<ul>
+	  <li><a href="/user" >Home</a></li>
+	  <li><a href="/edituser">Edit User</a></li>
+	  <li class="drop">
+	    <a href="/fmanage">Friends List</a>
+	    <div class="droplist">
+	      <a href="/fsearch" style="border: 0px">Manage Friends</a>
+	    </div>
+	  </li>
+	  <li style="margin-left: 22%"><a onclick="window.history.back()">Back</a></li>
+	  <li style="float: right"><a href="/logout">Logout</a></li>
+	  <li style="float: right"><a href="/tmdb">Search</a></li>
+	</ul>
+
+	<h1 style="color: white;">Your Bookmarks</h1>
+	<% var n = rows.length;%>
+	<div style="float: left;display: inline-block;" >
+	<% for (var i=0; i<n ; i++) { %>
+		<div class='collection' style=" display: inline-block; padding-left: 15px; padding-right: 15px">
+			<% r = rows[i]; %>
+			<%= r.title %><br>
+			<%if(r.path == ''){%>
+				<img onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=rows[i].id%>).submit()' src = '/noimg.jpg'>
+			<%}else{%>
+				<%var url = base + r.path%>
+				<img onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById(<%=rows[i].id%>).submit()' src= '<%=url%>'>
+			<%};%>
+			<form method="post" action="/remove">
+				<input type="hidden" name="id" value="<%=r.id%>">
+				<button>Remove</button>
+			</form>
+
+			<form id='<%=r.id%>' method="post" action="/details_rev">
+				<input type="hidden" name="category" value="<%=r.category%>">
+				<input type="hidden" name="id" value="<%=r.id%>">
+			</form>
+		</div>
+	<% }; %>
+	</div>
+</body>
+</html>
