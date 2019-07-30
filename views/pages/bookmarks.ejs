@@ -30,8 +30,9 @@
 	</ul>
 
 	<!-- displaying bookmarks -->
-	<h1 style="color: white;">Your Bookmarks</h1>
 	<% var n = rows.length;%>
+	<%if (n !=0){%>
+	<h1 style="color: white;">Your Bookmarks</h1>
 	<div style="float: left;display: inline-block;" >
 	<% for (var i=0; i<n ; i++) { %>
 		<div class='collection' style=" display: inline-block; padding-left: 15px; padding-right: 15px">
@@ -53,6 +54,9 @@
 				<input type="hidden" name="id" value="<%=r.id%>">
 			</form>
 		</div>
+	<% }; %>
+	<%}else{%>  
+		<h1 style="color: white;margin-top: 150px"> You Don't Have Any Bookmarks :(</h1>
 	<% }; %>
 	</div>
 </body>

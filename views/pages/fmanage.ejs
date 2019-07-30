@@ -27,8 +27,9 @@
 	    <li style="float: right"><a href="/tmdb">Search</a></li>
   	</ul> 
 
-	<h1 style="color: white">Your Friends List</h1>
 	<%var n = rows.length%>
+	<%if (n !=0){%>
+	<h1 style="color: white">Your Friends List</h1>
 	<%var friendEmail=''%>
 	<table class="friendList" style="text-align: center;">
 		<%for(var i=0; i<n;i++){ %>
@@ -49,5 +50,8 @@
 			</tr>
 		<%};%>
 	</table>
+	<%}else{%>  
+		<h1 style="color: white;margin-top: 150px"> You Have Not Added Any Friends :(</h1>
+	<% }; %>
 </body>
 </html>
