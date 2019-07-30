@@ -23,6 +23,7 @@
         <a href="/fsearch" style="border: 0px">Manage Friends</a>
       </div>
     </li>
+    <li><a href="/reviews">Friends Reviews</a></li>
     <li style="float: right"><a href="/logout">Logout</a></li>
     <li style="float: right"><a href="/tmdb">Search</a></li>
   </ul> 
@@ -35,6 +36,7 @@
   <% var n = rows.length;%>
   <%if (n !=0){%>
     <!-- review table -->
+    <h3 style="color: white;margin: 0; margin-top: 30px; padding: 0">Your Reviews</h3>
     <div>
       <table class="display" style="border-collapse: collapse;margin-bottom: 50px;margin-left: 60px">
         <!-- column names -->
@@ -63,6 +65,33 @@
       </table>
   	</div>
   <%};%>
+
+
+  <!-- Recommended Similar Titles -->
+  <%var m = similart.length;%>
+  <%if (m !=0){%>
+  <h3 style="color: white; margin-bottom: 0">Recommended Titles Based On Your Recent Review:</h3>
+  <h3 style="color: white; margin: 0; padding: 0"><%=recquery.title%></h3>
+  <div class='popular' style="margin-bottom: 100px">
+    <% for (var i=0; i<m ; i++) { %>
+      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById("<%=similart[i].id%>").submit()'>
+        <% r = similart[i]; %>
+        <%= r.name %><br>
+        <%if(r.poster_path == null){%>
+          <img src = '/noimg.jpg'>
+        <%}else{%>
+          <%var url = base + r.poster_path%>
+          <img src= '<%=url%>'>
+        <%};%>
+  </div>
+      <!-- onclick submit this form to render details of title  -->
+      <form style="display:none" id='<%=r.id%>' method="post" action="/details_rev">
+          <input type="hidden" name="category" value="<%=recquery.category%>">
+          <input type="hidden" name="id" value="<%=r.id%>">
+        </form>
+      <%};%>
+    </div>
+  <%};%> 
 
   <!-- popular movie -->
   <h3 style="color: white;">Popular Movies</h3>
@@ -109,32 +138,7 @@
       </form>
     <%};%>
   </div>
-  
-  <!-- Recommended Similar Titles -->
-  <%var m = similart.length;%>
-  <%if (m !=0){%>
-  <h3 style="color: white; margin-top: 100px; margin-bottom: 0">Recommended Titles Based On Your Recent Review:</h3>
-  <h3 style="color: white; margin: 0; padding: 0"><%=recquery.title%></h3>
-  <div class='popular'>
-    <% for (var i=0; i<m ; i++) { %>
-      <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById("<%=similart[i].id%>").submit()'>
-        <% r = similart[i]; %>
-        <%= r.name %><br>
-        <%if(r.poster_path == null){%>
-          <img src = '/noimg.jpg'>
-        <%}else{%>
-          <%var url = base + r.poster_path%>
-          <img src= '<%=url%>'>
-        <%};%>
-  </div>
-      <!-- onclick submit this form to render details of title  -->
-      <form style="display:none" id='<%=r.id%>' method="post" action="/details_rev">
-          <input type="hidden" name="category" value="<%=recquery.category%>">
-          <input type="hidden" name="id" value="<%=r.id%>">
-        </form>
-      <%};%>
-    </div>
-    <%};%> 
+
     
   <!-- Chatbox -->
   <button class="collapsible" style="position:fixed; right:5.5%; bottom:0px">Chat</button>
