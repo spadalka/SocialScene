@@ -13,6 +13,7 @@
 		</div>
 	</header>
 
+	<!-- nav bar -->
 	<ul>
 	  <li><a href="/user" >Home</a></li>
 	  <li><a href="/edituser">Edit User</a></li>
@@ -22,11 +23,13 @@
 	      <a href="/fsearch" style="border: 0px">Manage Friends</a>
 	    </div>
 	  </li>
-	  <li style="margin-left: 22%"><a onclick="window.history.back()">Back</a></li>
+	  <li><a href="/reviews">Friends Reviews</a></li>
+	  <li><a class="current" href="/bookmarks">Bookmarks</a></li>
 	  <li style="float: right"><a href="/logout">Logout</a></li>
 	  <li style="float: right"><a href="/tmdb">Search</a></li>
 	</ul>
 
+	<!-- displaying bookmarks -->
 	<h1 style="color: white;">Your Bookmarks</h1>
 	<% var n = rows.length;%>
 	<div style="float: left;display: inline-block;" >
