@@ -218,6 +218,8 @@ app.get("*", function(req, res) {res.redirect('/')})
 
 
 
+
+
 app.post('/register', async (req, res) => {
   try {
     const client = await pool.connect()
@@ -539,6 +541,19 @@ app.post('/rateuser', async (req, res) => {
   }
 })
 
+app.post('/delrev', async (req, res) => {
+  try{
+    const client = await pool.connect()
+    console.log("User has deleted a review")
+    const result = await client.query("delete from review where email='" + req.session.user.email + "' AND id='" + req.body.id + "';")
+    res.redirect('/user')
+    client.release();
+  }
+  catch (err) {
+    console.error("Error: " + err);
+    res.redirect('/details_rev')
+  }
+})
 
 
 
