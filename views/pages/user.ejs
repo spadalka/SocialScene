@@ -27,7 +27,7 @@
     <li style="float: right"><a href="/tmdb">Search</a></li>
   </ul> 
 
-  <p align="left" style="color: white; font-size: 30px;margin:10px">
+  <p align="left" style="color: white; font-size: 30px;margin:0 ;margin-top: 20px;margin-left: 30px">
     <strong> Welcome <%= fname %> <%= lname %>, </strong>
   </p>
   
@@ -36,7 +36,7 @@
   <%if (n !=0){%>
     <!-- review table -->
     <div>
-      <table class="display" style="border-collapse: collapse;">
+      <table class="display" style="border-collapse: collapse;margin-bottom: 50px;margin-left: 60px">
         <!-- column names -->
         <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
         <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
@@ -88,7 +88,7 @@
   </div>
 
   <!-- popular tv shows -->
-  <h3 style="color: white;">Popular TV Shows</h3>
+  <h3 style="color: white; margin-top: 100px">Popular TV Shows</h3>
   <div class='popular'>
     <%var m =populartv.length%>
     <% for (var i=0; i<m ; i++) { %>
@@ -113,8 +113,8 @@
   <!-- Recommended Similar Titles -->
   <%var m = similart.length;%>
   <%if (m !=0){%>
-  <h3 style="color: white;">Recommended Titles Based On:</h3>
-  <h3 style="color: white;"><%=recquery.title%></h3>
+  <h3 style="color: white; margin-top: 100px; margin-bottom: 0">Recommended Titles Based On Your Recent Review:</h3>
+  <h3 style="color: white; margin: 0; padding: 0"><%=recquery.title%></h3>
   <div class='popular'>
     <% for (var i=0; i<m ; i++) { %>
       <div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.getElementById("<%=similart[i].id%>").submit()'>
