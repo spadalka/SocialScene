@@ -172,7 +172,7 @@ tr.rev_display:hover{
     }
 td.title:hover{
   text-decoration: underline;
-  font-weight:bold;
+  color: lightgreen;
 }
 
 /*user.ejs popular displays*/

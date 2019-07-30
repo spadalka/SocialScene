@@ -8,12 +8,12 @@ var session = require('client-sessions');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-  // user: 'postgres',
-  // password: 'root',
-  // host: 'localhost',
-  // database: 'postgres'
+  // connectionString: process.env.DATABASE_URL,
+  // ssl: true
+  user: 'postgres',
+  password: 'pgsqlsucks',
+  host: 'localhost',
+  database: 'postgres'
 });
 
 var movieobj = {category: null, id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
@@ -209,6 +209,25 @@ app.get('/chat', function(req, res) {
   }
   else{
     console.log("Unauthorised access chat")
+    res.redirect('/login')
+  }
+})
+
+app.get('/reviews',async(req,res)=>{
+  if (req.session && req.session.user)
+  {
+    const client = await pool.connect()
+    var data ="SELECT * FROM users u\
+    JOIN review r ON u.email=r.email\
+    WHERE u.email IN ( SELECT email2 as email FROM friends WHERE email1='"+req.session.user.email+"' and status = 1\
+    UNION \
+    SELECT email1 as email FROM friends WHERE email2='"+req.session.user.email+"' AND status = 1);"
+    const result = await client.query(data);
+    res.render('pages/reviews', result);
+    client.release();
+  }
+  else {
+    console.log("Unauthorised access reviews")
     res.redirect('/login')
   }
 })
@@ -435,28 +454,34 @@ catch (err) {
 
 //friends start
 app.post('/sendRequest', async (req,res) =>{
-  const client = await pool.connect();
-  var check = "SELECT * FROM friends WHERE email1='"+req.body.receiver+"' AND email2='"+req.session.user.email+"';"
-  //check is opposite, to confirm that the other party did not send a request and you're not already friends with them"
-  var trigger = await client.query(check,async function(error,result){
-    if (result.rows.length == 0){
-      try{
-        var data = "insert into friends values ('"+req.session.user.email+"', '"+req.body.receiver+"',0);";
-        client.query(data);
-        console.log('sent friend request');
-        client.release();
+  if (req.body.receiver == req.session.user.email) {
+    console.log("can't add yourself");
+    res.redirect("/fsearch");
+  }
+  else{
+    const client = await pool.connect();
+    var check = "SELECT * FROM friends WHERE email1='"+req.body.receiver+"' AND email2='"+req.session.user.email+"';"
+    //check is opposite, to confirm that the other party did not send a request and you're not already friends with them"
+    var trigger = await client.query(check,async function(error,result){
+      if (result.rows.length == 0){
+        try{
+          var data = "insert into friends values ('"+req.session.user.email+"', '"+req.body.receiver+"',0);";
+          client.query(data);
+          console.log('sent friend request');
+          client.release();
+          res.redirect("/fsearch");
+        }
+        catch{
+          console.log("Either you've sent already or does not exist");
+          res.redirect("/fsearch");
+        }
+      }
+      else{
+        console.log("Not sending request, other party sent you one")
         res.redirect("/fsearch");
       }
-      catch{
-        console.log("Either you've sent already or does not exist");
-        res.redirect("/fsearch");
-      }
-    }
-    else{
-      console.log("Not sending request, other party sent you one")
-      res.redirect("/fsearch");
-    }
-  })
+    })
+  }
 })
 
 app.post('/accept', async (req,res)=>{

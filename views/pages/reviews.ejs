@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>All Reviews</title>
+	<link rel="stylesheet" href="./stylesheets/app.css">
+</head>
+<body>
+  <%const base = 'https://image.tmdb.org/t/p/w185';%>
+  <header key="splash_screen">
+    <div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+      SocialScene
+    </div>
+  </header>
+
+  <!-- nav bar stuff -->
+  <ul>
+    <li><a class="current" href="/user" >Home</a></li>
+    <li><a href="/edituser">Edit User</a></li>
+    <li class="drop">
+      <a href="/fmanage">Friends List</a>
+      <div class="droplist">
+        <a href="/fsearch" style="border: 0px">Manage Friends</a>
+      </div>
+    </li>
+    <li style="float: right"><a href="/logout">Logout</a></li>
+    <li style="float: right"><a href="/tmdb">Search</a></li>
+  </ul> 
+
+  <br/>
+  <% var n = rows.length;%>
+  <%if (n !=0){%>
+    <!-- review table -->
+    <div>
+      <table class="display" style="border-collapse: collapse;">
+        <!-- column names -->
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Written by </th>
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> ID </th>
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black"> Category </th>
+        <th style="padding-left: 10px;padding-right: 10px;border: 2px solid black;text-align: center;"> Title </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Rating </th>
+        <th style="padding-left: 10px;padding-right: 10px; border: 2px solid black"> Review </th>
+        <!-- displaying the data -->
+        <% for (var i=0; i<n ; i++) { %>
+        <% r = rows[i]; %>
+        <tr class="rev_display" style="padding-left: 10px;padding-right: 10px;border: 2px solid black">
+            <td style="padding-left: 10px;padding-right: 10px"><%= r.email %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.id %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.category %></td>
+            <td class="title" style="cursor:pointer; padding-left: 10px;padding-right: 10px;border: 2px solid black;" onclick="document.getElementById(<%=i%>).submit()"><%= r.title %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.rating %></td>
+            <td style="padding-left: 10px;padding-right: 10px;border: 2px solid black"><%= r.review %></td>
+
+            <!-- data to render detailed page on a movie reviewed -->
+            <form id='<%=i%>' method="post" action="/details_rev">
+              <input type="hidden" name="category" value="<%=r.category%>">
+              <input type="hidden" name="id" value="<%=r.id%>">
+            </form>
+        </tr>
+          <% }; %>
+      </table>
+  	</div>
+  <%};%>  
+</body>
+</html>
