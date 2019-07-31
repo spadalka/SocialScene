@@ -45,12 +45,70 @@ body {
 }
 
 .user_box {
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px dashed white;
   border-color: white;
-  padding: 5px;
-  margin: 5px;
+  padding: 8px 0px;
+  margin: 15px 5px;
   width: auto;
+  height: 125px; 
+  width: 240px;
+}
+
+.Review_Form {
+  color: white; 
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white; 
+  margin: auto; 
+  padding: 10px;
+  text-align: center;
+  width: 325px;
+  height: 375px;
+}
+
+
+.Review_Form2 {
+  color: white; 
+  border-radius: 5px;
+  border: 4px dashed white;
+  border-color: white; 
+  margin: auto; 
+  padding: 10px;
+  text-align: center;
+  width: 600px;
+  height: 375px;
+  overflow-y: scroll;
+}
+
+.number1 {
+  text-align: center; 
+  color: white; 
+  font-weight: bold; 
+  width: 45px; 
+  outline: none; 
+  background: transparent;
+  font-size: 18px;
+}
+
+input[type=number1]::-webkit-inner-spin-button, 
+input[type=number1]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  /* margin: 0;  */
+}
+input[type="number1"] {
+  -moz-appearance: textfield;
+}
+
+.review_field {
+  color: white; 
+  outline: none; 
+  background: transparent;
+  text-align: top;
+  width: 300px;
+  height: 100px;
+  border-radius: 8px;
+  padding: 8px;
 }
 
 .register_body {
@@ -67,11 +125,25 @@ body {
   margin: auto;
 }
 
-.display_box {
-  border-collapse: collapse; 
-  border: 3px solid white;
-  border-radius: 5px;
+.display_reviews {
+  /* border-collapse: collapse;  */
+  border-top: 1px solid white;
+  /* border-radius: 5px; */
   color: white;
+  padding: 5px 10px;
+  margin: auto;
+  width: 95%;
+  font-size: 14px;
+}
+
+.display_reviews tr {
+  border-bottom: 1px dashed white;
+  padding: 5px;
+}
+
+.display_reviews td {
+  padding: 5px;
+  border-bottom: 1px dashed white;
 }
 
 .TMDB_pic {
@@ -147,6 +219,13 @@ input{
 
 table {
   text-align: left;
+}
+
+div.popular{
+  width: 90%;
+  align-self: center;
+  overflow:auto;
+  white-space: nowrap;
 }
 
 table.display{
@@ -272,17 +351,8 @@ ul {
   text-align: left
 }
 
-/*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_close_list_items*/
-/*https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_alerts*/
-/*#error_div {
-  width: 400px;
-  padding:10px;
-  color: #D8000C;
-  background-color: #FFD2D2;
-  border-radius: 30px;
-  transition: 1s;
+.user_movie_view {
+  border-bottom: 1px dashed white;
+  width: 90%;
+  margin: auto;
 }
-
-#error_div:hover {
-  width: 450px;
-}*/

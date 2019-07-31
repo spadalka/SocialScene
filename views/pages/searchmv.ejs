@@ -39,14 +39,24 @@
 			<button onclick="window.location.href='/user'"> Back to Main</button>
 
 		</div>
-	<%};%>
+	<%} else {%>
 	
 	<!-- listing out the data -->
+	<table>
+		<tr>
+			<td align="center">
+				<button onclick="window.location.href='/user'" style="width: 175px;">Back to Main</button>
+				&nbsp;&nbsp;
+				<button onclick="window.location.href='/tmdb'" style="width: 175px;">New Search</button>
+			</td>
+		</tr>
+		<tr><td><br/></td></tr>
+		<tr><td align="center">
 	<% var n = results.length;%>
 	<% for (var i=0; i<n ; i++) { %>
 	<div class="collection" onmouseout='this.style.opacity=1' onmouseover='this.style.opacity=0.5' onclick='document.forms[<%=i%>].submit()'>
 		<% r = results[i]; %>
-		<%= r.title %><br>
+		<!-- <%= r.title %><br> -->
 		<%if(r.poster_path == null){%>
 			<img src = '/noimg.jpg'>
 		<%}else{%>
@@ -99,19 +109,11 @@
 					<%};%>
 				</form>
 			</td>
-
-			<tr>
-				<td></td>
-				<td>
-					<div  align="center">
-						<button onclick="window.location.href='/user'" style="width: 175px;">Back to Main</button>
-					</div>
-				</td>
-				<td></td>
-				
-			</tr>
 		</table>
 		<%};%>
 	</div>
+</td></tr>
+</table>
+<%};%>
 </body>
 </html>

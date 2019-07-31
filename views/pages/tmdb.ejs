@@ -5,18 +5,32 @@
 	<link rel="stylesheet" href="./stylesheets/app.css">
 </head>
 <body style="align-items: center;">
-	<h1> SocialScene </h1>
-	<h2> TMDB Query </h2>
+	<header key="splash_screen" style="width: 100%">
+			<div class="App-header" onclick="window.location.href='/user'" style="cursor:pointer;">
+				SocialScene
+			</div>
+			
+		</header>
 	<div>
 	<!-- a search box -->
-		<form method= 'post' style="border:2px solid; border-color: red; padding:10px;">
-			<input type="text" name="keyword" placeholder ="Enter Keyword to search" style="width:300px" required>
+		<br/><br/><br/><br/>
+		<div class="login_body" align="center" >
+		<br/><br/>
+		Please Enter a New Search
+		<br/><br/><br/><br/>
+		<!-- a search box -->
+			<form method= 'post'">
+			<input type="text" name="keyword" placeholder =" Enter Keyword to search" style="border-radius: 10px; width: 200px" required>
 			<input type="hidden" name="pg" value="1">
-			<table style="padding: 10px">
-				<td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchmv">Search Movies</button></td>
-				<td><button style="width: 150px; height: 35px; font-size : 18px;" formaction="/searchtv">Search TV </button></td>
+			<table style="margin:auto;" align="center">
+				<td><button class="button user_div_user_bttn" formaction="/searchmv">Search Movies</button></td>
+				<td><button class="button user_div_user_bttn" formaction="/searchtv">Search TV</button></td>
 			</table>
-		</form>
+			</form>
+			<br/><br/>
+			<button onclick="window.location.href='/user'"> Back to Main</button>
+
+		</div>
 	</div>
 
 </body>

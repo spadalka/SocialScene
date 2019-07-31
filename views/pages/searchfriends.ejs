@@ -73,7 +73,7 @@
 			<% count++;%>
 				<td style="text-align: center; color: white">
 					<form action="/FriendRequest2" method="post">
-						<div class="user_box" style="height: 100px; width: 240px; padding: 10px; margin: auto">
+						<div class="user_box">
 							<div style="padding: 5px">
 								<%= r.fname2 %> <%= r.lname2 %> 
 							</div>
@@ -107,7 +107,7 @@
 
 	<% var n = results.length;%>
 	<% var count = 0;%>
-	<table style="color: white">
+	<table style="color: white" align="center">
 	<% for (var i=0; i<n ; i++) { %>
 		<% r = results[i]; %>
 		<% if (r.email == user.email){%>
@@ -119,7 +119,7 @@
 			<% count++;%>
 				<td style="text-align: center; color: white">
 					<form action="/FriendRequest" method="post">
-						<div class="user_box" style="height: 100px; width: 240px; padding: 10px; margin: auto">
+						<div class="user_box">
 							<div style="padding: 5px">
 								<%= r.fname %> <%= r.lname %> 
 							</div>

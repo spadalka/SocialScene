@@ -14,6 +14,9 @@ const pool = new Pool({
 
 var user = {fname:null,lname:null,email:null}
 var movieobj = {id:null, title:null ,overview:null ,date:null ,poster:null ,language:null ,vote:null ,rating:null}
+var recent_review_data = {reviews: null, movieobj: null}
+var top_review_data = {reviews: null, movieobj: null}
+
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'public')))
@@ -31,8 +34,27 @@ app.get('/register', (req, res) => res.render('pages/register',{val:'none'}))
 app.get('/tmdb',(req,res)=>res.render('pages/tmdb'))
 app.get('/user', async (req,res)=>{
   const client = await pool.connect()
-  const result = await client.query("SELECT * FROM review where email= '" + user.email + "';");
-  const results = { 'results': (result) ? result.rows : null};
+  const result = await client.query("SELECT Distinct on (id) * FROM review where email= '" + user.email + "' order by id, date_time DESC;");
+  var recent_reviews =  await client.query("select distinct on (id) * from review where email in (select f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "' in (select ff.email2 from friends ff where ff.email1 != '" + user.email + "')) order by id, date_time ASC;")
+  var top_reviews = await client.query("select * from (select distinct on (agg_r.id) * from review r right outer join (select id, avg(rating) as avg_rating from review where email in (select f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "' in (select ff.email2 from friends ff where ff.email1 != '" + user.email + "')) group by id) as agg_r on agg_r.id = r.id order by agg_r.id, avg_rating ASC) as rr order by rr.avg_rating DESC;")
+  var base_top_reviews = await client.query("select * from (select distinct on (agg.id) *  from review left outer join (select id, avg(rating) as avg_rating from review group by id) as agg on agg.id = review.id)as rr order by rr.avg_rating DESC;")
+  // unescape escaped fields for viewing in html
+  for (var i = 0; i < recent_reviews.rows.length; i++) {
+    recent_reviews.rows[i].overview = unescape(recent_reviews.rows[i].overview)
+    recent_reviews.rows[i].title = unescape(recent_reviews.rows[i].title)
+  }
+  for (var i = 0; i < top_reviews.rows.length; i++) {
+    top_reviews.rows[i].overview = unescape(top_reviews.rows[i].overview)
+    top_reviews.rows[i].title = unescape(top_reviews.rows[i].title)
+  }
+  for (var i = 0; i < base_top_reviews.rows.length; i++) {
+    base_top_reviews.rows[i].overview = unescape(base_top_reviews.rows[i].overview)
+    base_top_reviews.rows[i].title = unescape(base_top_reviews.rows[i].title)
+  }
+  recent_review_data.reviews = recent_reviews.rows
+  top_review_data.reviews = top_reviews.rows
+  // console.log(review_data.reviews)
+  const results = { 'results': (result) ? result.rows : null, reviews: (recent_review_data) ? recent_review_data.reviews : null, top_reviews: (top_review_data) ? top_review_data.reviews : null, base_top_reviews: (base_top_reviews) ? base_top_reviews.rows : null};
   results.user = user
   res.render('pages/user',results)
 })
@@ -50,15 +72,24 @@ app.get('/edituser', async (req, res) => {
     try {
       const client = await pool.connect()
       const result = await client.query("SELECT * FROM users where email= '" + user.email + "';");
-      const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/edituser', result.rows[0] );
+      var reviews = await client.query("select * from review where email = '" + user.email + "'order by date_time DESC;");
+      // unescape escaped fields for viewing in html
+      for (var i = 0; i < reviews.rows.length; i++) {
+        reviews.rows[i].title = unescape(reviews.rows[i].title)
+        reviews.rows[i].review = unescape(reviews.rows[i].review)
+      }
+      const results = { 'results': (result) ? result.rows[0] : null, 'reviews': (reviews.rows) ? reviews.rows : null, };
+      res.render('pages/edituser', results);
       client.release();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
     }
   })
-app.get('/details', (req,res)=>{res.render('pages/summary',movieobj)})
+app.get('/details', (req,res)=>{
+  console.log("redirected to summary page")
+  res.render('pages/summary',review_data)
+})
 
 app.get('/friends', async (req,res) => {
   try {
@@ -67,6 +98,19 @@ app.get('/friends', async (req,res) => {
     // console.log(result)
     const results = { 'results': (result) ? result.rows : null, user: user};
     res.render('pages/friends', results);
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/friendlist', async (req,res) => {
+  try {
+    console.log(user)
+    const result  = await pool.query("select f.fname2, f.lname2, f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "'  in (select ff.email2 from friends ff where ff.email1 = f.email2);")    
+    console.log(result.rows)
+    const results = { 'results': (result) ? result.rows : null, user: user};
+    res.render('pages/friendlist', results);
   } catch (err) {
     console.error(err);
     res.send("Error " + err);
@@ -124,13 +168,13 @@ app.post('/searchfriends', async (req,res) => {
   var lname = "'%" + req.body.lname + "%'"
 
 
-    const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + " and email not in (select f.email2 from friends f where f.email1 = '" + user.email + "') order by lower(fname) ASC;")
-    const friends  = await pool.query("select f.fname2,f.lname2,f.email2 from friends f where f.email1 = '" + user.email + "'order by lower(fname) ASC;")
-    console.log(result)
-    console.log(friends)
+  const result  = await pool.query("select fname,lname,email from users where fname ilike" + fname + "and lname ilike " + lname + " and email not in (select f.email2 from friends f where f.email1 = '" + user.email + "') order by lower(fname) ASC;")
+  const friends  = await pool.query("select f.fname2,f.lname2,f.email2 from friends f where f.email1 = '" + user.email + "'order by lower(fname1) ASC;")
+  console.log(result)
+  console.log(friends)
 
-    const results = { 'results': (result) ? result.rows : null, 'user': user, 'friends': (friends) ? friends.rows : null};
-    res.render('pages/searchfriends', results) 
+  const results = { 'results': (result) ? result.rows : null, 'user': user, 'friends': (friends) ? friends.rows : null};
+  res.render('pages/searchfriends', results) 
   
 })
 
@@ -211,8 +255,8 @@ app.post('/searchmv',async(req,res)=>{
     //body is going to store json string
     if(!error){
       body.key = key;
-      // console.log(body);
-      res.render('pages/searchmv',body);
+
+      res.render('pages/searchmv', body);
     }
   })
 })
@@ -239,8 +283,15 @@ app.post('/prevmv',async(req,res)=>{
 })
 
 
+app.post('/details', async (req,res)=>{  
+  console.log("entered details")
+  const client =  await pool.connect()  
+  const reviews  =  await client.query("select * from review where id = '" + req.body.id + "' and email = '" + user.email + "' or id = '" + req.body.id + "' and email in (select f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "' in (select ff.email2 from friends ff where ff.email1 != '" + user.email + "')) order by date_time ASC;")
+  // unescape
+  for (var i = 0; i < reviews.rows.length; i++) {
+    reviews.rows[i].review = unescape(reviews.rows[i].review)
+  }
 
-app.post('/details', (req,res)=>{
   movieobj.id = req.body.id,
   movieobj.title = req.body.title,
   movieobj.overview = req.body.overview,
@@ -249,16 +300,33 @@ app.post('/details', (req,res)=>{
   movieobj.language = req.body.language
   movieobj.vote = req.body.vote,
   movieobj.rating = req.body.rating
-  res.render('pages/summary',movieobj)
+
+
+
+  review_data = {reviews: reviews.rows, movieobj: movieobj}
+  
+
+  // console.log("data.all_reviews.rows:\n", review_data)
+  res.render('pages/summary', review_data)
 })
 // tmdb api end
 
 app.post('/rateuser', async (req, res) => {
-	console.log("User has posted review")
   try {
+    // connect to database
     const client = await pool.connect()
-    var data = "('" + user.email + "','"+req.body.title+"', " + req.body.rating + " , '" + req.body.review + "');"
+    // Insert new review into review table
+    var data = "('" + user.email + "', '" + movieobj.id + "', '" + escape(req.body.title) + "', " + req.body.rating + " , '" + escape(req.body.review) + "', '" + user.fname + "', '" + user.lname + "', current_timestamp, '" + movieobj.poster + "', '" + escape(movieobj.overview) + "', '" + movieobj.date + "', '" + movieobj.rating + "');"
     const result = await client.query("insert into review values " + data);
+    // update review_data.reviews object now that a new review has been entered
+    var reviews =  await client.query("select * from review where id = '" + movieobj.id + "' and email = '" + user.email + "' or id = '" + movieobj.id + "' and email in (select f.email2 from friends f where f.email1 = '" + user.email + "' and '" + user.email + "' in (select ff.email2 from friends ff where ff.email1 != '" + user.email + "')) order by date_time ASC;")
+    // unescape escaped clauses
+    for (var i = 0; i < recent_reviews.rows.length; i++) {
+      review_data.reviews.rows[i] = unescape(reviews.rows[i])
+    }
+
+
+    // refresh page so review appears
     res.redirect('/details')
     client.release();
   }
@@ -321,7 +389,7 @@ app.post('/FriendRequest2', async (req, res) => {
       console.log("entered search friends db")
       // search friend db to ensure that the request hasnt been submitted already
       const search = await client.query("select * from friends where email1 = '" + req.body.email1 + "' and email2 = '" + req.body.email2 + "';")
-      console.log("search: ", search)
+      // console.log("search: ", search)
       if (search.rowCount != 0) {
         // then it does exist, so do nothing
         console.log("entered rowcount!=0")
@@ -371,12 +439,6 @@ app.post('/FriendRequestResponse', async (req, res) => {
     res.send("Error " + err);
   }
 })
-
-function sendFriendRequest(fname2, lname2, email2, fname1, lname1, email1) {
-  console.log(fname2)
-  console.log(fname1)
-  res.redirect('/user')
-}
 
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
