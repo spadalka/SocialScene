@@ -1,7 +1,6 @@
 # Social Scene
 
- **SocialScene** is a social-networking service that provides a platform for users to review and rate TV shows and Movies that they have seen. It also suggests Movies & TV shows for users to watch based on the ones that they have reviewed, and alows them to bookmark it for the future. The Movie and TV shows data is powered by and provided by TMDB API. The app also allows users to build social groups through adding friends and having a real-time global chat. Our primary targeted audience consists of people who enjoys to watch and share media. The objective of this app is to allow for the ease of coordination of content viewing amongst friends. 
-
+ **SocialScene** is a social platform for users to review and rate TV shows and Movies. It also suggests Movies & TV shows to users based on their reviews and allows them to bookmark it for the future. The Movie and TV shows data is powered by and provided by The Movie Database(TMDB) API. The app also allows users to build social groups through adding friends and having a real-time global chat. Our primary targeted audience consists of people who enjoys to watch and share media. The objective of this app is to allow for the ease of coordination of content viewing amongst friends. 
 
 ## Authors
  - Abel Abraham Thomas
