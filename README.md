@@ -16,7 +16,7 @@
  - HTML/CSS: Static Frontend
  - PostgreSQL: Database (Backend)
  - TMDB: API
- - Socket.io: Library for rael time applications
+ - Socket.io: Library for real time applications
 
 
 ## Deployment
@@ -24,7 +24,7 @@ This app has been designed to automatically deploy to Heroku after a push occurs
 
 
 ## Running Locally
-Make sure you have [Node.js](http://nodejs.org/), [PostgreSQL](https://www.postgresql.org/) the [Heroku CLI](https://cli.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/), [PostgreSQL](https://www.postgresql.org/) and [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
 $ git clone https://github.com/spadalka/SocialScene.git
