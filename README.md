@@ -23,7 +23,7 @@ This app has been designed to automatically deploy to Heroku after a push occurs
 
 
 ## Running Locally
-Make sure you have [Node.js](http://nodejs.org/), [PostgreSQL](https://www.postgresql.org/) and [Heroku CLI](https://cli.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/), [PostgreSQL](https://www.postgresql.org/) and [Heroku CLI](https://cli.heroku.com/) installed before running the following command on Linux bash:
 
 ```sh
 $ git clone https://github.com/spadalka/SocialScene.git
